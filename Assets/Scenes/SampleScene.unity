@@ -1217,9 +1217,9 @@ MonoBehaviour:
       m_Calls: []
   port: 7778
   NoDelay: 1
-  Secure: 0
-  CertificatePath: 
-  CertificatePassword: 
+  Secure: 1
+  CertificatePath: Assets/domain.pfx
+  CertificatePassword: 12345
 --- !u!114 &1927467918
 MonoBehaviour:
   m_ObjectHideFlags: 0
