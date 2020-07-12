@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Mirror;
+using TMPro;
 
 public class ChatSystem : NetworkBehaviour
 {
 
-    public InputField inputFiled;
+    //Texting:
 
-    public Text playerText;
+    public TMP_InputField inputFiled;
+
+    public TMP_Text playerText;
     [SyncVar]
     string playermessage;
 
@@ -18,7 +21,7 @@ public class ChatSystem : NetworkBehaviour
 
     public void Start()
     {
-        inputFiled = GameObject.Find("InputFieldChat").GetComponent<InputField>();
+        inputFiled = GameObject.Find("InputFieldChat").GetComponent<TMP_InputField>();
     }
     public void OnClick()
     {
@@ -30,6 +33,10 @@ public class ChatSystem : NetworkBehaviour
     [Client]
     void Send()
     {
+        if (EmojiCanvas == true)
+        {
+            CmdDelayedFunctionEmoji();
+        }
         playermessage = inputFiled.text;
         //Check the database for bad words.
         CmdSend(playermessage);
@@ -75,4 +82,58 @@ public class ChatSystem : NetworkBehaviour
        // playerText.text = "";
         ChatCanvas.SetActive(false);
     }
+
+
+
+    //Emojis:
+
+    public Image playerEmojiBox;
+
+    public GameObject EmojiCanvas;
+
+    public void OnClickEmoji()
+    {
+
+        SendEmoji();
+    }
+
+    [Client]
+    void SendEmoji()
+    {
+        if (ChatCanvas == true)
+        { 
+            CmdDelayedFunction();
+        }
+
+        CmdSendEmoji();
+        Invoke("CmdDelayedFunctionEmoji", timetoClear);
+    }
+
+    [Command]
+    void CmdSendEmoji()
+    {
+        //Check the database for bad words.
+        RpcSendEmoji();
+        EmojiCanvas.SetActive(true); //
+    }
+
+    [ClientRpc]
+    void RpcSendEmoji()
+    {
+        EmojiCanvas.SetActive(true);
+    }
+
+
+    [Command]
+    void CmdDelayedFunctionEmoji()
+    {
+        EmojiCanvas.SetActive(false);
+        RpcDelayedFunctionEmoji();
+    }
+    [ClientRpc]
+    void RpcDelayedFunctionEmoji()
+    {
+        EmojiCanvas.SetActive(false);
+    }
+
 }

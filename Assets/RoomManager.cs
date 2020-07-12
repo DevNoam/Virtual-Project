@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using UnityEngine.UI;
-
+using TMPro;
 public class RoomManager : MonoBehaviour
 {
     public PlayerManager LocalPlayer;
-    public InputField PlayerNameText;
+    public TMP_InputField PlayerNameText;
 
     void Update()
     {

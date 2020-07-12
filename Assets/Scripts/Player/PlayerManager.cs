@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using UnityEngine.AI;
-
+using TMPro;
 
 public class PlayerManager : NetworkBehaviour
 {
@@ -20,14 +20,14 @@ public class PlayerManager : NetworkBehaviour
     [SyncVar]
     public string playerName;
 
-    TextMesh playerNameMesh;
-
+    public TextMeshPro playerNameMesh;
+    
 
     void Start()
     {
         cam = GameObject.Find("Main Camera").GetComponent<Camera>();
         player.GetComponent<Transform>();
-        playerNameMesh = this.transform.Find("PlayerName").GetComponent<TextMesh>();
+        playerNameMesh = this.transform.Find("PlayerName").GetComponent<TextMeshPro>();
     }
 
 
