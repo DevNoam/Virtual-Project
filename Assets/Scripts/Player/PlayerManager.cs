@@ -25,6 +25,7 @@ public class PlayerManager : NetworkBehaviour
 
     void Start()
     {
+        DontDestroyOnLoad(transform.gameObject);
         cam = GameObject.Find("Main Camera").GetComponent<Camera>();
         player.GetComponent<Transform>();
         playerNameMesh = this.transform.Find("PlayerName").GetComponent<TextMeshPro>();

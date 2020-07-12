@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Mirror;
 
-public class ButtonOnClick : MonoBehaviour
+public class ButtonOnClick : MonoBehaviour //was NetworkBehavior before
 {
     // Start is called before the first frame update    
 
