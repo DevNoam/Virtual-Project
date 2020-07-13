@@ -20,7 +20,7 @@ public class FollowPlayer : MonoBehaviour
     void LateUpdate()
     {
         transform.position = Vector3.MoveTowards(transform.position, following.transform.position + followPosition, interested);
-        transform.LookAt(transform.position + cam.forward);
+        //transform.LookAt(transform.position + cam.forward);
     }
 
 }
