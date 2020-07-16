@@ -15,7 +15,7 @@ public class ChatSystem : NetworkBehaviour
     [SyncVar]
     string playermessage;
 
-    public float timetoClear = 1.5f;
+    public float timetoClear = 4f;
     public GameObject ChatCanvas;
 
     public void Start()
@@ -32,6 +32,10 @@ public class ChatSystem : NetworkBehaviour
     [Client]
     void Send()
     {
+        if (IsInvoking("CmdDelayedFunction") == true)
+        {       
+            CancelInvoke("CmdDelayedFunction");
+        }
         playermessage = inputFiled.text;
         //Check the database for bad words.
         CmdSend(playermessage);
@@ -39,6 +43,7 @@ public class ChatSystem : NetworkBehaviour
         inputFiled.Select();
         inputFiled.text = "";
     }
+
 
     [Command]
     void CmdSend(string message)
@@ -75,7 +80,7 @@ public class ChatSystem : NetworkBehaviour
     [ClientRpc]
     void RpcDelayedFunction()
     {
-       // playerText.text = "";
+        // playerText.text = "";
         ChatCanvas.SetActive(false);
     }
 }
