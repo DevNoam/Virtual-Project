@@ -4,7 +4,7 @@ using UnityEngine;
 using Mirror;
 using UnityEngine.AI;
 using TMPro;
-
+using UnityEngine.UI;
 public class PlayerManager : NetworkBehaviour
 {
     /// <summary>
@@ -12,6 +12,7 @@ public class PlayerManager : NetworkBehaviour
     /// </summary>
     public NavMeshAgent navMeshController;
     public Camera cam;
+
     public Transform player;
 
     /// <summary>
@@ -21,7 +22,8 @@ public class PlayerManager : NetworkBehaviour
     public string playerName;
 
     public TextMeshPro playerNameMesh;
-    
+
+
 
     void Start()
     {
@@ -35,8 +37,6 @@ public class PlayerManager : NetworkBehaviour
 
     void Update()
     {
-        playerNameMesh.text = playerName;
-
         if (isLocalPlayer)
         {
             if (Input.GetMouseButtonDown(0) && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
@@ -51,6 +51,10 @@ public class PlayerManager : NetworkBehaviour
             }
         }
         else { return; }
+    }
+    private void LateUpdate()
+    {
+        playerNameMesh.text = playerName;
     }
 
     public void SendReadyToServer(string playername)

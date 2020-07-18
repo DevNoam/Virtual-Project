@@ -4,12 +4,15 @@ using UnityEngine;
 using Mirror;
 using UnityEngine.UI;
 using TMPro;
+using PlayFab;
+using PlayFab.ClientModels;
 public class RoomManager : MonoBehaviour
 {
     public PlayerManager LocalPlayer;
-    public TMP_InputField PlayerNameText;
+    private string PlayerNameText;
+    public PlayFabLogin playfabLogin;
 
-    void Update()
+    void LateUpdate()
     {
         if (NetworkManager.singleton.isNetworkActive)
         {
@@ -19,7 +22,7 @@ public class RoomManager : MonoBehaviour
             }
             else
             {
-
+                
             }
         }
     }
@@ -32,10 +35,18 @@ public class RoomManager : MonoBehaviour
 
         LocalPlayer = ClientScene.localPlayer.GetComponent<PlayerManager>();
     }
-
-    public void ReadyButtonHandler()
+    private string getName;
+    public void Successs(GetPlayerProfileResult result)
     {
-        LocalPlayer.SendReadyToServer(PlayerNameText.text);
+        getName = result.PlayerProfile.DisplayName;
+
+        LocalPlayer.SendReadyToServer(getName);
+        playfabLogin.loginPanel.SetActive(false);
+    }
+    public void fail(PlayFabError error)
+    {
+
+        Debug.LogError(error.GenerateErrorReport());
     }
 
 }

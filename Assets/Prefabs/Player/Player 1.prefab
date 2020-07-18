@@ -538,10 +538,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 45.4
+  m_fontSize: 44.75
   m_fontSizeBase: 45.4
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -898,8 +898,6 @@ MonoBehaviour:
   playerText: {fileID: 2491526163372070804}
   timetoClear: 3.5
   ChatCanvas: {fileID: 2491526164104662880}
-  playerEmojiBox: {fileID: 2491526163118284546}
-  EmojiCanvas: {fileID: 2491526162503019597}
 --- !u!114 &2491526163976244189
 MonoBehaviour:
   m_ObjectHideFlags: 0
