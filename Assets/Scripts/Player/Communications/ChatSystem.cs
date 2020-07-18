@@ -64,7 +64,6 @@ public class ChatSystem : NetworkBehaviour
     [Client]
     void OnGUI()
     {
-
         if (inputFiled.isFocused && isLocalPlayer && inputFiled.text != "" && Input.GetButtonDown("Submit"))
             {
                 Send();

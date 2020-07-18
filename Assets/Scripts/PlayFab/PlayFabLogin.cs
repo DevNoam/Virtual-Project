@@ -11,7 +11,7 @@ public class PlayFabLogin : MonoBehaviour
     private string UserEmailRegister;
     private string UserPasswordRegister;
     public GameObject RegisterPanel;
-    //public RoomManager roomManager;
+    public RoomManager roomManager;
 
 
     public void Start()
@@ -40,8 +40,8 @@ public class PlayFabLogin : MonoBehaviour
         Debug.Log("LoggedIn");
         PlayerPrefs.SetString("USERNAME", UserNameLogin);
         PlayerPrefs.SetString("PASSWORD", UserPasswordLogin);
-        //GetPlayerProfileRequest request = new GetPlayerProfileRequest();
-        //PlayFabClientAPI.GetPlayerProfile(request, roomManager.Successs, roomManager.fail);
+        GetPlayerProfileRequest request = new GetPlayerProfileRequest();
+        PlayFabClientAPI.GetPlayerProfile(request, roomManager.Successs, roomManager.fail);
     }
 
     private void OnRegisterSuccess(RegisterPlayFabUserResult result)
@@ -49,8 +49,8 @@ public class PlayFabLogin : MonoBehaviour
         Debug.Log("Registered");
         PlayerPrefs.SetString("USERNAME", UserNameRegister);
         PlayerPrefs.SetString("PASSWORD", UserPasswordRegister);
-        //GetPlayerProfileRequest request = new GetPlayerProfileRequest();
-        //PlayFabClientAPI.GetPlayerProfile(request, roomManager.Successs, roomManager.fail);
+        GetPlayerProfileRequest request = new GetPlayerProfileRequest();
+        PlayFabClientAPI.GetPlayerProfile(request, roomManager.Successs, roomManager.fail);
     }
 
     private void OnLoginFailure(PlayFabError error)

@@ -6771,8 +6771,8 @@ MonoBehaviour:
   port: 7778
   NoDelay: 0
   Secure: 1
-  CertificatePath: Assets/certificate.pfx
-  CertificatePassword: 12345
+  CertificatePath: Assets/domain.pfx
+  CertificatePassword: 
 --- !u!114 &1927467918
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6808,8 +6808,8 @@ MonoBehaviour:
   offlineScene: Assets/Scenes/Offline&Online.unity
   onlineScene: 
   transport: {fileID: 1927467917}
-  networkAddress: earthstars.store
-  maxConnections: 25
+  networkAddress: localhost
+  maxConnections: 4
   disconnectInactiveConnections: 1
   disconnectInactiveTimeout: 600
   authenticator: {fileID: 0}
@@ -6838,7 +6838,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1927467916}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 72616e71689eca048a4faf6d9dd9e284, type: 3}
   m_Name: 
@@ -6856,7 +6856,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loginPanel: {fileID: 3748682430078406030}
-  RegisterPanel: {fileID: 0}
+  RegisterPanel: {fileID: 1534232124}
   roomManager: {fileID: 40919615}
 --- !u!1 &1931590490
 GameObject:
