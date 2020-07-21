@@ -60,12 +60,25 @@ public class ChatSystem : NetworkBehaviour
         playerText.text = message;
         ChatCanvas.SetActive(true);
     }
-
+    [Client]
     void OnGUI()
     {
         if (inputFiled.isFocused && isLocalPlayer && inputFiled.text != "" && Input.GetButtonDown("Submit"))
             {
                 Send();
             }
+    }
+    [Command]
+    void CmdDelayedFunction()
+    {
+        //playerText.text = "";
+        ChatCanvas.SetActive(false);
+        RpcDelayedFunction();
+    }
+    [ClientRpc]
+    void RpcDelayedFunction()
+    {
+        // playerText.text = "";
+        ChatCanvas.SetActive(false);
     }
 }
