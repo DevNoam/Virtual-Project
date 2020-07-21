@@ -18,14 +18,14 @@ public class PlayFabLogin : MonoBehaviour
     {
         if (string.IsNullOrEmpty(PlayFabSettings.staticSettings.TitleId))
         {
-            /*
-            Please change the titleId below to your own titleId from PlayFab Game Manager.
-            If you have already set the value in the Editor Extensions, this can be skipped.
-            */
+            //Please change the titleId below to your own titleId from PlayFab Game Manager
+            //If you have already set the value in the Editor Extensions, this can be skipped.
+            
+
             PlayFabSettings.staticSettings.TitleId = "8D6DB";
         }
-        //var request = new LoginWithCustomIDRequest { CustomId = "GettingStartedGuide", CreateAccount = true };
-        //PlayFabClientAPI.LoginWithCustomID(request, OnLoginSuccess, OnLoginFailure);
+
+
         if (PlayerPrefs.HasKey("USERNAME"))
         {
             UserNameLogin = PlayerPrefs.GetString("USERNAME");

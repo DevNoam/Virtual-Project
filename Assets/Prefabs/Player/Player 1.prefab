@@ -438,16 +438,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2491526163649189238}
-  m_LocalRotation: {x: 0.46174863, y: 0, z: 0, w: 0.8870109}
+  m_LocalRotation: {x: 0.46174863, y: -0, z: -0, w: 0.8870109}
   m_LocalPosition: {x: 0, y: 0, z: -1.0614}
-  m_LocalScale: {x: 0.1499374, y: 0.1499374, z: 0.1499374}
+  m_LocalScale: {x: 0.1499374, y: 0.14993742, z: 0.14993742}
   m_Children: []
   m_Father: {fileID: 2491526163976244192}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 55, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -0.75098}
+  m_AnchoredPosition: {x: 0, y: -0.7509799}
   m_SizeDelta: {x: 20, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &2491526163649189236
@@ -511,7 +511,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Name
+  m_text: Loading..
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -856,7 +856,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0
-  syncInterval: 0.4
+  syncInterval: 0
   clientAuthority: 1
   localPositionSensitivity: 0.01
   localRotationSensitivity: 0.01
@@ -874,7 +874,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0
-  syncInterval: 0.3
+  syncInterval: 0
   clientAuthority: 1
   localPositionSensitivity: 0.01
   localRotationSensitivity: 0.01
@@ -892,8 +892,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0500a0a1f4bc1e4d89e940e40b8461c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.5
+  syncMode: 1
+  syncInterval: 2
   inputFiled: {fileID: 0}
   playerText: {fileID: 2491526163372070804}
   timetoClear: 3.5
@@ -910,13 +910,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36ab6f27d330eaa4aa00a4c4513a356d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.3
+  syncMode: 1
+  syncInterval: 0.1
   navMeshController: {fileID: 2491526164086597305}
   cam: {fileID: 0}
   player: {fileID: 2491526164086597306}
-  playerName: Name
+  playerName: Loading..
   playerNameMesh: {fileID: 2491526163649189237}
+  roomManager: {fileID: 0}
 --- !u!114 &4056617002666827167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1040,7 +1041,7 @@ NavMeshAgent:
   m_Speed: 8
   m_Acceleration: 15
   avoidancePriority: 50
-  m_AngularSpeed: 10
+  m_AngularSpeed: 50
   m_StoppingDistance: 0.1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1

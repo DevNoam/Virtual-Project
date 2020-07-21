@@ -12,13 +12,17 @@ public class RoomManager : MonoBehaviour
     private string PlayerNameText;
     public PlayFabLogin playfabLogin;
 
+
     void LateUpdate()
     {
         if (NetworkManager.singleton.isNetworkActive)
         {
             if (LocalPlayer == null)
             {
-                FindLocalPlayer();
+                if (ClientScene.localPlayer == null)
+                    return;
+
+                LocalPlayer = ClientScene.localPlayer.GetComponent<PlayerManager>();
             }
             else
             {
@@ -27,15 +31,9 @@ public class RoomManager : MonoBehaviour
         }
     }
 
-    void FindLocalPlayer()
-    {
-        //Check to see if the player is loaded in yet
-        if (ClientScene.localPlayer == null)
-            return;
 
-        LocalPlayer = ClientScene.localPlayer.GetComponent<PlayerManager>();
-    }
     private string getName;
+
     public void Successs(GetPlayerProfileResult result)
     {
         getName = result.PlayerProfile.DisplayName;

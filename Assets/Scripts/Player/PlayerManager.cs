@@ -10,6 +10,7 @@ public class PlayerManager : NetworkBehaviour
     /// <summary>
     /// Movement
     /// </summary>
+    /// 
     public NavMeshAgent navMeshController;
     public Camera cam;
 
@@ -20,15 +21,18 @@ public class PlayerManager : NetworkBehaviour
     /// </summary>
     [SyncVar]
     public string playerName;
-
     public TextMeshPro playerNameMesh;
 
+    public RoomManager roomManager;
 
+    Vector2 lastMousePosition;
+    bool isMoving = false;
 
     void Start()
     {
         DontDestroyOnLoad(transform.gameObject);
         cam = GameObject.Find("Main Camera").GetComponent<Camera>();
+        roomManager = GameObject.Find("RoomManager").GetComponent<RoomManager>();
         player.GetComponent<Transform>();
         playerNameMesh = this.transform.Find("PlayerName").GetComponent<TextMeshPro>();
     }
@@ -45,24 +49,57 @@ public class PlayerManager : NetworkBehaviour
             {
                 if (Physics.Raycast(ray, out hit))
                 {
-                    navMeshController.SetDestination(hit.point);
+                    CmdScrPlayerSetDestination(hit.point, playerName);
+                    var lookPos = hit.point - player.transform.position;
+                    lookPos.y = 0;
+                    var rotation = Quaternion.LookRotation(lookPos);
+                    player.transform.rotation = Quaternion.Slerp(player.transform.rotation, rotation, 20);
+                    isMoving = true;
+                    Invoke("checkIfStopped", 0.05f);
                 }
             }
 
-            if (Physics.Raycast(ray, out hit))
+            if (Physics.Raycast(ray, out hit) && isMoving == false)
             {
-                var lookPos = hit.point - player.transform.position;
-                lookPos.y = 0;
-                var rotation = Quaternion.LookRotation(lookPos);
-                player.transform.rotation = Quaternion.Slerp(player.transform.rotation, rotation, Time.deltaTime * navMeshController.angularSpeed);
+                if (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0)
+                {
+                    var lookPos = hit.point - player.transform.position;
+                    lookPos.y = 0;
+                    var rotation = Quaternion.LookRotation(lookPos);
+                    player.transform.rotation = Quaternion.Slerp(player.transform.rotation, rotation, Time.deltaTime * navMeshController.angularSpeed);
+                }
             }
         }
-        else { return; }
+        else
+        {
+            return;
+        }
     }
-    private void LateUpdate()
+
+    [Command]
+    public void CmdScrPlayerSetDestination(Vector3 argPosition, string playername)
+    {//Step B, I do simple work, I not verifi a valid position in server, I only send to all clients
+        RpcScrPlayerSetDestination(argPosition, playername);
+    }
+
+    [ClientRpc]
+    public void RpcScrPlayerSetDestination(Vector3 argPosition, string playername)
+    {//Step C, only the clients move
+        navMeshController.SetDestination(argPosition);
+    }
+    void checkIfStopped()
     {
-        playerNameMesh.text = playerName;
+        float dist = navMeshController.remainingDistance;
+        if (dist != Mathf.Infinity && navMeshController.pathStatus == NavMeshPathStatus.PathComplete && navMeshController.remainingDistance == 0)
+        {
+            isMoving = false;
+        }
+        else {
+            Invoke("checkIfStopped", 0.05f);
+        }
     }
+
+
 
     public void SendReadyToServer(string playername)
     {
@@ -70,7 +107,7 @@ public class PlayerManager : NetworkBehaviour
             return;
 
         CmdReady(playername);
-
+        SendName();
     }
 
     [Command]
@@ -84,5 +121,23 @@ public class PlayerManager : NetworkBehaviour
         {
             playerName = playername;
         }
+    }
+
+    void SendName()
+    {
+        CmdScrPlayerName(playerName);
+    }
+    [Command]
+    public void CmdScrPlayerName(string playername)
+    {
+        playerNameMesh.text = playername;
+        RpcScrPlayerName(playername);
+    }
+
+    [ClientRpc]
+    public void RpcScrPlayerName(string playername)
+    {
+        playerNameMesh.text = playername;
+        Invoke("SendName", 2.5f);
     }
 }
