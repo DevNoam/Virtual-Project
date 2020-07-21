@@ -39,15 +39,22 @@ public class PlayerManager : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
+            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
             if (Input.GetMouseButtonDown(0) && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
             {
-                Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit;
-
                 if (Physics.Raycast(ray, out hit))
                 {
                     navMeshController.SetDestination(hit.point);
                 }
+            }
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                var lookPos = hit.point - player.transform.position;
+                lookPos.y = 0;
+                var rotation = Quaternion.LookRotation(lookPos);
+                player.transform.rotation = Quaternion.Slerp(player.transform.rotation, rotation, Time.deltaTime * navMeshController.angularSpeed);
             }
         }
         else { return; }
