@@ -94,7 +94,7 @@ namespace Mirror
         /// </summary>
         [FormerlySerializedAs("m_NetworkAddress")]
         [Tooltip("Network Address where the client should connect to the server. Server does not use this for anything.")]
-        public string networkAddress = "earthstars.store";
+        public string networkAddress = "93.173.244.172";
 
         /// <summary>
         /// The maximum number of concurrent network connections to support.
@@ -553,7 +553,7 @@ namespace Mirror
                 authenticator.OnClientAuthenticated.AddListener(OnClientAuthenticated);
             }
 
-            networkAddress = "earthstars.store";
+            networkAddress = "93.173.244.172";
             NetworkServer.ActivateHostScene();
             RegisterClientMessages();
 

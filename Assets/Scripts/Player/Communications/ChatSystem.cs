@@ -60,7 +60,7 @@ public class ChatSystem : NetworkBehaviour
         playerText.text = message;
         ChatCanvas.SetActive(true);
     }
-    [Client]
+
     void OnGUI()
     {
         if (inputFiled.isFocused && isLocalPlayer && inputFiled.text != "" && Input.GetButtonDown("Submit"))

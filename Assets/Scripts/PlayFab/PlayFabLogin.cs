@@ -1,6 +1,8 @@
 ﻿using PlayFab;
 using PlayFab.ClientModels;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayFabLogin : MonoBehaviour
 {
@@ -11,7 +13,9 @@ public class PlayFabLogin : MonoBehaviour
     private string UserEmailRegister;
     private string UserPasswordRegister;
     public GameObject RegisterPanel;
-    public RoomManager roomManager;
+    public Toggle RememberMeLogin;
+
+    public GameObject LoadingPanel;
 
 
     public void Start()
@@ -24,48 +28,46 @@ public class PlayFabLogin : MonoBehaviour
 
             PlayFabSettings.staticSettings.TitleId = "8D6DB";
         }
-
-
-        if (PlayerPrefs.HasKey("USERNAME"))
-        {
-            UserNameLogin = PlayerPrefs.GetString("USERNAME");
-            UserPasswordLogin = PlayerPrefs.GetString("PASSWORD");
-            var request = new LoginWithPlayFabRequest { Username = UserNameLogin, Password = UserPasswordLogin };
-            PlayFabClientAPI.LoginWithPlayFab(request, OnLoginSuccess, OnLoginFailure);
-        }
     }
 
     private void OnLoginSuccess(LoginResult result)
     {
-        Debug.Log("LoggedIn");
-        PlayerPrefs.SetString("USERNAME", UserNameLogin);
-        PlayerPrefs.SetString("PASSWORD", UserPasswordLogin);
-        GetPlayerProfileRequest request = new GetPlayerProfileRequest();
-        PlayFabClientAPI.GetPlayerProfile(request, roomManager.Successs, roomManager.fail);
+        if (RememberMeLogin.isOn == true)
+        {
+            PlayerPrefs.SetInt("USERSAVED", 1);
+            PlayerPrefs.SetString("USERNAME", UserNameLogin);
+            PlayerPrefs.SetString("PASSWORD", UserPasswordLogin);
+            PlayerPrefs.Save();
+
+            LoadingGUI();
+            SceneManager.LoadSceneAsync(1);
+        }
     }
 
     private void OnRegisterSuccess(RegisterPlayFabUserResult result)
     {
         Debug.Log("Registered");
-        PlayerPrefs.SetString("USERNAME", UserNameRegister);
-        PlayerPrefs.SetString("PASSWORD", UserPasswordRegister);
-        GetPlayerProfileRequest request = new GetPlayerProfileRequest();
-        PlayFabClientAPI.GetPlayerProfile(request, roomManager.Successs, roomManager.fail);
+
+        RegisterPanel.SetActive(false);
+        loginPanel.SetActive(true);
     }
 
     private void OnLoginFailure(PlayFabError error)
     {
+        ErrorGUI();
         Debug.LogError(error.GenerateErrorReport());
     }
 
     public void Register()
     {
+        LoadingGUI();
         var registerRequest = new RegisterPlayFabUserRequest { Username = UserNameRegister, DisplayName = UserNameRegister, Email = UserEmailRegister, Password = UserPasswordRegister };
         PlayFabClientAPI.RegisterPlayFabUser(registerRequest, OnRegisterSuccess, OnRegisterFailure);
     }
 
     private void OnRegisterFailure(PlayFabError error)
     {
+        ErrorGUI();
         Debug.LogError(error.GenerateErrorReport());
     }
 
@@ -95,11 +97,22 @@ public class PlayFabLogin : MonoBehaviour
 
     public void OnclickLogin()
     {
+        LoadingGUI();
         var request = new LoginWithPlayFabRequest { Username = UserNameLogin, Password = UserPasswordLogin };
         PlayFabClientAPI.LoginWithPlayFab(request, OnLoginSuccess, OnLoginFailure);
     }
     public void OnOpenRegisterMenu()
     {
         RegisterPanel.SetActive(true);
+    }
+
+
+    public void LoadingGUI()
+    {
+        LoadingPanel.SetActive(true);
+    }
+    public void ErrorGUI()
+    {
+        LoadingPanel.SetActive(false);
     }
 }

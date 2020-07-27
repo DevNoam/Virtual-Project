@@ -5,6 +5,7 @@ using Mirror;
 using UnityEngine.AI;
 using TMPro;
 using UnityEngine.UI;
+
 public class PlayerManager : NetworkBehaviour
 {
     /// <summary>
@@ -26,92 +27,66 @@ public class PlayerManager : NetworkBehaviour
     public RoomManager roomManager;
 
     Vector2 lastMousePosition;
-    bool isMoving = false;
 
     void Start()
     {
+        roomManager = GameObject.Find("RoomManager").GetComponent<RoomManager>();
         DontDestroyOnLoad(transform.gameObject);
         cam = GameObject.Find("Main Camera").GetComponent<Camera>();
-        roomManager = GameObject.Find("RoomManager").GetComponent<RoomManager>();
         player.GetComponent<Transform>();
         playerNameMesh = this.transform.Find("PlayerName").GetComponent<TextMeshPro>();
     }
 
-
+    #region Movement
 
     void Update()
     {
-        if (isLocalPlayer)
-        {
-            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Input.GetMouseButtonDown(0) && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
-            {
-                if (Physics.Raycast(ray, out hit))
-                {
-                    CmdScrPlayerSetDestination(hit.point, playerName);
-                    var lookPos = hit.point - player.transform.position;
-                    lookPos.y = 0;
-                    var rotation = Quaternion.LookRotation(lookPos);
-                    player.transform.rotation = Quaternion.Slerp(player.transform.rotation, rotation, 20);
-                    isMoving = true;
-                    Invoke("checkIfStopped", 0.05f);
-                }
-            }
-
-            if (Physics.Raycast(ray, out hit) && isMoving == false)
-            {
-                if (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0)
-                {
-                    var lookPos = hit.point - player.transform.position;
-                    lookPos.y = 0;
-                    var rotation = Quaternion.LookRotation(lookPos);
-                    player.transform.rotation = Quaternion.Slerp(player.transform.rotation, rotation, Time.deltaTime * navMeshController.angularSpeed);
-                }
-            }
-        }
-        else
+        if (!hasAuthority)
         {
             return;
         }
-    }
 
+        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit) && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+        {
+
+            if (Input.GetMouseButtonDown(0) && hit.transform.tag != "MouseHitCollider") // Movement
+            {
+                CmdScrPlayerSetDestination(hit.point);
+            }
+
+            if (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0) // Rotation
+            {
+                var lookPos = hit.point - player.transform.position;
+                lookPos.y = 0;
+                var rotation = Quaternion.LookRotation(lookPos);
+                player.transform.rotation = Quaternion.Slerp(player.transform.rotation, rotation, Time.deltaTime * navMeshController.angularSpeed);
+            }
+        }
+    }
     [Command]
-    public void CmdScrPlayerSetDestination(Vector3 argPosition, string playername)
+    public void CmdScrPlayerSetDestination(Vector3 argPosition)
     {//Step B, I do simple work, I not verifi a valid position in server, I only send to all clients
-        RpcScrPlayerSetDestination(argPosition, playername);
+        RpcScrPlayerSetDestination(argPosition);
     }
 
     [ClientRpc]
-    public void RpcScrPlayerSetDestination(Vector3 argPosition, string playername)
+    public void RpcScrPlayerSetDestination(Vector3 argPosition)
     {//Step C, only the clients move
         navMeshController.SetDestination(argPosition);
-    }
-    void checkIfStopped()
-    {
-        float dist = navMeshController.remainingDistance;
-        if (dist != Mathf.Infinity && navMeshController.pathStatus == NavMeshPathStatus.PathComplete && navMeshController.remainingDistance == 0)
-        {
-            isMoving = false;
-        }
-        else {
-            Invoke("checkIfStopped", 0.05f);
-        }
+        var lookPos = argPosition - player.transform.position;
+        lookPos.y = 0;
+        var rotation = Quaternion.LookRotation(lookPos);
+        player.transform.rotation = Quaternion.Slerp(player.transform.rotation, rotation, 20);
     }
 
+    #endregion
 
-
-    public void SendReadyToServer(string playername)
-    {
-        if (!isLocalPlayer)
-            return;
-
-        CmdReady(playername);
-        SendName();
-    }
 
     [Command]
-    void CmdReady(string playername)
+    public void CmdReady(string playername)
     {
         if (string.IsNullOrEmpty(playername))
         {
@@ -120,10 +95,20 @@ public class PlayerManager : NetworkBehaviour
         else
         {
             playerName = playername;
+            RpcSendPlayerName();
         }
     }
 
-    void SendName()
+    #region Player Name management
+
+    [ClientRpc]
+    void RpcSendPlayerName()
+    {
+        roomManager.SendNameToClients();
+    }
+
+
+    public void SendName()
     {
         CmdScrPlayerName(playerName);
     }
@@ -138,6 +123,6 @@ public class PlayerManager : NetworkBehaviour
     public void RpcScrPlayerName(string playername)
     {
         playerNameMesh.text = playername;
-        Invoke("SendName", 2.5f);
     }
+    #endregion
 }

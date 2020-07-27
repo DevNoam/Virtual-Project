@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
-using UnityEngine.UI;
-using TMPro;
 using PlayFab;
 using PlayFab.ClientModels;
+using UnityEngine.SceneManagement;
 public class RoomManager : MonoBehaviour
 {
     public PlayerManager LocalPlayer;
@@ -23,28 +22,43 @@ public class RoomManager : MonoBehaviour
                     return;
 
                 LocalPlayer = ClientScene.localPlayer.GetComponent<PlayerManager>();
+                if (LocalPlayer != null)
+                {
+                    ThisPlayerJoined();
+                    Invoke("ThisPlayerJoined", 0.1f);
+                }
             }
             else
             {
-                
+
             }
+        }
+        else
+        {
         }
     }
 
 
-    private string getName;
+    public void SendNameToClients()
+    {
+        LocalPlayer.SendName();
+    }
+
+    void ThisPlayerJoined()
+    {
+        GetPlayerProfileRequest request = new GetPlayerProfileRequest();
+        PlayFabClientAPI.GetPlayerProfile(request, Successs, fail);
+    }
 
     public void Successs(GetPlayerProfileResult result)
     {
-        getName = result.PlayerProfile.DisplayName;
+        string getName = result.PlayerProfile.DisplayName;
 
-        LocalPlayer.SendReadyToServer(getName);
-        playfabLogin.loginPanel.SetActive(false);
+        LocalPlayer.CmdReady(getName);
     }
     public void fail(PlayFabError error)
     {
-
-        Debug.LogError(error.GenerateErrorReport());
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
 }
