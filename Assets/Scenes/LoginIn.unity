@@ -1719,7 +1719,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &349180460
 Transform:
   m_ObjectHideFlags: 0
@@ -6878,7 +6878,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 222471287}
         m_TargetAssemblyTypeName: PlayFabLogin, Assembly-CSharp
-        m_MethodName: getUserPasswordLogin
+        m_MethodName: GetUserNameRegister
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

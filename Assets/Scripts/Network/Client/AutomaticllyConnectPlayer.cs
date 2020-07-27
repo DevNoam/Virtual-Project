@@ -23,14 +23,16 @@ public class AutomaticllyConnectPlayer : MonoBehaviour
             // Server Only
             if (Application.platform == RuntimePlatform.WebGLPlayer)
             {
+                manager.StartClient();
+                thisScript.enabled = false;
+                managerGUI.showGUI = false;
+            }
+            else if (Application.isEditor)
+            {
+                manager.StartHost();
                 thisScript.enabled = false;
                 managerGUI.showGUI = false;
             }
         }
-    }
-
-    public void StartClient()
-    {
-        manager.StartClient();
     }
 }

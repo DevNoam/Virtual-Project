@@ -48,8 +48,7 @@ public class PlayFabLogin : MonoBehaviour
     {
         Debug.Log("Registered");
 
-        RegisterPanel.SetActive(false);
-        loginPanel.SetActive(true);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     private void OnLoginFailure(PlayFabError error)
