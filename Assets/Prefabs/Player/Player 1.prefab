@@ -353,7 +353,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -881,6 +881,7 @@ MonoBehaviour:
   playerName: Loading..
   playerNameMesh: {fileID: 2491526163649189237}
   roomManager: {fileID: 0}
+  Moving: 0
 --- !u!114 &4056617002666827167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1040,9 +1041,9 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 8
-  m_Acceleration: 15
+  m_Acceleration: 8
   avoidancePriority: 50
-  m_AngularSpeed: 50
+  m_AngularSpeed: 20
   m_StoppingDistance: 0.1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1

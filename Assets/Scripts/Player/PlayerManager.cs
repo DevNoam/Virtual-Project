@@ -16,7 +16,6 @@ public class PlayerManager : NetworkBehaviour
     public Camera cam;
 
     public Transform player;
-
     /// <summary>
     /// Player Name
     /// </summary>
@@ -26,7 +25,8 @@ public class PlayerManager : NetworkBehaviour
 
     public RoomManager roomManager;
 
-    Vector2 lastMousePosition;
+    public bool Moving;
+
 
     void Start()
     {
@@ -52,17 +52,31 @@ public class PlayerManager : NetworkBehaviour
         if (Physics.Raycast(ray, out hit) && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
         {
 
-            if (Input.GetMouseButtonDown(0) && hit.transform.tag != "MouseHitCollider") // Movement
+            if (Input.GetMouseButtonUp(0) && hit.transform.tag != "MouseHitCollider") // Movement
             {
-                CmdScrPlayerSetDestination(hit.point);
+                NavMeshHit navHit;
+                NavMesh.SamplePosition(hit.point, out navHit, 1, -1);
+
+                NavMeshPath navpath = new NavMeshPath();
+                NavMesh.CalculatePath(hit.point, hit.point, -1, navpath);
+                if (navpath.status == NavMeshPathStatus.PathComplete)
+                {
+                    navMeshController.SetDestination(navHit.position);
+                }
+
+                //CmdScrPlayerSetDestination(hit.point);
             }
 
-            if (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0) // Rotation
+            if (Input.GetAxis("Mouse X") != 0 && Moving == false || Input.GetAxis("Mouse Y") != 0 && Moving == false) // Rotation
             {
-                var lookPos = hit.point - player.transform.position;
-                lookPos.y = 0;
-                var rotation = Quaternion.LookRotation(lookPos);
-                player.transform.rotation = Quaternion.Slerp(player.transform.rotation, rotation, Time.deltaTime * navMeshController.angularSpeed);
+                    var lookPos = hit.point - player.transform.position;
+                    lookPos.y = 0;
+                    var rotation = Quaternion.LookRotation(lookPos);
+                    player.transform.rotation = Quaternion.Slerp(player.transform.rotation, rotation, Time.deltaTime * navMeshController.angularSpeed);
+            }
+            if (navMeshController.remainingDistance < navMeshController.stoppingDistance)
+            {
+                Moving = false;
             }
         }
     }
@@ -76,6 +90,7 @@ public class PlayerManager : NetworkBehaviour
     public void RpcScrPlayerSetDestination(Vector3 argPosition)
     {//Step C, only the clients move
         navMeshController.SetDestination(argPosition);
+        Moving = true;
         var lookPos = argPosition - player.transform.position;
         lookPos.y = 0;
         var rotation = Quaternion.LookRotation(lookPos);

@@ -27,12 +27,6 @@ public class AutomaticllyConnectPlayer : MonoBehaviour
                 thisScript.enabled = false;
                 managerGUI.showGUI = false;
             }
-            else if (Application.isEditor)
-            {
-                manager.StartHost();
-                thisScript.enabled = false;
-                managerGUI.showGUI = false;
-            }
         }
     }
 }
