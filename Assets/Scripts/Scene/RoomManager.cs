@@ -10,7 +10,11 @@ public class RoomManager : MonoBehaviour
     public PlayerManager LocalPlayer;
     private string PlayerNameText;
     public PlayFabLogin playfabLogin;
-
+    public int targetFrameRate = 60;
+    private void Start()
+    {
+        Application.targetFrameRate = targetFrameRate;
+    }
 
     void LateUpdate()
     {

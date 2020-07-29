@@ -10,8 +10,6 @@ public class AutomaticllyConnectPlayer : MonoBehaviour
     NetworkManagerHUD managerGUI;
     void Start()
     {
-        Application.targetFrameRate = 60;
-
         thisScript = GameObject.Find("NetworkManager").GetComponent<AutomaticllyConnectPlayer>();
         manager = GetComponent<NetworkManager>();
         managerGUI = GameObject.Find("NetworkManager").GetComponent<NetworkManagerHUD>();

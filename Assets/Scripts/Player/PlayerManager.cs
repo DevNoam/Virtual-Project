@@ -54,20 +54,10 @@ public class PlayerManager : NetworkBehaviour
 
             if (Input.GetMouseButtonUp(0) && hit.transform.tag != "MouseHitCollider") // Movement
             {
-                NavMeshHit navHit;
-                NavMesh.SamplePosition(hit.point, out navHit, 1, -1);
-
-                NavMeshPath navpath = new NavMeshPath();
-                NavMesh.CalculatePath(hit.point, hit.point, -1, navpath);
-                if (navpath.status == NavMeshPathStatus.PathComplete)
-                {
-                    navMeshController.SetDestination(navHit.position);
-                }
-
-                //CmdScrPlayerSetDestination(hit.point);
+                CmdScrPlayerSetDestination(hit.point);
             }
 
-            if (Input.GetAxis("Mouse X") != 0 && Moving == false || Input.GetAxis("Mouse Y") != 0 && Moving == false) // Rotation
+            if (Moving == false && Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0 && Moving == false) // Rotation
             {
                     var lookPos = hit.point - player.transform.position;
                     lookPos.y = 0;
@@ -89,12 +79,12 @@ public class PlayerManager : NetworkBehaviour
     [ClientRpc]
     public void RpcScrPlayerSetDestination(Vector3 argPosition)
     {//Step C, only the clients move
-        navMeshController.SetDestination(argPosition);
-        Moving = true;
-        var lookPos = argPosition - player.transform.position;
+        /*var lookPos = argPosition - player.transform.position;
         lookPos.y = 0;
         var rotation = Quaternion.LookRotation(lookPos);
         player.transform.rotation = Quaternion.Slerp(player.transform.rotation, rotation, 20);
+        */navMeshController.SetDestination(argPosition);
+        Moving = true;
     }
 
     #endregion
