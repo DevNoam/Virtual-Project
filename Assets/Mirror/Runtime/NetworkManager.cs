@@ -94,7 +94,7 @@ namespace Mirror
         /// </summary>
         [FormerlySerializedAs("m_NetworkAddress")]
         [Tooltip("Network Address where the client should connect to the server. Server does not use this for anything.")]
-        public string networkAddress = "93.173.244.172";
+        public string networkAddress = "46.117.31.64";
 
         /// <summary>
         /// The maximum number of concurrent network connections to support.

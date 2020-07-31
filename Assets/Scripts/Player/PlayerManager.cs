@@ -26,6 +26,7 @@ public class PlayerManager : NetworkBehaviour
     public RoomManager roomManager;
 
     public bool Moving;
+    public float rotationSpeed = 20;
 
 
     void Start()
@@ -57,14 +58,14 @@ public class PlayerManager : NetworkBehaviour
                 CmdScrPlayerSetDestination(hit.point);
             }
 
-            if (Moving == false && Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0 && Moving == false) // Rotation
+            if (Moving == false && Input.GetAxis("Mouse X") != 0 || Moving == false && Input.GetAxis("Mouse Y") != 0) // Rotation
             {
                     var lookPos = hit.point - player.transform.position;
                     lookPos.y = 0;
                     var rotation = Quaternion.LookRotation(lookPos);
-                    player.transform.rotation = Quaternion.Slerp(player.transform.rotation, rotation, Time.deltaTime * navMeshController.angularSpeed);
+                    player.transform.rotation = Quaternion.Slerp(player.transform.rotation, rotation, Time.deltaTime * rotationSpeed);
             }
-            if (navMeshController.remainingDistance < navMeshController.stoppingDistance)
+            if (navMeshController.remainingDistance < navMeshController.stoppingDistance && Moving == true)
             {
                 Moving = false;
             }
@@ -72,19 +73,15 @@ public class PlayerManager : NetworkBehaviour
     }
     [Command]
     public void CmdScrPlayerSetDestination(Vector3 argPosition)
-    {//Step B, I do simple work, I not verifi a valid position in server, I only send to all clients
+    {
         RpcScrPlayerSetDestination(argPosition);
     }
 
     [ClientRpc]
     public void RpcScrPlayerSetDestination(Vector3 argPosition)
-    {//Step C, only the clients move
-        /*var lookPos = argPosition - player.transform.position;
-        lookPos.y = 0;
-        var rotation = Quaternion.LookRotation(lookPos);
-        player.transform.rotation = Quaternion.Slerp(player.transform.rotation, rotation, 20);
-        */navMeshController.SetDestination(argPosition);
+    {
         Moving = true;
+        navMeshController.SetDestination(argPosition);
     }
 
     #endregion
@@ -115,19 +112,23 @@ public class PlayerManager : NetworkBehaviour
 
     public void SendName()
     {
-        CmdScrPlayerName(playerName);
+        CmdScrPlayerName(playerName, roomManager.playerSkin);
+
     }
     [Command]
-    public void CmdScrPlayerName(string playername)
+    public void CmdScrPlayerName(string playername, int playerSkin)
     {
+
         playerNameMesh.text = playername;
-        RpcScrPlayerName(playername);
+        player.GetComponent<Renderer>().material = roomManager.skins[playerSkin];
+        RpcScrPlayerName(playername, playerSkin);
     }
 
     [ClientRpc]
-    public void RpcScrPlayerName(string playername)
+    public void RpcScrPlayerName(string playername, int playerSkin)
     {
         playerNameMesh.text = playername;
+        player.GetComponent<Renderer>().material = roomManager.skins[playerSkin];
     }
     #endregion
 }

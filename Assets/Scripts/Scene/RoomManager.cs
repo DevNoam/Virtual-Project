@@ -9,8 +9,16 @@ public class RoomManager : MonoBehaviour
 {
     public PlayerManager LocalPlayer;
     private string PlayerNameText;
+    public Material[] skins;
+    public int playerSkin;
+
     public PlayFabLogin playfabLogin;
+
     public int targetFrameRate = 60;
+
+
+
+
     private void Start()
     {
         Application.targetFrameRate = targetFrameRate;
@@ -57,9 +65,44 @@ public class RoomManager : MonoBehaviour
     public void Successs(GetPlayerProfileResult result)
     {
         string getName = result.PlayerProfile.DisplayName;
-
-        LocalPlayer.CmdReady(getName);
+        PlayFabClientAPI.GetUserPublisherData(new GetUserDataRequest()
+        {
+        }, result2 =>
+        {
+            if (result2.Data.ContainsKey("PlayerCurrentColor"))
+            {
+                playerSkin = int.Parse(result2.Data["PlayerCurrentColor"].Value);
+                Debug.Log(playerSkin);
+                LocalPlayer.CmdReady(getName);
+            }
+            else if (result2.Data.ContainsKey("PlayerOwnedColors"))
+            {
+                playerSkin = 1;
+            }
+            else if(!result2.Data.ContainsKey("PlayerOwnedColors"))
+            {
+                PlayFabClientAPI.UpdateUserPublisherData(new UpdateUserDataRequest()
+                {
+                    Data = new Dictionary<string, string>() {
+                        {"PlayerOwnedColors", "1".ToString()},
+                        {"PlayerCurrentColor", "1".ToString()}
+                        }
+                }, result3 => {
+                    Destroy(LocalPlayer);
+                    SceneManager.LoadScene(0);
+                },error =>
+                {
+                    Destroy(LocalPlayer);
+                    SceneManager.LoadScene(0);
+                });
+            }
+        }, (error) =>
+        {
+            Destroy(LocalPlayer);
+            SceneManager.LoadScene(0);
+        });
     }
+
     public void fail(PlayFabError error)
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);

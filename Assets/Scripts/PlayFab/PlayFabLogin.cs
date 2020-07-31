@@ -1,4 +1,5 @@
 ﻿using PlayFab;
+using System.Collections.Generic;
 using PlayFab.ClientModels;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,11 +14,17 @@ public class PlayFabLogin : MonoBehaviour
     private string UserEmailRegister;
     private string UserPasswordRegister;
     private string resetEmail;
+    private int desierdColor;
     public GameObject RegisterPanel;
     public Toggle RememberMeLogin;
 
     public GameObject LoadingPanel;
     public GameObject Registred;
+
+
+
+    public Material[] skins;
+    public int playerSkin;
 
 
     public void Start()
@@ -74,12 +81,24 @@ public class PlayFabLogin : MonoBehaviour
                 };
                 PlayFabClientAPI.AddOrUpdateContactEmail(request2, result =>
                 {
-                    Debug.Log("Registered");
-                    Registred.SetActive(true);
-                    LoadingPanel.SetActive(false);
-
-                }, OnRegisterFailure => { Register(); });
-            }, OnRegisterFailure => { Register(); });
+                    PlayFabClientAPI.UpdateUserPublisherData(new UpdateUserDataRequest()
+                    {
+                        Data = new Dictionary<string, string>() {
+                        {"PlayerOwnedColors", desierdColor.ToString()},
+                        {"PlayerCurrentColor", desierdColor.ToString()}
+                        }
+                    }, result2 =>{
+                            Debug.Log("Registered");
+                            Registred.SetActive(true);
+                            LoadingPanel.SetActive(false);
+                        },
+                        error =>
+                        {
+                            Debug.Log("Got error setting user data Ancestor to Arthur");
+                            Debug.Log(error.GenerateErrorReport());
+                        });
+                }, OnRegisterFailure2 => { Register(); });
+            }, OnRegisterFailure3 => { Register(); });
         }, OnRegisterFailure);
     }
 
@@ -114,6 +133,13 @@ public class PlayFabLogin : MonoBehaviour
     public void ResetEmailField(string emailIn)
     {
         resetEmail = emailIn;
+    }
+
+
+
+    public void Color(int Color)
+    {
+        desierdColor = Color;
     }
 
 

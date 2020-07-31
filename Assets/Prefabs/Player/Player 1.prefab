@@ -681,7 +681,6 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
 --- !u!114 &2491526163792221290
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -883,6 +882,7 @@ MonoBehaviour:
   playerNameMesh: {fileID: 2491526163649189237}
   roomManager: {fileID: 0}
   Moving: 0
+  rotationSpeed: 20
 --- !u!114 &4056617002666827167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -994,7 +994,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b60e249d1d4f0cc448754bb2368c0a84, type: 2}
+  - {fileID: 2100000, guid: e1d80331ec24eb645a717b12280bf671, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

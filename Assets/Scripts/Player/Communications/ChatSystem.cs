@@ -24,10 +24,7 @@ public class ChatSystem : NetworkBehaviour
     }
     public void OnClick()
     {
-        if (inputFiled.text != "")
-        {
-            Send();
-        }
+        Send();
     }
     [Client]
     void Send()
@@ -36,12 +33,12 @@ public class ChatSystem : NetworkBehaviour
         {       
             CancelInvoke("CmdDelayedFunction");
         }
-        playermessage = inputFiled.text;
-        //Check the database for bad words.
-        CmdSend(playermessage);
+        string text = inputFiled.text;
+        CmdSend(inputFiled.text);
         Invoke("CmdDelayedFunction", timetoClear);
+        inputFiled.text = null;
         inputFiled.Select();
-        inputFiled.text = "";
+
     }
 
 
