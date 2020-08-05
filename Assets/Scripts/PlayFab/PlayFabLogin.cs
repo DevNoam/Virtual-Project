@@ -5,6 +5,7 @@ using PlayFab.ClientModels;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class PlayFabLogin : MonoBehaviour
 {
@@ -18,9 +19,9 @@ public class PlayFabLogin : MonoBehaviour
     private int desierdColor;
     public GameObject RegisterPanel;
     public Toggle RememberMeLogin;
-
+    public TMP_Text LoginMessage;
+    public TMP_Text RegisterMessage;
     public GameObject LoadingPanel;
-    public GameObject Registred;
 
 
 
@@ -43,21 +44,42 @@ public class PlayFabLogin : MonoBehaviour
 
     private void OnLoginSuccess(LoginResult result)
     {
-        if (RememberMeLogin.isOn == true)
-        {
-            PlayerPrefs.SetInt("USERSAVED", 1);
-            PlayerPrefs.SetString("USERNAME", UserNameLogin);
-            PlayerPrefs.SetString("PASSWORD", UserPasswordLogin);
-            PlayerPrefs.Save();
+        PlayFabClientAPI.GetPlayerStatistics(
+        new GetPlayerStatisticsRequest(), results => {
+            Debug.Log("Received the following Statistics:");
+            foreach (var eachStat in results.Statistics)
+                switch (eachStat.StatisticName)
+                {
+                    case "VerifiedStatus":
+                        if (eachStat.Value == 1)
+                        {
+                            if (RememberMeLogin.isOn == true)
+                            {
+                                PlayerPrefs.SetInt("USERSAVED", 1);
+                                PlayerPrefs.SetString("USERNAME", UserNameLogin);
+                                PlayerPrefs.SetString("PASSWORD", UserPasswordLogin);
+                                PlayerPrefs.Save();
 
-            LoadingGUI();
-            SceneManager.LoadSceneAsync(1);
-        }
-        else
-        {
-            LoadingGUI();
-            SceneManager.LoadSceneAsync(1);
-        }
+                                LoadingGUI();
+                                SceneManager.LoadSceneAsync(1);
+                            }
+                            else
+                            {
+                                LoadingGUI();
+                                SceneManager.LoadSceneAsync(1);
+                            }
+                        }
+                        else
+                        {
+                            ErrorGUI();
+                            LoginMessage.color = new Color32(255, 0, 30, 255);
+                            LoginMessage.text = "Please verify your email.";
+                        }
+                        break;
+                }
+        },
+        error => Debug.LogError(error.GenerateErrorReport())
+    );
     }
 
     private void OnLoginFailure(PlayFabError error)
@@ -89,15 +111,24 @@ public class PlayFabLogin : MonoBehaviour
                         {"PlayerOwnedColors", desierdColor.ToString()},
                         {"PlayerCurrentColor", desierdColor.ToString()}
                         }
-                    }, result2 =>{
-                            Debug.Log("Registered");
-                            Registred.SetActive(true);
-                            LoadingPanel.SetActive(false);
+                    }, result2 => {
+                        Debug.Log("Registered");
+                        RegisterMessage.color = new Color32(26, 238, 0, 255);
+                        RegisterMessage.text = "Registred";
+
+                        LoadingPanel.SetActive(false);
+                    PlayFabClientAPI.ExecuteCloudScript(new ExecuteCloudScriptRequest()
+                    {
+                        FunctionName = "NewPlayer",
+                        GeneratePlayStreamEvent = true,
+                    }, results5 => { }, error5 => { });
                         },
                         error =>
                         {
                             Debug.Log("Got error setting user data Ancestor to Arthur");
                             Debug.Log(error.GenerateErrorReport());
+                            RegisterMessage.color = new Color32(255, 0, 30, 255);
+                            RegisterMessage.text = "Error";
                         });
                 }, OnRegisterFailure2 => { Register(); });
             }, OnRegisterFailure3 => { Register(); });
@@ -108,6 +139,8 @@ public class PlayFabLogin : MonoBehaviour
     {
         ErrorGUI();
         Debug.LogError(error.GenerateErrorReport());
+        RegisterMessage.color = new Color32(255, 0, 30, 255);
+        RegisterMessage.text = "Error";
     }
 
     public void getUserPasswordLogin(string passwordIn)
@@ -147,10 +180,9 @@ public class PlayFabLogin : MonoBehaviour
 
     public void SendRecoveryEmail()
     {
-        var request = new SendAccountRecoveryEmailRequest { Email = resetEmail, TitleId = PlayFabSettings.staticSettings.TitleId, EmailTemplateId = "9D363D121634B726" };
+        var request = new SendAccountRecoveryEmailRequest { Email = resetEmail, TitleId = PlayFabSettings.staticSettings.TitleId};
         PlayFabClientAPI.SendAccountRecoveryEmail(request, result =>
         {
-            Debug.Log("The player's account now has username and password");
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }, OnLoginFailure);
     }

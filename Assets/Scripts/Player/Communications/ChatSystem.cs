@@ -33,10 +33,6 @@ public class ChatSystem : NetworkBehaviour
     [Client]
     void Send()
     {
-        if (IsInvoking("CmdDelayedFunction") == true)
-        {
-            CancelInvoke("CmdDelayedFunction");
-        }
         string text = inputFiled.text;
         bool badword = false;
         for (int i = 0; i < badWords.Length; i++)
@@ -49,6 +45,10 @@ public class ChatSystem : NetworkBehaviour
         }
         if (badword == false)
         {
+            if (IsInvoking("CmdDelayedFunction") == true)
+            {
+                CancelInvoke("CmdDelayedFunction");
+            }
             CmdSend(inputFiled.text);
             Invoke("CmdDelayedFunction", timetoClear);
         }
