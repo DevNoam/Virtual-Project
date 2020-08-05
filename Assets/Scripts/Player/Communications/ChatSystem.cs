@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using TMPro;
+using UnityEngine.Networking;
+
 
 public class ChatSystem : NetworkBehaviour
 {
@@ -18,9 +20,13 @@ public class ChatSystem : NetworkBehaviour
     public float timetoClear = 4f;
     public GameObject ChatCanvas;
 
+    public string[] badWords;
+    bool canChat = false;
+
     public void Start()
     {
         inputFiled = GameObject.Find("InputFieldChat").GetComponent<TMP_InputField>();
+        BannedWordsDatabase();
     }
     public void OnClick()
     {
@@ -29,16 +35,34 @@ public class ChatSystem : NetworkBehaviour
     [Client]
     void Send()
     {
-        if (IsInvoking("CmdDelayedFunction") == true)
-        {       
-            CancelInvoke("CmdDelayedFunction");
+        if (canChat == true)
+        {
+            if (IsInvoking("CmdDelayedFunction") == true)
+            {
+                CancelInvoke("CmdDelayedFunction");
+            }
+            string text = inputFiled.text;
+            bool badword = false;
+            for (int i = 0; i < badWords.Length; i++)
+            {
+                if (text.ToLower().Contains(badWords[i]))
+                {
+                    Debug.Log("Bad Word detected!");
+                    badword = true;
+                }
+            }
+            if (badword == false)
+            {
+                CmdSend(inputFiled.text);
+                Invoke("CmdDelayedFunction", timetoClear);
+            }
+            else if (badword == true)
+            {
+                badword = false;
+            }
+            inputFiled.text = null;
+            inputFiled.Select();
         }
-        string text = inputFiled.text;
-        CmdSend(inputFiled.text);
-        Invoke("CmdDelayedFunction", timetoClear);
-        inputFiled.text = null;
-        inputFiled.Select();
-
     }
 
 
@@ -77,5 +101,17 @@ public class ChatSystem : NetworkBehaviour
     {
         // playerText.text = "";
         ChatCanvas.SetActive(false);
+    }
+
+
+
+
+
+    void BannedWordsDatabase()
+    {
+        string path1 = Application.persistentDataPath + "/wordsDatabase.Temp";
+        Debug.Log("1");
+        badWords = System.IO.File.ReadAllLines(path1);
+        canChat = true;
     }
 }

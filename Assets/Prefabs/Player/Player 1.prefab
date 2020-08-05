@@ -861,6 +861,7 @@ MonoBehaviour:
   playerText: {fileID: 2491526163372070804}
   timetoClear: 3.5
   ChatCanvas: {fileID: 2491526164104662880}
+  badWords: []
 --- !u!114 &2491526163976244189
 MonoBehaviour:
   m_ObjectHideFlags: 0
