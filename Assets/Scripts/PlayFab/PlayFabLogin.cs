@@ -5,8 +5,6 @@ using PlayFab.ClientModels;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using UnityEngine.Networking;
-using System.IO;
 
 public class PlayFabLogin : MonoBehaviour
 {
@@ -40,21 +38,7 @@ public class PlayFabLogin : MonoBehaviour
 
             PlayFabSettings.staticSettings.TitleId = "8D6DB";
         }
-        StartCoroutine(DownloadWordsDatabase());
 
-    }
-    IEnumerator DownloadWordsDatabase()
-    {
-        var uwr = new UnityWebRequest("https://noam3d.000webhostapp.com/swearWords.txt", UnityWebRequest.kHttpVerbGET);
-        string path = Path.Combine(Application.persistentDataPath + "/wordsDatabase.Temp");
-        uwr.downloadHandler = new DownloadHandlerFile(path);
-        yield return uwr.SendWebRequest();
-        if (uwr.isNetworkError || uwr.isHttpError)
-            Debug.LogError(uwr.error);
-        else
-        {
-            Debug.Log("File successfully saved " /*+ path*/);
-        }
     }
 
     private void OnLoginSuccess(LoginResult result)

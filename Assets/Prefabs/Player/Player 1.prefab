@@ -861,7 +861,87 @@ MonoBehaviour:
   playerText: {fileID: 2491526163372070804}
   timetoClear: 3.5
   ChatCanvas: {fileID: 2491526164104662880}
-  badWords: []
+  badWords:
+  - anal
+  - anus
+  - arse
+  - ass
+  - ballsack
+  - balls
+  - bastard
+  - bitch
+  - biatch
+  - bloody
+  - blowjob
+  - blow job
+  - bollock
+  - bollok
+  - boner
+  - boob
+  - bugger
+  - bum
+  - butt
+  - buttplug
+  - clitoris
+  - cock
+  - coon
+  - crap
+  - cunt
+  - dick
+  - dildo
+  - dyke
+  - fag
+  - feck
+  - fellate
+  - fellatio
+  - felching
+  - fuck
+  - f u c k
+  - fudgepacker
+  - fudge packer
+  - flange
+  - Goddamn
+  - God damn
+  - hell
+  - homo
+  - jerk
+  - jizz
+  - knobend
+  - knob end
+  - labia
+  - lmao
+  - lmfao
+  - muff
+  - nigger
+  - nigga
+  - penis
+  - piss
+  - prick
+  - pube
+  - pussy
+  - queer
+  - scrotum
+  - sex
+  - shit
+  - s hit
+  - sh1t
+  - slut
+  - smegma
+  - spunk
+  - tit
+  - tosser
+  - turd
+  - twat
+  - vagina
+  - wank
+  - whore
+  - dick
+  - pussy
+  - idiot
+  - sucker
+  - porn
+  - asshole
+  - ass
 --- !u!114 &2491526163976244189
 MonoBehaviour:
   m_ObjectHideFlags: 0

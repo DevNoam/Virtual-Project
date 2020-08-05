@@ -21,12 +21,10 @@ public class ChatSystem : NetworkBehaviour
     public GameObject ChatCanvas;
 
     public string[] badWords;
-    bool canChat = false;
 
     public void Start()
     {
         inputFiled = GameObject.Find("InputFieldChat").GetComponent<TMP_InputField>();
-        BannedWordsDatabase();
     }
     public void OnClick()
     {
@@ -35,34 +33,31 @@ public class ChatSystem : NetworkBehaviour
     [Client]
     void Send()
     {
-        if (canChat == true)
+        if (IsInvoking("CmdDelayedFunction") == true)
         {
-            if (IsInvoking("CmdDelayedFunction") == true)
-            {
-                CancelInvoke("CmdDelayedFunction");
-            }
-            string text = inputFiled.text;
-            bool badword = false;
-            for (int i = 0; i < badWords.Length; i++)
-            {
-                if (text.ToLower().Contains(badWords[i]))
-                {
-                    Debug.Log("Bad Word detected!");
-                    badword = true;
-                }
-            }
-            if (badword == false)
-            {
-                CmdSend(inputFiled.text);
-                Invoke("CmdDelayedFunction", timetoClear);
-            }
-            else if (badword == true)
-            {
-                badword = false;
-            }
-            inputFiled.text = null;
-            inputFiled.Select();
+            CancelInvoke("CmdDelayedFunction");
         }
+        string text = inputFiled.text;
+        bool badword = false;
+        for (int i = 0; i < badWords.Length; i++)
+        {
+            if (text.ToLower().Contains(badWords[i]))
+            {
+                Debug.Log("Bad Word detected!");
+                badword = true;
+            }
+        }
+        if (badword == false)
+        {
+            CmdSend(inputFiled.text);
+            Invoke("CmdDelayedFunction", timetoClear);
+        }
+        else if (badword == true)
+        {
+            badword = false;
+        }
+        inputFiled.text = null;
+        inputFiled.Select();
     }
 
 
@@ -101,17 +96,5 @@ public class ChatSystem : NetworkBehaviour
     {
         // playerText.text = "";
         ChatCanvas.SetActive(false);
-    }
-
-
-
-
-
-    void BannedWordsDatabase()
-    {
-        string path1 = Application.persistentDataPath + "/wordsDatabase.Temp";
-        Debug.Log("1");
-        badWords = System.IO.File.ReadAllLines(path1);
-        canChat = true;
     }
 }
