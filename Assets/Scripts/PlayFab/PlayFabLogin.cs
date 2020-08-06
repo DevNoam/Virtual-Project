@@ -22,12 +22,11 @@ public class PlayFabLogin : MonoBehaviour
     public TMP_Text LoginMessage;
     public TMP_Text RegisterMessage;
     public GameObject LoadingPanel;
+    public TMP_Text registerPlayerNameGUI;
 
 
 
     public Material[] skins;
-    public int playerSkin;
-
 
     public void Start()
     {
@@ -121,11 +120,12 @@ public class PlayFabLogin : MonoBehaviour
                     {
                         FunctionName = "NewPlayer",
                         GeneratePlayStreamEvent = true,
-                    }, results5 => { }, error5 => { });
+                    }, results5 => {
+                        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                    }, error5 => { });
                         },
                         error =>
                         {
-                            Debug.Log("Got error setting user data Ancestor to Arthur");
                             Debug.Log(error.GenerateErrorReport());
                             RegisterMessage.color = new Color32(255, 0, 30, 255);
                             RegisterMessage.text = "Error";
@@ -156,6 +156,7 @@ public class PlayFabLogin : MonoBehaviour
     public void GetUserNameRegister(string UsernameIn)
     {
         UserNameRegister = UsernameIn;
+        registerPlayerNameGUI.text = UsernameIn;
     }
     public void GetUserEmailRegister(string UsernameIn)
     {
@@ -192,11 +193,6 @@ public class PlayFabLogin : MonoBehaviour
         LoadingGUI();
         var request = new LoginWithPlayFabRequest { Username = UserNameLogin, Password = UserPasswordLogin };
         PlayFabClientAPI.LoginWithPlayFab(request, OnLoginSuccess, OnLoginFailure);
-    }
-
-    public void OnOpenRegisterMenu()
-    {
-        RegisterPanel.SetActive(true);
     }
 
 
