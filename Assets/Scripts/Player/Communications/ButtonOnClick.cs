@@ -7,10 +7,9 @@ using Mirror;
 public class ButtonOnClick : MonoBehaviour //was NetworkBehavior before
 {
     // Start is called before the first frame update    
-
     public void Click()
     {
         ChatSystem player = NetworkClient.connection.identity.GetComponent<ChatSystem>();
-        player.OnClick();
+        player.Send();
     }
 }

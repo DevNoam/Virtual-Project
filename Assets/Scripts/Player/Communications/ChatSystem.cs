@@ -26,38 +26,40 @@ public class ChatSystem : NetworkBehaviour
     {
         inputFiled = GameObject.Find("InputFieldChat").GetComponent<TMP_InputField>();
     }
-    public void OnClick()
-    {
-        Send();
-    }
+
     [Client]
-    void Send()
+    public void Send()
     {
         string text = inputFiled.text;
-        bool badword = false;
-        for (int i = 0; i < badWords.Length; i++)
+        if (text.Trim().Length >= 1)
         {
-            if (text.ToLower().Contains(badWords[i]))
+
+            bool badword = false;
+
+            for (int i = 0; i < badWords.Length; i++)
             {
-                Debug.Log("Bad Word detected!");
-                badword = true;
+                if (text.ToLower().Contains(badWords[i]))
+                {
+                    Debug.Log("Bad Word detected!");
+                    badword = true;
+                }
             }
-        }
-        if (badword == false)
-        {
-            if (IsInvoking("CmdDelayedFunction") == true)
+            if (badword == false)
             {
-                CancelInvoke("CmdDelayedFunction");
+                if (IsInvoking("CmdDelayedFunction") == true)
+                {
+                    CancelInvoke("CmdDelayedFunction");
+                }
+                CmdSend(text.TrimStart());
+                Invoke("CmdDelayedFunction", timetoClear);
             }
-            CmdSend(inputFiled.text);
-            Invoke("CmdDelayedFunction", timetoClear);
+            else if (badword == true)
+            {
+                badword = false;
+            }
+            inputFiled.text = null;
+            inputFiled.Select();
         }
-        else if (badword == true)
-        {
-            badword = false;
-        }
-        inputFiled.text = null;
-        inputFiled.Select();
     }
 
 
