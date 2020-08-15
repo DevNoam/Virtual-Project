@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ToolBarManager : MonoBehaviour
 {
@@ -18,5 +19,10 @@ public class ToolBarManager : MonoBehaviour
         {
             OpenEmojiContainer.SetActive(false);
         }
+    }
+
+    public void changeScene()
+    {
+        SceneManager.LoadScene(3);
     }
 }

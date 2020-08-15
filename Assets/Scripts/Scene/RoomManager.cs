@@ -9,13 +9,15 @@ public class RoomManager : MonoBehaviour
 {
     public PlayerManager LocalPlayer;
     private string PlayerNameText;
+
     public Material[] skins;
     public int playerSkin;
 
     public PlayFabLogin playfabLogin;
 
     public int targetFrameRate = 60;
-
+    public string playerCurrentToken;
+    public string playerNewToken;
 
 
 
@@ -23,6 +25,7 @@ public class RoomManager : MonoBehaviour
     {
         Application.targetFrameRate = targetFrameRate;
     }
+
 
     void LateUpdate()
     {
@@ -79,7 +82,7 @@ public class RoomManager : MonoBehaviour
             {
                 playerSkin = 1;
             }
-            else if(!result2.Data.ContainsKey("PlayerOwnedColors"))
+            else if (!result2.Data.ContainsKey("PlayerOwnedColors"))
             {
                 PlayFabClientAPI.UpdateUserPublisherData(new UpdateUserDataRequest()
                 {
@@ -90,11 +93,17 @@ public class RoomManager : MonoBehaviour
                 }, result3 => {
                     Destroy(LocalPlayer);
                     SceneManager.LoadScene(0);
-                },error =>
-                {
-                    Destroy(LocalPlayer);
-                    SceneManager.LoadScene(0);
-                });
+                }, error =>
+                 {
+                     Destroy(LocalPlayer);
+                     SceneManager.LoadScene(0);
+                 });
+            }
+            if (result2.Data.ContainsKey("SessionToken"))
+            {
+                playerCurrentToken = result2.Data["SessionToken"].Value.ToString();
+                //InvokeRepeating("CheckForNewConnection", 10, 10);
+                
             }
         }, (error) =>
         {
@@ -102,6 +111,27 @@ public class RoomManager : MonoBehaviour
             SceneManager.LoadScene(0);
         });
     }
+
+    /*
+    void CheckForNewConnection()
+    {
+        PlayFabClientAPI.GetUserPublisherData(new GetUserDataRequest(), results =>
+        {
+            if (results.Data.ContainsKey("SessionToken"))
+            {
+                playerNewToken = results.Data["SessionToken"].Value.ToString();
+                if (playerCurrentToken != playerNewToken)
+                {
+                    Debug.Log("Logged in from other location");
+                    SceneManager.LoadScene(2);
+                    PlayFabAuthenticationAPI.ForgetAllCredentials();
+                    NetworkManager.singleton.StopClient();
+
+                }
+            }
+        }, failures => { });
+    }*/
+
 
     public void fail(PlayFabError error)
     {

@@ -553,7 +553,7 @@ namespace Mirror
                 authenticator.OnClientAuthenticated.AddListener(OnClientAuthenticated);
             }
 
-            networkAddress = "93.173.244.172";
+            networkAddress = "46.117.31.64";
             NetworkServer.ActivateHostScene();
             RegisterClientMessages();
 

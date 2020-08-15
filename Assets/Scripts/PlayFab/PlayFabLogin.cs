@@ -40,45 +40,60 @@ public class PlayFabLogin : MonoBehaviour
         }
 
     }
-
+    string randomToken;
     private void OnLoginSuccess(LoginResult result)
     {
-        PlayFabClientAPI.GetPlayerStatistics(
-        new GetPlayerStatisticsRequest(), results => {
-            Debug.Log("Received the following Statistics:");
-            foreach (var eachStat in results.Statistics)
-                switch (eachStat.StatisticName)
-                {
-                    case "VerifiedStatus":
-                        if (eachStat.Value == 1)
-                        {
-                            if (RememberMeLogin.isOn == true)
-                            {
-                                PlayerPrefs.SetInt("USERSAVED", 1);
-                                PlayerPrefs.SetString("USERNAME", UserNameLogin);
-                                PlayerPrefs.SetString("PASSWORD", UserPasswordLogin);
-                                PlayerPrefs.Save();
+        randomToken = "TKN" + Random.Range(1, 1000) + "Sector2" + Random.Range(0, 1000);
+        Debug.Log(randomToken);
+        PlayFabClientAPI.UpdateUserPublisherData(new UpdateUserDataRequest()
+        {
+            Data = new Dictionary<string, string>() {
+                        {"SessionToken", randomToken.ToString() }
+                        }
+        }, result2 =>
+        {
 
-                                LoadingGUI();
-                                SceneManager.LoadSceneAsync(1);
-                            }
-                            else
-                            {
-                                LoadingGUI();
-                                SceneManager.LoadSceneAsync(1);
-                            }
-                        }
-                        else
+            PlayFabClientAPI.GetPlayerStatistics(new GetPlayerStatisticsRequest(),
+                results =>
+                {
+                    Debug.Log("Received the following Statistics:");
+                    foreach (var eachStat in results.Statistics)
+                        switch (eachStat.StatisticName)
                         {
-                            ErrorGUI();
-                            LoginMessage.color = new Color32(255, 0, 30, 255);
-                            LoginMessage.text = "Please verify your email.";
+                            case "VerifiedStatus":
+                                if (eachStat.Value == 1)
+                                {
+                                    if (RememberMeLogin.isOn == true)
+                                    {
+                                        Debug.Log("1");
+
+                                        PlayerPrefs.SetInt("USERSAVED", 1);
+                                        PlayerPrefs.SetString("USERNAME", UserNameLogin);
+                                        PlayerPrefs.SetString("PASSWORD", UserPasswordLogin);
+                                        PlayerPrefs.Save();
+
+                                        LoadingGUI();
+                                        SceneManager.LoadSceneAsync(1);
+                                    }
+                                    else
+                                    {
+                                        Debug.Log("1");
+
+                                        LoadingGUI();
+                                        SceneManager.LoadSceneAsync(1);
+                                    }
+                                }
+                                else
+                                {
+                                    ErrorGUI();
+                                    LoginMessage.color = new Color32(255, 0, 30, 255);
+                                    LoginMessage.text = "Please verify your email.";
+                                }
+                                break;
                         }
-                        break;
-                }
-        },
-        error => Debug.LogError(error.GenerateErrorReport())
-    );
+                }, error => Debug.LogError(error.GenerateErrorReport())
+);
+        }, error => { }) ;
     }
 
     private void OnLoginFailure(PlayFabError error)

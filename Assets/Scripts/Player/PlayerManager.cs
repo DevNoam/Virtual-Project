@@ -32,7 +32,6 @@ public class PlayerManager : NetworkBehaviour
     void Start()
     {
         roomManager = GameObject.Find("RoomManager").GetComponent<RoomManager>();
-        DontDestroyOnLoad(transform.gameObject);
         cam = GameObject.Find("Main Camera").GetComponent<Camera>();
         player.GetComponent<Transform>();
         playerNameMesh = this.transform.Find("PlayerName").GetComponent<TextMeshPro>();

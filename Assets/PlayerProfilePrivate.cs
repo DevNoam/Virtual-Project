@@ -6,23 +6,15 @@ using PlayFab;
 using PlayFab.ClientModels;
 using TMPro;
 using Mirror;
-using UnityEngine.EventSystems;
 
-public class PlayerProfilePrivate : MonoBehaviour, IDragHandler, IEndDragHandler
+public class PlayerProfilePrivate : MonoBehaviour
 {
     // Start is called before the first frame update
     public TMP_Text PlayerName;
     public TMP_Text Coins;
 
-    private RectTransform rectTransform;
-    [SerializeField] private Canvas canvas;
-    private bool isOverProfile;
-    public Vector2 InstantiatePosition;
     void Start()
     {
-        rectTransform = GetComponent<RectTransform>();
-        canvas = GetComponentInParent<Canvas>();
-
         GetPlayerProfileRequest request = new GetPlayerProfileRequest();
         PlayFabClientAPI.GetPlayerProfile(request, Success =>
         {
@@ -39,19 +31,5 @@ public class PlayerProfilePrivate : MonoBehaviour, IDragHandler, IEndDragHandler
             }, fail2 => { Start(); });
 
         }, fail => { Start(); });
-    }
-
-    public void OnDrag(PointerEventData eventData)
-    {
-        rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
-    }
-    public void OnEndDrag(PointerEventData eventData)
-    {
-        Rect screenRect = new Rect(0, 0, Screen.width, Screen.height);
-        if (!screenRect.Contains(Input.mousePosition))
-        {
-            this.rectTransform.localPosition = InstantiatePosition;
-            this.gameObject.SetActive(false);
-        }
     }
 }
