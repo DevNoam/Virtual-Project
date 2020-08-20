@@ -27,6 +27,7 @@ public class PlayerManager : NetworkBehaviour
 
     public bool Moving;
     public float rotationSpeed = 20;
+    public ChatSystem chatSystem;
 
 
     void Start()
@@ -96,6 +97,7 @@ public class PlayerManager : NetworkBehaviour
         else
         {
             playerName = playername;
+            chatSystem.playerName = playername;
             RpcSendPlayerName();
         }
     }

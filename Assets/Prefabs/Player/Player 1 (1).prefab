@@ -764,6 +764,9 @@ MonoBehaviour:
   - porn
   - asshole
   - ass
+  chatLogInstantiate: {fileID: 9185266888689925048, guid: cb2e382df3340194ab0aa577106d432e, type: 3}
+  chatLog: {fileID: 0}
+  playerName: 
 --- !u!114 &6235973008739633409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -786,6 +789,7 @@ MonoBehaviour:
   roomManager: {fileID: 0}
   Moving: 0
   rotationSpeed: 20
+  chatSystem: {fileID: 6235973008739633408}
 --- !u!114 &5499724292070891331
 MonoBehaviour:
   m_ObjectHideFlags: 0

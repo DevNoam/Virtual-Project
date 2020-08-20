@@ -4,7 +4,9 @@ using UnityEngine;
 using Mirror;
 using PlayFab;
 using PlayFab.ClientModels;
+using PlayFab.GroupsModels;
 using UnityEngine.SceneManagement;
+
 public class RoomManager : MonoBehaviour
 {
     public PlayerManager LocalPlayer;
@@ -19,6 +21,7 @@ public class RoomManager : MonoBehaviour
     public string playerCurrentToken;
     public string playerNewToken;
 
+    public GameObject ChatLog;
 
 
     private void Start()
@@ -105,11 +108,24 @@ public class RoomManager : MonoBehaviour
                 //InvokeRepeating("CheckForNewConnection", 10, 10);
                 
             }
+            if (result2.Data.ContainsKey("Modderator"))
+            {
+                if (int.Parse(result2.Data["Modderator"].Value) == 1)
+                {
+                    ChatLog.transform.localPosition = new Vector2(0, 0);
+                }
+            }
+            else
+            {
+                ChatLog.SetActive(false);
+            }
         }, (error) =>
         {
             Destroy(LocalPlayer);
             SceneManager.LoadScene(0);
         });
+
+
     }
 
     /*

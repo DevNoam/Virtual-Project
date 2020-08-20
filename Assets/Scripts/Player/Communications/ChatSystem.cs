@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Mirror;
 using TMPro;
 using UnityEngine.Networking;
@@ -22,9 +23,14 @@ public class ChatSystem : NetworkBehaviour
 
     public string[] badWords;
 
+    public GameObject chatLogInstantiate;
+    public Transform chatLog;
+    public string playerName;
+
     public void Start()
     {
         inputFiled = GameObject.Find("InputFieldChat").GetComponent<TMP_InputField>();
+        chatLog = GameObject.Find("ContentChatLog").GetComponent<Transform>();
     }
 
     [Client]
@@ -77,6 +83,17 @@ public class ChatSystem : NetworkBehaviour
     {
         playerText.text = message;
         ChatCanvas.SetActive(true);
+        
+        //CHAT LOG//
+        GameObject ChatLogObject = Instantiate(chatLogInstantiate) as GameObject;
+        ChatLogObject.GetComponentInChildren<TMP_Text>().text = "<b>" + playerName + ":</b> " + message;
+        //Assign player profile when clicking the button
+        ChatLogObject.transform.SetParent(chatLog.transform, false);
+
+        if (chatLog.transform.childCount >= 50)
+        {
+            GameObject.Destroy(chatLog.transform.GetChild(1).gameObject);
+        }
     }
 
     void OnGUI()
