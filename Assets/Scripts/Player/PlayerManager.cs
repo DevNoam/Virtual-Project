@@ -97,10 +97,10 @@ public class PlayerManager : NetworkBehaviour
         else
         {
             playerName = playername;
-            chatSystem.playerName = playername;
             RpcSendPlayerName();
         }
     }
+
 
     #region Player Name management
 
@@ -122,6 +122,7 @@ public class PlayerManager : NetworkBehaviour
 
         playerNameMesh.text = playername;
         player.GetComponent<Renderer>().material = roomManager.skins[playerSkin];
+        chatSystem.playerName = playername;
         RpcScrPlayerName(playername, playerSkin);
     }
 
@@ -129,6 +130,7 @@ public class PlayerManager : NetworkBehaviour
     public void RpcScrPlayerName(string playername, int playerSkin)
     {
         playerNameMesh.text = playername;
+        chatSystem.playerName = playername;
         player.GetComponent<Renderer>().material = roomManager.skins[playerSkin];
     }
     #endregion

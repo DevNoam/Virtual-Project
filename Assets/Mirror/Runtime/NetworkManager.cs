@@ -94,7 +94,7 @@ namespace Mirror
         /// </summary>
         [FormerlySerializedAs("m_NetworkAddress")]
         [Tooltip("Network Address where the client should connect to the server. Server does not use this for anything.")]
-        public string networkAddress = "46.117.31.64";
+        public string networkAddress;
 
         /// <summary>
         /// The maximum number of concurrent network connections to support.
@@ -553,7 +553,7 @@ namespace Mirror
                 authenticator.OnClientAuthenticated.AddListener(OnClientAuthenticated);
             }
 
-            networkAddress = "46.117.31.64";
+            //networkAddress = "93.173.115.196";
             NetworkServer.ActivateHostScene();
             RegisterClientMessages();
 

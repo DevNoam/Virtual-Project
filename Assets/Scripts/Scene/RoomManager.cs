@@ -115,10 +115,6 @@ public class RoomManager : MonoBehaviour
                     ChatLog.transform.localPosition = new Vector2(0, 0);
                 }
             }
-            else
-            {
-                ChatLog.SetActive(false);
-            }
         }, (error) =>
         {
             Destroy(LocalPlayer);
