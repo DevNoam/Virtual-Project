@@ -7,13 +7,13 @@ namespace Mirror
     {
 
         public Slider slider;
-        [SerializeField] int TimeToCheckForPing = 40;
+        [SerializeField] int TimeToCheckForPing = 20;
 
         GUIStyle style;
 
         void Start()
         {
-            InvokeRepeating("ApplyConnection", 1.1f, TimeToCheckForPing);
+            InvokeRepeating("ApplyConnection", 0, TimeToCheckForPing);
         }
 
 

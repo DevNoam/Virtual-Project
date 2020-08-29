@@ -104,9 +104,12 @@ public class ChatSystem : NetworkBehaviour
             }
     }
     [Command]
-    void CmdDelayedFunction()
+    public void CmdDelayedFunction()
     {
-        //playerText.text = "";
+        if (IsInvoking("CmdDelayedFunction") == true)
+        {
+            CancelInvoke("CmdDelayedFunction");
+        }
         ChatCanvas.SetActive(false);
         RpcDelayedFunction();
     }

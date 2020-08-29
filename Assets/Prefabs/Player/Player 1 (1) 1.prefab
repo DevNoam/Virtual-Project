@@ -294,7 +294,7 @@ GameObject:
   - component: {fileID: 1818629808934478572}
   - component: {fileID: 626930011625829552}
   - component: {fileID: 4351148582533077677}
-  - component: {fileID: 846186401409014798}
+  - component: {fileID: 1177855783400602459}
   m_Layer: 0
   m_Name: Player 1 (1) 1
   m_TagString: Player
@@ -499,7 +499,7 @@ MonoBehaviour:
   localRotationSensitivity: 0.01
   localScaleSensitivity: 0.01
   target: {fileID: 1818629808975089547}
---- !u!114 &846186401409014798
+--- !u!114 &1177855783400602459
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

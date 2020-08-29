@@ -9004,8 +9004,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -280, y: 34.25}
-  m_SizeDelta: {x: 535.4977, y: 512.77454}
+  m_AnchoredPosition: {x: -205.4, y: 40.6}
+  m_SizeDelta: {x: 386.24414, y: 525.3967}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!4 &5651078990019848140
 Transform:
@@ -11722,7 +11722,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slider: {fileID: 427704211984296423}
-  TimeToCheckForPing: 40
+  TimeToCheckForPing: 20
 --- !u!114 &9191413155755897358
 MonoBehaviour:
   m_ObjectHideFlags: 0

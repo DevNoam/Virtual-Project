@@ -149,14 +149,20 @@ public class PlayerManager : NetworkBehaviour
             desiredRoomGameObject.SetActive(true);
             CmdChangePosition(desiredSpawnLocation.transform.position);
             thisRoom.SetActive(false);
-            Debug.Log("OK! " + playerName);
-            rotationSpeed = 0;
+
+            //Reset player Chat animations...
+            chatSystem.CmdDelayedFunction();
+
+            //Upload the location of the player
+
         }
     }
 
     [Command]
     public void CmdChangePosition(Vector3 argPosition)
     {
+        player.GetComponentInChildren<NavMeshAgent>().Warp(argPosition);
+        this.transform.position = argPosition;
         RpcChangePosition(argPosition);
     }
 
