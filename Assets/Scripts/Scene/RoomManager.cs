@@ -22,7 +22,7 @@ public class RoomManager : MonoBehaviour
     public string playerNewToken;
 
     public GameObject ChatLog;
-
+    NetworkManager networkManager;
 
     private void Start()
     {

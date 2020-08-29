@@ -29,13 +29,18 @@ public class PlayerManager : NetworkBehaviour
     public float rotationSpeed = 20;
     public ChatSystem chatSystem;
 
+    [SerializeField]
+    public bool isNewPlayer = true;
+
 
     void Start()
     {
         roomManager = GameObject.Find("RoomManager").GetComponent<RoomManager>();
-        cam = GameObject.Find("Main Camera").GetComponent<Camera>();
+        cam = GetComponentInChildren<Camera>();
         player.GetComponent<Transform>();
         playerNameMesh = this.transform.Find("PlayerName").GetComponent<TextMeshPro>();
+        if (!hasAuthority)
+            cam.gameObject.SetActive(false);
     }
 
     #region Movement
@@ -134,4 +139,15 @@ public class PlayerManager : NetworkBehaviour
         player.GetComponent<Renderer>().material = roomManager.skins[playerSkin];
     }
     #endregion
+
+    [Client]
+    public void ChangeRoom(GameObject desiredRoomGameObject, GameObject thisRoom, GameObject desiredSpawnLocation)
+    {
+        desiredRoomGameObject.SetActive(true);
+        player.GetComponentInChildren<NavMeshAgent>().Warp(desiredSpawnLocation.transform.position);
+        this.transform.position = desiredSpawnLocation.transform.position;
+        thisRoom.SetActive(false);
+        Debug.Log("OK! " + playerName);
+    }
+
 }

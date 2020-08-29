@@ -7,7 +7,7 @@ public class FollowPlayer : MonoBehaviour
 {
 
     public GameObject following;
-    [Range(0.0f, 1.0f)]
+    [Range(0.0f, 20.0f)]
     public float interested; 
     public Vector3 followPosition;
     Transform cam;

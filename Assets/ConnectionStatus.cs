@@ -13,7 +13,7 @@ namespace Mirror
 
         void Start()
         {
-            InvokeRepeating("ApplyConnection", 3, TimeToCheckForPing);
+            InvokeRepeating("ApplyConnection", 1.1f, TimeToCheckForPing);
         }
 
 
