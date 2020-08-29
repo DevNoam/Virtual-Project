@@ -140,14 +140,33 @@ public class PlayerManager : NetworkBehaviour
     }
     #endregion
 
+
     [Client]
     public void ChangeRoom(GameObject desiredRoomGameObject, GameObject thisRoom, GameObject desiredSpawnLocation)
     {
-        desiredRoomGameObject.SetActive(true);
-        player.GetComponentInChildren<NavMeshAgent>().Warp(desiredSpawnLocation.transform.position);
-        this.transform.position = desiredSpawnLocation.transform.position;
-        thisRoom.SetActive(false);
-        Debug.Log("OK! " + playerName);
+        if (isLocalPlayer)
+        {
+            desiredRoomGameObject.SetActive(true);
+            CmdChangePosition(desiredSpawnLocation.transform.position);
+            thisRoom.SetActive(false);
+            Debug.Log("OK! " + playerName);
+            rotationSpeed = 0;
+        }
     }
+
+    [Command]
+    public void CmdChangePosition(Vector3 argPosition)
+    {
+        RpcChangePosition(argPosition);
+    }
+
+    [ClientRpc]
+    public void RpcChangePosition(Vector3 argPosition)
+    {
+        player.GetComponentInChildren<NavMeshAgent>().Warp(argPosition);
+        this.transform.position = argPosition;
+    }
+
+
 
 }
