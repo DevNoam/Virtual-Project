@@ -294,7 +294,7 @@ GameObject:
   - component: {fileID: 1818629808934478572}
   - component: {fileID: 626930011625829552}
   - component: {fileID: 4351148582533077677}
-  - component: {fileID: 1177855783400602459}
+  - component: {fileID: 520054073073377116}
   m_Layer: 0
   m_Name: Player 1 (1) 1
   m_TagString: Player
@@ -457,6 +457,7 @@ MonoBehaviour:
   player: {fileID: 1818629808975089547}
   playerName: Loading..
   playerNameMesh: {fileID: 1818629808338926660}
+  SkinColor: 1
   roomManager: {fileID: 0}
   Moving: 0
   rotationSpeed: 20
@@ -499,7 +500,7 @@ MonoBehaviour:
   localRotationSensitivity: 0.01
   localScaleSensitivity: 0.01
   target: {fileID: 1818629808975089547}
---- !u!114 &1177855783400602459
+--- !u!114 &520054073073377116
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -529,7 +530,6 @@ GameObject:
   - component: {fileID: 1818629808975089541}
   - component: {fileID: 1818629808975089540}
   - component: {fileID: 1818629808975089544}
-  - component: {fileID: 6428210858416787896}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -637,22 +637,6 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 2
---- !u!114 &6428210858416787896
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1818629808975089543}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneId: 0
-  serverOnly: 0
-  m_AssetId: 
-  hasSpawned: 0
 --- !u!1 &1953906862648455788
 GameObject:
   m_ObjectHideFlags: 0
@@ -858,7 +842,6 @@ GameObject:
   - component: {fileID: 374367841078019506}
   - component: {fileID: 8314000229175116929}
   - component: {fileID: 2842969637287502875}
-  - component: {fileID: 6250024108447900616}
   - component: {fileID: 6588213259227829288}
   m_Layer: 0
   m_Name: Main Camera
@@ -932,22 +915,6 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3712328612266892803}
   m_Enabled: 1
---- !u!114 &6250024108447900616
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3712328612266892803}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneId: 0
-  serverOnly: 0
-  m_AssetId: 
-  hasSpawned: 0
 --- !u!114 &6588213259227829288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -976,8 +943,6 @@ GameObject:
   - component: {fileID: 3215035747072317206}
   - component: {fileID: 2988614535241142574}
   - component: {fileID: 3158120846129118678}
-  - component: {fileID: 1956513035692810704}
-  - component: {fileID: 8224192987897712710}
   m_Layer: 0
   m_Name: Canvas (1)
   m_TagString: Untagged
@@ -1080,39 +1045,6 @@ MonoBehaviour:
   following: {fileID: 1818629808975089543}
   interested: 20
   followPosition: {x: 0, y: 1.98, z: 0.43}
---- !u!114 &1956513035692810704
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3999669987189695614}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneId: 0
-  serverOnly: 0
-  m_AssetId: 
-  hasSpawned: 0
---- !u!114 &8224192987897712710
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3999669987189695614}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1731d8de2d0c84333b08ebe1e79f4118, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  visRange: 5
-  visUpdateInterval: 1
-  forceHidden: 0
 --- !u!1 &8100854618613187020
 GameObject:
   m_ObjectHideFlags: 0

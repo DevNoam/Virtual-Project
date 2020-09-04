@@ -22,6 +22,8 @@ public class PlayerManager : NetworkBehaviour
     [SyncVar]
     public string playerName;
     public TextMeshPro playerNameMesh;
+    [SyncVar]
+    public int SkinColor = 1;
 
     public RoomManager roomManager;
 
@@ -116,17 +118,20 @@ public class PlayerManager : NetworkBehaviour
     }
 
 
-    public void SendName()
+    public void SendName(string playername)
     {
-        CmdScrPlayerName(playerName, roomManager.playerSkin);
-
+        CmdScrPlayerName(playername, roomManager.playerSkin);
     }
+
+
     [Command]
     public void CmdScrPlayerName(string playername, int playerSkin)
     {
-
+        Debug.Log("1");
         playerNameMesh.text = playername;
         player.GetComponent<Renderer>().material = roomManager.skins[playerSkin];
+        SkinColor = playerSkin;
+
         chatSystem.playerName = playername;
         RpcScrPlayerName(playername, playerSkin);
     }
@@ -134,9 +139,13 @@ public class PlayerManager : NetworkBehaviour
     [ClientRpc]
     public void RpcScrPlayerName(string playername, int playerSkin)
     {
+        Debug.Log("2");
+
         playerNameMesh.text = playername;
-        chatSystem.playerName = playername;
         player.GetComponent<Renderer>().material = roomManager.skins[playerSkin];
+        SkinColor = playerSkin;
+
+        chatSystem.playerName = playername;
     }
     #endregion
 
@@ -147,32 +156,32 @@ public class PlayerManager : NetworkBehaviour
         if (isLocalPlayer)
         {
             desiredRoomGameObject.SetActive(true);
-            CmdChangePosition(desiredSpawnLocation.transform.position);
+            CmdChangePosition(desiredSpawnLocation.transform.position, playerName);
             thisRoom.SetActive(false);
 
-            //Reset player Chat animations...
+            //Reset player:
             chatSystem.CmdDelayedFunction();
-
-            //Upload the location of the player
+            //Upload the location of the player to playFab
 
         }
     }
 
     [Command]
-    public void CmdChangePosition(Vector3 argPosition)
+    public void CmdChangePosition(Vector3 argPosition, string playerName)
     {
         player.GetComponentInChildren<NavMeshAgent>().Warp(argPosition);
         this.transform.position = argPosition;
-        RpcChangePosition(argPosition);
+
+        RpcChangePosition(argPosition, playerName);
     }
 
     [ClientRpc]
-    public void RpcChangePosition(Vector3 argPosition)
+    public void RpcChangePosition(Vector3 argPosition, string name)
     {
         player.GetComponentInChildren<NavMeshAgent>().Warp(argPosition);
         this.transform.position = argPosition;
+
+        roomManager.ChangeRoom(name);
+
     }
-
-
-
 }

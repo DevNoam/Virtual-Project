@@ -10,16 +10,12 @@ using UnityEngine.SceneManagement;
 public class RoomManager : MonoBehaviour
 {
     public PlayerManager LocalPlayer;
-    private string PlayerNameText;
 
     public Material[] skins;
     public int playerSkin;
-
-    public PlayFabLogin playfabLogin;
+    string playerName;
 
     public int targetFrameRate = 60;
-    public string playerCurrentToken;
-    public string playerNewToken;
 
     public GameObject ChatLog;
     NetworkManager networkManager;
@@ -43,7 +39,7 @@ public class RoomManager : MonoBehaviour
                 if (LocalPlayer != null)
                 {
                     ThisPlayerJoined();
-                    Invoke("ThisPlayerJoined", 0.1f);
+                    //Invoke("ThisPlayerJoined", 0.1f);
                 }
             }
             else
@@ -59,7 +55,7 @@ public class RoomManager : MonoBehaviour
 
     public void SendNameToClients()
     {
-        LocalPlayer.SendName();
+        LocalPlayer.SendName(playerName);
     }
 
     void ThisPlayerJoined()
@@ -70,7 +66,7 @@ public class RoomManager : MonoBehaviour
 
     public void Successs(GetPlayerProfileResult result)
     {
-        string getName = result.PlayerProfile.DisplayName;
+        playerName = result.PlayerProfile.DisplayName;
         PlayFabClientAPI.GetUserPublisherData(new GetUserDataRequest()
         {
         }, result2 =>
@@ -78,8 +74,8 @@ public class RoomManager : MonoBehaviour
             if (result2.Data.ContainsKey("PlayerCurrentColor"))
             {
                 playerSkin = int.Parse(result2.Data["PlayerCurrentColor"].Value);
-                Debug.Log(playerSkin);
-                LocalPlayer.CmdReady(getName);
+                //Debug.Log(playerSkin);
+                LocalPlayer.CmdReady(playerName);
             }
             else if (result2.Data.ContainsKey("PlayerOwnedColors"))
             {
@@ -102,12 +98,6 @@ public class RoomManager : MonoBehaviour
                      SceneManager.LoadScene(0);
                  });
             }
-            if (result2.Data.ContainsKey("SessionToken"))
-            {
-                playerCurrentToken = result2.Data["SessionToken"].Value.ToString();
-                //InvokeRepeating("CheckForNewConnection", 10, 10);
-                
-            }
             if (result2.Data.ContainsKey("Modderator"))
             {
                 if (int.Parse(result2.Data["Modderator"].Value) == 1)
@@ -124,30 +114,14 @@ public class RoomManager : MonoBehaviour
 
     }
 
-    /*
-    void CheckForNewConnection()
-    {
-        PlayFabClientAPI.GetUserPublisherData(new GetUserDataRequest(), results =>
-        {
-            if (results.Data.ContainsKey("SessionToken"))
-            {
-                playerNewToken = results.Data["SessionToken"].Value.ToString();
-                if (playerCurrentToken != playerNewToken)
-                {
-                    Debug.Log("Logged in from other location");
-                    SceneManager.LoadScene(2);
-                    PlayFabAuthenticationAPI.ForgetAllCredentials();
-                    NetworkManager.singleton.StopClient();
-
-                }
-            }
-        }, failures => { });
-    }*/
-
-
     public void fail(PlayFabError error)
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
+
+    public void ChangeRoom(string Name)
+    {
+        LocalPlayer.SendName(playerName);
+    }
 }

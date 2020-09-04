@@ -30,21 +30,9 @@ public class PlayerExistedLogin : MonoBehaviour
         var request = new LoginWithPlayFabRequest { Username = playerName, Password = UserPasswordLogin };
         PlayFabClientAPI.LoginWithPlayFab(request, LoginSuccess, LoginFaild);
     }
-    string randomToken;
     void LoginSuccess(LoginResult result)
     {
-
-        randomToken = "TKN" + Random.Range(1, 1000) + "Sector2" + Random.Range(0, 1000);
-        Debug.Log(randomToken);
-        PlayFabClientAPI.UpdateUserPublisherData(new UpdateUserDataRequest()
-        {
-            Data = new Dictionary<string, string>() {
-                        {"SessionToken", randomToken.ToString() }
-                        }
-        }, result2 =>
-        {
-            SceneManager.LoadSceneAsync(1);
-        }, LoginFaild);
+        SceneManager.LoadSceneAsync(1);
     }
 
     void LoginFaild(PlayFabError error)

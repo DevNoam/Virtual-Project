@@ -43,16 +43,7 @@ public class PlayFabLogin : MonoBehaviour
     string randomToken;
     private void OnLoginSuccess(LoginResult result)
     {
-        randomToken = "TKN" + Random.Range(1, 1000) + "Sector2" + Random.Range(0, 1000);
-        Debug.Log(randomToken);
-        PlayFabClientAPI.UpdateUserPublisherData(new UpdateUserDataRequest()
         {
-            Data = new Dictionary<string, string>() {
-                        {"SessionToken", randomToken.ToString() }
-                        }
-        }, result2 =>
-        {
-
             PlayFabClientAPI.GetPlayerStatistics(new GetPlayerStatisticsRequest(),
                 results =>
                 {
@@ -93,7 +84,7 @@ public class PlayFabLogin : MonoBehaviour
                         }
                 }, error => Debug.LogError(error.GenerateErrorReport())
 );
-        }, error => { }) ;
+        }
     }
 
     private void OnLoginFailure(PlayFabError error)
