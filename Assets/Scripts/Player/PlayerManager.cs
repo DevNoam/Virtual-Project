@@ -170,7 +170,7 @@ public class PlayerManager : NetworkBehaviour
     public void CmdChangePosition(Vector3 argPosition, string playerName)
     {
         player.GetComponentInChildren<NavMeshAgent>().Warp(argPosition);
-        this.transform.position = argPosition;
+        //this.transform.position = argPosition;
 
         RpcChangePosition(argPosition, playerName);
     }
@@ -179,9 +179,7 @@ public class PlayerManager : NetworkBehaviour
     public void RpcChangePosition(Vector3 argPosition, string name)
     {
         player.GetComponentInChildren<NavMeshAgent>().Warp(argPosition);
-        this.transform.position = argPosition;
-
-        roomManager.ChangeRoom(name);
+        //this.transform.position = argPosition;
 
     }
 }

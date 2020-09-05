@@ -7,7 +7,7 @@ using Mirror;
 public class CameraFollowing : MonoBehaviour
 {
     public Transform following;
-    [Range(0.0f, 20.0f)]
+    [Range(0.0f, 500)]
     public float interested;
     public Vector3 followPosition;
     Transform cam;

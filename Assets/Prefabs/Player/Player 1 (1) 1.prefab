@@ -294,7 +294,8 @@ GameObject:
   - component: {fileID: 1818629808934478572}
   - component: {fileID: 626930011625829552}
   - component: {fileID: 4351148582533077677}
-  - component: {fileID: 520054073073377116}
+  - component: {fileID: 4235905023288286593}
+  - component: {fileID: 8808219740037510286}
   m_Layer: 0
   m_Name: Player 1 (1) 1
   m_TagString: Player
@@ -470,7 +471,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1818629808934478575}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
   m_Name: 
@@ -500,7 +501,7 @@ MonoBehaviour:
   localRotationSensitivity: 0.01
   localScaleSensitivity: 0.01
   target: {fileID: 1818629808975089547}
---- !u!114 &520054073073377116
+--- !u!114 &4235905023288286593
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -517,6 +518,19 @@ MonoBehaviour:
   visRange: 5
   visUpdateInterval: 1
   forceHidden: 0
+--- !u!65 &8808219740037510286
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1818629808934478575}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1818629808975089543
 GameObject:
   m_ObjectHideFlags: 0
@@ -928,7 +942,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   following: {fileID: 0}
-  interested: 20
+  interested: 100
   followPosition: {x: 0, y: 7.13, z: -11.98}
 --- !u!1 &3999669987189695614
 GameObject:
