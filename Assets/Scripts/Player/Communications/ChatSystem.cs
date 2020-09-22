@@ -26,43 +26,55 @@ public class ChatSystem : NetworkBehaviour
     public GameObject chatLogInstantiate;
     public Transform chatLog;
     public string playerName;
+    public CommandsManager commandsManager;
 
     public void Start()
     {
         inputFiled = GameObject.Find("InputFieldChat").GetComponent<TMP_InputField>();
         chatLog = GameObject.Find("ContentChatLog").GetComponent<Transform>();
+        commandsManager = transform.GetComponent<CommandsManager>();
     }
 
     [Client]
     public void Send()
     {
         string text = inputFiled.text;
+        bool isCommand = false;
         if (text.Trim().Length >= 1)
         {
-
-            bool badword = false;
-
-            for (int i = 0; i < badWords.Length; i++)
+            if (text.StartsWith("/"))
             {
-                if (text.ToLower().Contains(badWords[i]))
+                commandsManager.ReceivedCommand(inputFiled.text);
+
+                isCommand = true;
+            }
+            if (isCommand != true)
+            {
+                bool badword = false;
+
+                for (int i = 0; i < badWords.Length; i++)
                 {
-                    Debug.Log("Bad Word detected!");
-                    badword = true;
+                    if (text.ToLower().Contains(badWords[i]))
+                    {
+                        Debug.Log("Bad Word detected!");
+                        badword = true;
+                    }
+                }
+                if (badword == false)
+                {
+                    if (IsInvoking("CmdDelayedFunction") == true)
+                    {
+                        CancelInvoke("CmdDelayedFunction");
+                    }
+                    CmdSend(text.TrimStart());
+                    Invoke("CmdDelayedFunction", timetoClear);
+                }
+                else if (badword == true)
+                {
+                    badword = false;
                 }
             }
-            if (badword == false)
-            {
-                if (IsInvoking("CmdDelayedFunction") == true)
-                {
-                    CancelInvoke("CmdDelayedFunction");
-                }
-                CmdSend(text.TrimStart());
-                Invoke("CmdDelayedFunction", timetoClear);
-            }
-            else if (badword == true)
-            {
-                badword = false;
-            }
+            //Clear InputFiled
             inputFiled.text = null;
             inputFiled.Select();
         }
@@ -84,7 +96,7 @@ public class ChatSystem : NetworkBehaviour
         playerText.text = message;
         ChatCanvas.SetActive(true);
         
-        //CHAT LOG//
+        //----CHAT LOG----//
         GameObject ChatLogObject = Instantiate(chatLogInstantiate) as GameObject;
         ChatLogObject.GetComponentInChildren<TMP_Text>().text = "<b>" + playerName + ":</b> " + message;
         //Assign player profile when clicking the button

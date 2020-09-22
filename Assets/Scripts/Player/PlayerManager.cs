@@ -5,6 +5,8 @@ using Mirror;
 using UnityEngine.AI;
 using TMPro;
 using UnityEngine.UI;
+using PlayFab;
+using PlayFab.ClientModels;
 
 public class PlayerManager : NetworkBehaviour
 {
@@ -67,10 +69,10 @@ public class PlayerManager : NetworkBehaviour
 
             if (Moving == false && Input.GetAxis("Mouse X") != 0 || Moving == false && Input.GetAxis("Mouse Y") != 0) // Rotation
             {
-                    var lookPos = hit.point - player.transform.position;
-                    lookPos.y = 0;
-                    var rotation = Quaternion.LookRotation(lookPos);
-                    player.transform.rotation = Quaternion.Slerp(player.transform.rotation, rotation, Time.deltaTime * rotationSpeed);
+                var lookPos = hit.point - player.transform.position;
+                lookPos.y = 0;
+                var rotation = Quaternion.LookRotation(lookPos);
+                player.transform.rotation = Quaternion.Slerp(player.transform.rotation, rotation, Time.deltaTime * rotationSpeed);
             }
             if (navMeshController.remainingDistance < navMeshController.stoppingDistance && Moving == true)
             {
@@ -121,13 +123,18 @@ public class PlayerManager : NetworkBehaviour
     public void SendName(string playername)
     {
         CmdScrPlayerName(playername, roomManager.playerSkin);
+        PlayFabClientAPI.UpdateUserData(new UpdateUserDataRequest()
+        {
+            Data = new Dictionary<string, string>() {
+                        {"Connected_To_Server", "ServerTest"} }
+        }, results => { }, failure => { });
     }
+
 
 
     [Command]
     public void CmdScrPlayerName(string playername, int playerSkin)
     {
-        Debug.Log("1");
         playerNameMesh.text = playername;
         player.GetComponent<Renderer>().material = roomManager.skins[playerSkin];
         SkinColor = playerSkin;
@@ -139,8 +146,6 @@ public class PlayerManager : NetworkBehaviour
     [ClientRpc]
     public void RpcScrPlayerName(string playername, int playerSkin)
     {
-        Debug.Log("2");
-
         playerNameMesh.text = playername;
         player.GetComponent<Renderer>().material = roomManager.skins[playerSkin];
         SkinColor = playerSkin;
@@ -158,11 +163,12 @@ public class PlayerManager : NetworkBehaviour
             desiredRoomGameObject.SetActive(true);
             CmdChangePosition(desiredSpawnLocation.transform.position, playerName);
             thisRoom.SetActive(false);
+            roomManager.LoadingGUI.SetActive(true);
+            cam.transform.GetComponent<AudioListener>().enabled = false;
+            Invoke("Arrived", 1f);
 
             //Reset player:
             chatSystem.CmdDelayedFunction();
-            //Upload the location of the player to playFab
-
         }
     }
 
@@ -182,4 +188,19 @@ public class PlayerManager : NetworkBehaviour
         //this.transform.position = argPosition;
 
     }
+
+    [Client]
+    void Arrived()
+    {
+        if (player.GetComponentInChildren<NavMeshAgent>().remainingDistance < player.GetComponentInChildren<NavMeshAgent>().stoppingDistance)
+        {
+            cam.transform.GetComponent<AudioListener>().enabled = true;
+            roomManager.LoadingGUI.SetActive(false);
+        }
+        else
+        {
+            Arrived();
+        }
+    }
+
 }

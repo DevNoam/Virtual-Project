@@ -13,12 +13,13 @@ public class RoomManager : MonoBehaviour
 
     public Material[] skins;
     public int playerSkin;
-    string playerName;
+    public string playerName;
 
     public int targetFrameRate = 60;
 
     public GameObject ChatLog;
     NetworkManager networkManager;
+    public GameObject LoadingGUI;
 
     private void Start()
     {
@@ -122,6 +123,6 @@ public class RoomManager : MonoBehaviour
 
     public void ChangeRoom(string Name)
     {
-        LocalPlayer.SendName(playerName);
+        LocalPlayer.SendName(playerName); // In the future also send the server Name;
     }
 }

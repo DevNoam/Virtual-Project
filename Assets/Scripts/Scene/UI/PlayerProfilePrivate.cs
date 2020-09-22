@@ -13,7 +13,7 @@ public class PlayerProfilePrivate : MonoBehaviour
     public TMP_Text PlayerName;
     public TMP_Text Coins;
 
-    void Start()
+    public void RequestData()
     {
         GetPlayerProfileRequest request = new GetPlayerProfileRequest();
         PlayFabClientAPI.GetPlayerProfile(request, Success =>
@@ -26,10 +26,8 @@ public class PlayerProfilePrivate : MonoBehaviour
                 success.VirtualCurrency.TryGetValue("CO", out Currency);
                 Coins.text = "Balance: " + Currency.ToString();
 
+            }, fail2 => { RequestData(); });
 
-
-            }, fail2 => { Start(); });
-
-        }, fail => { Start(); });
+        }, fail => { RequestData(); });
     }
 }

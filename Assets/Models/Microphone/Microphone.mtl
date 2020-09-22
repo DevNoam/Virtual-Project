@@ -1,0 +1,12 @@
+# File produced by Open Asset Import Library (http://www.assimp.sf.net)
+# (assimp v3.1.206520482)
+
+newmtl Stand
+illum 1
+
+newmtl Heading
+illum 1
+
+newmtl Base
+illum 1
+
