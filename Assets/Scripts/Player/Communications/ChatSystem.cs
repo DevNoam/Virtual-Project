@@ -32,7 +32,6 @@ public class ChatSystem : NetworkBehaviour
     {
         inputFiled = GameObject.Find("InputFieldChat").GetComponent<TMP_InputField>();
         chatLog = GameObject.Find("ContentChatLog").GetComponent<Transform>();
-        commandsManager = transform.GetComponent<CommandsManager>();
     }
 
     [Client]

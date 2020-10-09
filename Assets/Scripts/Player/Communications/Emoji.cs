@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using TMPro;
-public class Emoji : NetworkBehaviour
+public class Emoji : MonoBehaviour
 {
 
     public TMP_InputField inputFiled;
@@ -12,7 +12,6 @@ public class Emoji : NetworkBehaviour
     [Client]
     public void Click()
     {
-        inputFiled = GameObject.Find("InputFieldChat").GetComponent<TMP_InputField>();
         inputFiled.text = inputFiled.text + spriteName;
     }
 }

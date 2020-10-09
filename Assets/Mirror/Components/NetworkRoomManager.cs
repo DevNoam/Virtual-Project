@@ -221,7 +221,7 @@ namespace Mirror
             }
         }
 
-        void CallOnClientEnterRoom()
+        internal void CallOnClientEnterRoom()
         {
             OnRoomClientEnter();
             foreach (NetworkRoomPlayer player in roomSlots)
@@ -231,7 +231,7 @@ namespace Mirror
                 }
         }
 
-        void CallOnClientExitRoom()
+        internal void CallOnClientExitRoom()
         {
             OnRoomClientExit();
             foreach (NetworkRoomPlayer player in roomSlots)
@@ -330,6 +330,7 @@ namespace Mirror
                 OnRoomServerAddPlayer(conn);
         }
 
+        [Server]
         public void RecalculateRoomPlayerIndices()
         {
             if (roomSlots.Count > 0)
@@ -465,7 +466,6 @@ namespace Mirror
         public override void OnClientConnect(NetworkConnection conn)
         {
             OnRoomClientConnect(conn);
-            CallOnClientEnterRoom();
             base.OnClientConnect(conn);
         }
 

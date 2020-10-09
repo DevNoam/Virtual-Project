@@ -20,7 +20,7 @@ namespace Mirror
         void ApplyConnection()
         {
             int connectin = (int)(NetworkTime.rtt * 1000);
-            if (connectin <= 120)
+            if (connectin <= 100)
             {
                 slider.value = 4;
             }
@@ -28,11 +28,11 @@ namespace Mirror
             {
                 slider.value = 3;
             }
-            else if (connectin >= 350)
+            else if (connectin >= 250)
             {
                 slider.value = 2;
             }
-            else if (connectin > 450)
+            else if (connectin > 350)
             {
                 slider.value = 1;
             }

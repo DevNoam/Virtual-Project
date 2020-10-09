@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using Mono.CecilX;
 using Mono.CecilX.Cil;
 
@@ -6,6 +8,40 @@ namespace Mirror.Weaver
     public static class SyncObjectProcessor
     {
         /// <summary>
+        /// Finds SyncObjects fields in a type
+        /// <para>Type should be a NetworkBehaviour</para>
+        /// </summary>
+        /// <param name="td"></param>
+        /// <returns></returns>
+        public static List<FieldDefinition> FindSyncObjectsFields(TypeDefinition td)
+        {
+            List<FieldDefinition> syncObjects = new List<FieldDefinition>();
+
+            foreach (FieldDefinition fd in td.Fields)
+            {
+                if (fd.FieldType.Resolve().ImplementsInterface<SyncObject>())
+                {
+                    if (fd.IsStatic)
+                    {
+                        Weaver.Error($"{fd.Name} cannot be static", fd);
+                        continue;
+                    }
+
+                    if (fd.FieldType.Resolve().HasGenericParameters)
+                    {
+                        Weaver.Error($"Cannot use generic SyncObject {fd.Name} directly in NetworkBehaviour. Create a class and inherit from the generic SyncObject instead", fd);
+                        continue;
+                    }
+
+                    syncObjects.Add(fd);
+                }
+            }
+
+
+            return syncObjects;
+        }
+
+        /// <summary>
         /// Generates the serialization and deserialization methods for a specified generic argument
         /// </summary>
         /// <param name="td">The type of the class that needs serialization methods</param>
@@ -13,7 +49,7 @@ namespace Mirror.Weaver
         /// <param name="mirrorBaseType">the base SyncObject td inherits from</param>
         /// <param name="serializeMethod">The name of the serialize method</param>
         /// <param name="deserializeMethod">The name of the deserialize method</param>
-        public static void GenerateSerialization(TypeDefinition td, TypeReference itemType, TypeReference mirrorBaseType, string serializeMethod, string deserializeMethod)
+        public static void GenerateSerialization(TypeDefinition td, TypeReference itemType, Type mirrorBaseType, string serializeMethod, string deserializeMethod)
         {
             Weaver.DLog(td, "SyncObjectProcessor Start item:" + itemType.FullName);
 
@@ -30,7 +66,7 @@ namespace Mirror.Weaver
         }
 
         // serialization of individual element
-        static bool GenerateSerialization(string methodName, TypeDefinition td, TypeReference itemType, TypeReference mirrorBaseType)
+        static bool GenerateSerialization(string methodName, TypeDefinition td, TypeReference itemType, Type mirrorBaseType)
         {
             Weaver.DLog(td, "  GenerateSerialization");
             bool existing = td.HasMethodInBaseType(methodName, mirrorBaseType);
@@ -50,9 +86,9 @@ namespace Mirror.Weaver
                     MethodAttributes.Virtual |
                     MethodAttributes.Public |
                     MethodAttributes.HideBySig,
-                    Weaver.voidType);
+                    WeaverTypes.Import(typeof(void)));
 
-            serializeFunc.Parameters.Add(new ParameterDefinition("writer", ParameterAttributes.None, Weaver.CurrentAssembly.MainModule.ImportReference(Weaver.NetworkWriterType)));
+            serializeFunc.Parameters.Add(new ParameterDefinition("writer", ParameterAttributes.None, WeaverTypes.Import<NetworkWriter>()));
             serializeFunc.Parameters.Add(new ParameterDefinition("item", ParameterAttributes.None, itemType));
             ILProcessor worker = serializeFunc.Body.GetILProcessor();
 
@@ -74,7 +110,7 @@ namespace Mirror.Weaver
             return true;
         }
 
-        static bool GenerateDeserialization(string methodName, TypeDefinition td, TypeReference itemType, TypeReference mirrorBaseType)
+        static bool GenerateDeserialization(string methodName, TypeDefinition td, TypeReference itemType, Type mirrorBaseType)
         {
             Weaver.DLog(td, "  GenerateDeserialization");
             bool existing = td.HasMethodInBaseType(methodName, mirrorBaseType);
@@ -95,7 +131,7 @@ namespace Mirror.Weaver
                     MethodAttributes.HideBySig,
                     itemType);
 
-            deserializeFunction.Parameters.Add(new ParameterDefinition("reader", ParameterAttributes.None, Weaver.CurrentAssembly.MainModule.ImportReference(Weaver.NetworkReaderType)));
+            deserializeFunction.Parameters.Add(new ParameterDefinition("reader", ParameterAttributes.None, WeaverTypes.Import<NetworkReader>()));
 
             ILProcessor worker = deserializeFunction.Body.GetILProcessor();
 

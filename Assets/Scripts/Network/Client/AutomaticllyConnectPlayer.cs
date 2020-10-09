@@ -8,24 +8,20 @@ public class AutomaticllyConnectPlayer : MonoBehaviour
     NetworkManager manager;
     AutomaticllyConnectPlayer thisScript;
     NetworkManagerHUD managerGUI;
+
     void Start()
     {
-        thisScript = GameObject.Find("NetworkManager").GetComponent<AutomaticllyConnectPlayer>();
+        thisScript = this;
         manager = GetComponent<NetworkManager>();
-        managerGUI = GameObject.Find("NetworkManager").GetComponent<NetworkManagerHUD>();
+        managerGUI = this.GetComponent<NetworkManagerHUD>();
         if (NetworkClient.active)
             thisScript.enabled = false;
 
-        if (!NetworkClient.active)
+        if (Application.platform == RuntimePlatform.WebGLPlayer)
         {
-            // Server Only
-            if (Application.platform == RuntimePlatform.WebGLPlayer)
-            {
-                manager.StartClient();
-                thisScript.enabled = false;
-                managerGUI.showGUI = false;
-            }
+            manager.StartClient();
+            thisScript.enabled = false;
+            managerGUI.showGUI = false;
         }
-
     }
 }

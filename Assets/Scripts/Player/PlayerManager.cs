@@ -24,6 +24,7 @@ public class PlayerManager : NetworkBehaviour
     [SyncVar]
     public string playerName;
     public TextMeshPro playerNameMesh;
+    public TextMeshPro PlayerCircle;
     [SyncVar]
     public int SkinColor = 1;
 
@@ -40,11 +41,13 @@ public class PlayerManager : NetworkBehaviour
     void Start()
     {
         roomManager = GameObject.Find("RoomManager").GetComponent<RoomManager>();
-        cam = GetComponentInChildren<Camera>();
-        player.GetComponent<Transform>();
-        playerNameMesh = this.transform.Find("PlayerName").GetComponent<TextMeshPro>();
         if (!hasAuthority)
-            cam.gameObject.SetActive(false);
+            Destroy(cam);
+        if (hasAuthority)
+        {
+            MakeBoldNameForLocalClient();
+        }
+
     }
 
     #region Movement
@@ -99,15 +102,8 @@ public class PlayerManager : NetworkBehaviour
     [Command]
     public void CmdReady(string playername)
     {
-        if (string.IsNullOrEmpty(playername))
-        {
-            playerName = "Guest: " + Random.Range(1, 99);
-        }
-        else
-        {
-            playerName = playername;
-            RpcSendPlayerName();
-        }
+        playerName = playername;
+        RpcSendPlayerName();
     }
 
 
@@ -120,14 +116,9 @@ public class PlayerManager : NetworkBehaviour
     }
 
 
-    public void SendName(string playername)
+    public void SendName(string playername, int playerSkin)
     {
-        CmdScrPlayerName(playername, roomManager.playerSkin);
-        PlayFabClientAPI.UpdateUserData(new UpdateUserDataRequest()
-        {
-            Data = new Dictionary<string, string>() {
-                        {"Connected_To_Server", "ServerTest"} }
-        }, results => { }, failure => { });
+        CmdScrPlayerName(playername, playerSkin);
     }
 
 
@@ -137,7 +128,7 @@ public class PlayerManager : NetworkBehaviour
     {
         playerNameMesh.text = playername;
         player.GetComponent<Renderer>().material = roomManager.skins[playerSkin];
-        SkinColor = playerSkin;
+        //SkinColor = playerSkin;
 
         chatSystem.playerName = playername;
         RpcScrPlayerName(playername, playerSkin);
@@ -148,7 +139,7 @@ public class PlayerManager : NetworkBehaviour
     {
         playerNameMesh.text = playername;
         player.GetComponent<Renderer>().material = roomManager.skins[playerSkin];
-        SkinColor = playerSkin;
+        //SkinColor = playerSkin;
 
         chatSystem.playerName = playername;
     }
@@ -201,6 +192,14 @@ public class PlayerManager : NetworkBehaviour
         {
             Arrived();
         }
+    }
+
+    [Client]
+    void MakeBoldNameForLocalClient()
+    {
+        playerNameMesh.fontStyle = FontStyles.Bold;
+        PlayerCircle.gameObject.SetActive(true);
+
     }
 
 }

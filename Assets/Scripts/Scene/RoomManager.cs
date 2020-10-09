@@ -24,39 +24,48 @@ public class RoomManager : MonoBehaviour
     private void Start()
     {
         Application.targetFrameRate = targetFrameRate;
+        LookForPlayer();
     }
 
 
-    void LateUpdate()
+
+    void LookForPlayer()
     {
         if (NetworkManager.singleton.isNetworkActive)
         {
             if (LocalPlayer == null)
             {
                 if (ClientScene.localPlayer == null)
-                    return;
-
-                LocalPlayer = ClientScene.localPlayer.GetComponent<PlayerManager>();
-                if (LocalPlayer != null)
                 {
-                    ThisPlayerJoined();
-                    //Invoke("ThisPlayerJoined", 0.1f);
+                    Invoke("LookForPlayer", 0f);
+                }
+                else
+                {
+                    LocalPlayer = ClientScene.localPlayer.GetComponent<PlayerManager>();
+                    if (LocalPlayer != null)
+                    {
+                        ThisPlayerJoined();
+                        //Invoke("ThisPlayerJoined", 0.1f);
+                    }
                 }
             }
             else
             {
-
+                Invoke("LookForPlayer", 0f);
             }
         }
-        else
+        else if (!NetworkManager.singleton.isNetworkActive)
         {
+            Invoke("LookForPlayer", 0f);
         }
+
+
     }
 
 
     public void SendNameToClients()
     {
-        LocalPlayer.SendName(playerName);
+        LocalPlayer.SendName(playerName, playerSkin);
     }
 
     void ThisPlayerJoined()
@@ -75,7 +84,6 @@ public class RoomManager : MonoBehaviour
             if (result2.Data.ContainsKey("PlayerCurrentColor"))
             {
                 playerSkin = int.Parse(result2.Data["PlayerCurrentColor"].Value);
-                //Debug.Log(playerSkin);
                 LocalPlayer.CmdReady(playerName);
             }
             else if (result2.Data.ContainsKey("PlayerOwnedColors"))
@@ -123,6 +131,6 @@ public class RoomManager : MonoBehaviour
 
     public void ChangeRoom(string Name)
     {
-        LocalPlayer.SendName(playerName); // In the future also send the server Name;
+        LocalPlayer.SendName(playerName, playerSkin); // In the future also send the server Name;
     }
 }
