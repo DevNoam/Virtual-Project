@@ -10,17 +10,12 @@ using PlayFab.ClientModels;
 
 public class PlayerManager : NetworkBehaviour
 {
-    /// <summary>
     /// Movement
-    /// </summary>
-    /// 
     public NavMeshAgent navMeshController;
     public Camera cam;
 
     public Transform player;
-    /// <summary>
     /// Player Name
-    /// </summary>
     [SyncVar]
     public string playerName;
     public TextMeshPro playerNameMesh;
