@@ -83,7 +83,8 @@ namespace PlayFab.MultiplayerModels
         ChinaEast2,
         ChinaNorth2,
         SouthAfricaNorth,
-        CentralUsEuap
+        CentralUsEuap,
+        WestCentralUs
     }
 
     public enum AzureVmFamily
@@ -185,6 +186,10 @@ namespace PlayFab.MultiplayerModels
         /// </summary>
         public string Region;
         /// <summary>
+        /// Optional settings to set the standby target to specified values during the supplied schedules
+        /// </summary>
+        public ScheduledStandbySettings ScheduledStandbySettings;
+        /// <summary>
         /// The target number of standby multiplayer servers for the region.
         /// </summary>
         public int StandbyServers;
@@ -210,6 +215,10 @@ namespace PlayFab.MultiplayerModels
         /// The build region.
         /// </summary>
         public string Region;
+        /// <summary>
+        /// Optional settings to set the standby target to specified values during the supplied schedules
+        /// </summary>
+        public ScheduledStandbySettings ScheduledStandbySettings;
         /// <summary>
         /// The number of standby multiplayer servers for the region.
         /// </summary>
@@ -817,6 +826,11 @@ namespace PlayFab.MultiplayerModels
         /// </summary>
         public InstrumentationConfiguration InstrumentationConfiguration;
         /// <summary>
+        /// Indicates whether this build will be created using the OS Preview versionPreview OS is recommended for dev builds to
+        /// detect any breaking changes before they are released to retail. Retail builds should set this value to false.
+        /// </summary>
+        public bool? IsOSPreview;
+        /// <summary>
         /// Metadata to tag the build. The keys are case insensitive. The build metadata is made available to the server through
         /// Game Server SDK (GSDK).Constraints: Maximum number of keys: 30, Maximum key length: 50, Maximum value length: 100
         /// </summary>
@@ -894,6 +908,11 @@ namespace PlayFab.MultiplayerModels
         /// The instrumentation configuration for this build.
         /// </summary>
         public InstrumentationConfiguration InstrumentationConfiguration;
+        /// <summary>
+        /// Indicates whether this build will be created using the OS Preview versionPreview OS is recommended for dev builds to
+        /// detect any breaking changes before they are released to retail. Retail builds should set this value to false.
+        /// </summary>
+        public bool? IsOSPreview;
         /// <summary>
         /// The metadata of the build.
         /// </summary>
@@ -2499,11 +2518,6 @@ namespace PlayFab.MultiplayerModels
         /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
         /// </summary>
         public Dictionary<string,string> CustomTags;
-        /// <summary>
-        /// Qos servers version
-        /// </summary>
-        [Obsolete("No longer available", false)]
-        public string Version;
     }
 
     [Serializable]
@@ -2533,39 +2547,15 @@ namespace PlayFab.MultiplayerModels
         /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
         /// </summary>
         public Dictionary<string,string> CustomTags;
+        /// <summary>
+        /// Indicates that the response should contain Qos servers for all regions, including those where there are no builds
+        /// deployed for the title.
+        /// </summary>
+        public bool? IncludeAllRegions;
     }
 
     [Serializable]
     public class ListQosServersForTitleResponse : PlayFabResultCommon
-    {
-        /// <summary>
-        /// The page size on the response.
-        /// </summary>
-        public int PageSize;
-        /// <summary>
-        /// The list of QoS servers.
-        /// </summary>
-        public List<QosServer> QosServers;
-        /// <summary>
-        /// The skip token for the paged response.
-        /// </summary>
-        public string SkipToken;
-    }
-
-    /// <summary>
-    /// Returns a list of quality of service servers.
-    /// </summary>
-    [Serializable]
-    public class ListQosServersRequest : PlayFabRequestCommon
-    {
-        /// <summary>
-        /// The optional custom tags associated with the request (e.g. build number, external trace identifiers, etc.).
-        /// </summary>
-        public Dictionary<string,string> CustomTags;
-    }
-
-    [Serializable]
-    public class ListQosServersResponse : PlayFabResultCommon
     {
         /// <summary>
         /// The page size on the response.
@@ -3132,6 +3122,49 @@ namespace PlayFab.MultiplayerModels
         /// The username for accessing the container registry.
         /// </summary>
         public string Username;
+    }
+
+    [Serializable]
+    public class Schedule : PlayFabBaseModel
+    {
+        /// <summary>
+        /// A short description about this schedule. For example, "Game launch on July 15th".
+        /// </summary>
+        public string Description;
+        /// <summary>
+        /// The date and time in UTC at which the schedule ends. If IsRecurringWeekly is true, this schedule will keep renewing for
+        /// future weeks until disabled or removed.
+        /// </summary>
+        public DateTime EndTime;
+        /// <summary>
+        /// Disables the schedule.
+        /// </summary>
+        public bool IsDisabled;
+        /// <summary>
+        /// If true, the StartTime and EndTime will get renewed every week.
+        /// </summary>
+        public bool IsRecurringWeekly;
+        /// <summary>
+        /// The date and time in UTC at which the schedule starts.
+        /// </summary>
+        public DateTime StartTime;
+        /// <summary>
+        /// The standby target to maintain for the duration of the schedule.
+        /// </summary>
+        public int TargetStandby;
+    }
+
+    [Serializable]
+    public class ScheduledStandbySettings : PlayFabBaseModel
+    {
+        /// <summary>
+        /// When true, scheduled standby will be enabled
+        /// </summary>
+        public bool IsEnabled;
+        /// <summary>
+        /// A list of non-overlapping schedules
+        /// </summary>
+        public List<Schedule> ScheduleList;
     }
 
     [Serializable]

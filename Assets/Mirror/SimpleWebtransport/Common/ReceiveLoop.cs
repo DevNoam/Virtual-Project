@@ -9,22 +9,52 @@ namespace Mirror.SimpleWeb
 {
     internal static class ReceiveLoop
     {
-        public static void Loop(Connection conn, int maxMessageSize, bool expectMask, ConcurrentQueue<Message> queue, Action<Connection> closeCallback, BufferPool bufferPool)
+        public struct Config
         {
+            public readonly Connection conn;
+            public readonly int maxMessageSize;
+            public readonly bool expectMask;
+            public readonly ConcurrentQueue<Message> queue;
+            public readonly BufferPool bufferPool;
+
+            public Config(Connection conn, int maxMessageSize, bool expectMask, ConcurrentQueue<Message> queue, BufferPool bufferPool)
+            {
+                this.conn = conn ?? throw new ArgumentNullException(nameof(conn));
+                this.maxMessageSize = maxMessageSize;
+                this.expectMask = expectMask;
+                this.queue = queue ?? throw new ArgumentNullException(nameof(queue));
+                this.bufferPool = bufferPool ?? throw new ArgumentNullException(nameof(bufferPool));
+            }
+
+            public void Deconstruct(out Connection conn, out int maxMessageSize, out bool expectMask, out ConcurrentQueue<Message> queue, out BufferPool bufferPool)
+            {
+                conn = this.conn;
+                maxMessageSize = this.maxMessageSize;
+                expectMask = this.expectMask;
+                queue = this.queue;
+                bufferPool = this.bufferPool;
+            }
+        }
+
+        public static void Loop(Config config)
+        {
+            (Connection conn, int maxMessageSize, bool expectMask, ConcurrentQueue<Message> queue, BufferPool _) = config;
+
             byte[] readBuffer = new byte[Constants.HeaderSize + (expectMask ? Constants.MaskSize : 0) + maxMessageSize];
             try
             {
                 try
                 {
                     TcpClient client = conn.client;
-                    Stream stream = conn.stream;
 
                     while (client.Connected)
                     {
-                        bool success = ReadOneMessage(queue, closeCallback, conn, stream, readBuffer, maxMessageSize, expectMask, bufferPool);
+                        bool success = ReadOneMessage(config, readBuffer);
                         if (!success)
                             break;
                     }
+
+                    Log.Info($"{conn} Not Connected");
                 }
                 catch (Exception)
                 {
@@ -33,22 +63,26 @@ namespace Mirror.SimpleWeb
                     throw;
                 }
             }
-            catch (ThreadInterruptedException) { Log.Info($"ReceiveLoop {conn} ThreadInterrupted"); }
-            catch (ThreadAbortException) { Log.Info($"ReceiveLoop {conn} ThreadAbort"); }
-            catch (ObjectDisposedException) { Log.Info($"ReceiveLoop {conn} Stream closed"); }
+            catch (ThreadInterruptedException e) { Log.InfoException(e); }
+            catch (ThreadAbortException e) { Log.InfoException(e); }
+            catch (ObjectDisposedException e) { Log.InfoException(e); }
             catch (ReadHelperException e)
             {
-                Log.Info($"ReceiveLoop {conn.connId} read failed: {e.Message}");
+                // this could happen if client sends bad message
+                Log.InfoException(e);
+                queue.Enqueue(new Message(conn.connId, e));
             }
             catch (SocketException e)
             {
                 // this could happen if wss client closes stream
                 Log.Warn($"ReceiveLoop SocketException\n{e.Message}", false);
+                queue.Enqueue(new Message(conn.connId, e));
             }
             catch (IOException e)
             {
                 // this could happen if client disconnects
                 Log.Warn($"ReceiveLoop IOException\n{e.Message}", false);
+                queue.Enqueue(new Message(conn.connId, e));
             }
             catch (InvalidDataException e)
             {
@@ -62,17 +96,20 @@ namespace Mirror.SimpleWeb
             }
             finally
             {
-                closeCallback.Invoke(conn);
+                conn.Dispose();
             }
         }
 
-        static bool ReadOneMessage(ConcurrentQueue<Message> queue, Action<Connection> closeCallback, Connection conn, Stream stream, byte[] buffer, int maxMessageSize, bool expectMask, BufferPool bufferPool)
+        static bool ReadOneMessage(Config config, byte[] buffer)
         {
-            Log.Verbose($"Message From {conn}");
+            (Connection conn, int maxMessageSize, bool expectMask, ConcurrentQueue<Message> queue, BufferPool bufferPool) = config;
+            Stream stream = conn.stream;
+
             int offset = 0;
             // read 2
             offset = ReadHelper.Read(stream, buffer, offset, Constants.HeaderMinSize);
-
+            // log after first blocking call
+            Log.Verbose($"Message From {conn}");
 
             if (MessageProcessor.NeedToReadShortLength(buffer))
             {
@@ -95,35 +132,70 @@ namespace Mirror.SimpleWeb
             offset = ReadHelper.Read(stream, buffer, offset, payloadLength);
 
             int msgOffset = offset - payloadLength;
+
+            Log.DumpBuffer($"Raw Header", buffer, 0, msgOffset);
+            switch (opcode)
+            {
+                case 2:
+                    HandleArrayMessage(config, buffer, msgOffset, payloadLength);
+                    break;
+                case 8:
+                    HandleCloseMessage(config, buffer, msgOffset, payloadLength);
+                    break;
+            }
+
+            return true;
+        }
+
+        static void HandleArrayMessage(Config config, byte[] buffer, int msgOffset, int payloadLength)
+        {
+            (Connection conn, int _, bool expectMask, ConcurrentQueue<Message> queue, BufferPool bufferPool) = config;
+
+            ArrayBuffer arrayBuffer = bufferPool.Take(payloadLength);
+
             if (expectMask)
             {
-                int maskOffset = offset - payloadLength - Constants.MaskSize;
+                int maskOffset = msgOffset - Constants.MaskSize;
+                // write the result of toggle directly into arrayBuffer to avoid 2nd copy call
+                MessageProcessor.ToggleMask(buffer, msgOffset, arrayBuffer, payloadLength, buffer, maskOffset);
+            }
+            else
+            {
+                arrayBuffer.CopyFrom(buffer, msgOffset, payloadLength);
+            }
+
+            // dump after mask off
+            Log.DumpBuffer($"Message", arrayBuffer);
+
+            queue.Enqueue(new Message(conn.connId, arrayBuffer));
+        }
+
+        static void HandleCloseMessage(Config config, byte[] buffer, int msgOffset, int payloadLength)
+        {
+            (Connection conn, int _, bool expectMask, ConcurrentQueue<Message> _, BufferPool _) = config;
+
+            if (expectMask)
+            {
+                int maskOffset = msgOffset - Constants.MaskSize;
                 MessageProcessor.ToggleMask(buffer, msgOffset, payloadLength, buffer, maskOffset);
             }
 
             // dump after mask off
-            Log.DumpBuffer($"Raw Header", buffer, 0, msgOffset);
             Log.DumpBuffer($"Message", buffer, msgOffset, payloadLength);
 
-            HandleMessage(queue, closeCallback, opcode, conn, buffer, msgOffset, payloadLength, bufferPool);
-            return true;
+            Log.Info($"Close: {GetCodeCode(buffer, msgOffset)} message:{GetCloseMessage(buffer, msgOffset, payloadLength)}");
+
+            conn.Dispose();
         }
 
-        static void HandleMessage(ConcurrentQueue<Message> queue, Action<Connection> closeCallback, int opcode, Connection conn, byte[] msg, int offset, int length, BufferPool bufferPool)
+        static string GetCloseMessage(byte[] buffer, int msgOffset, int payloadLength)
         {
-            if (opcode == 2)
-            {
-                ArrayBuffer buffer = bufferPool.Take(length);
+            return Encoding.UTF8.GetString(buffer, msgOffset + 2, payloadLength - 2);
+        }
 
-                buffer.CopyFrom(msg, offset, length);
-
-                queue.Enqueue(new Message(conn.connId, buffer));
-            }
-            else if (opcode == 8)
-            {
-                Log.Info($"Close: {msg[offset + 0] << 8 | msg[offset + 1]} message:{Encoding.UTF8.GetString(msg, offset + 2, length - 2)}");
-                closeCallback.Invoke(conn);
-            }
+        static int GetCodeCode(byte[] buffer, int msgOffset)
+        {
+            return buffer[msgOffset + 0] << 8 | buffer[msgOffset + 1];
         }
     }
 }
