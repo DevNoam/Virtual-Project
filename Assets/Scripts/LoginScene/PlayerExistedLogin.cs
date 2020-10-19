@@ -17,7 +17,7 @@ public class PlayerExistedLogin : MonoBehaviour
     {
         playerName = PlayerPrefs.GetString("USERNAME");
         playerNametext.text = playerName.ToUpper();
-        playfabLogin = GameObject.Find("NetworkManager").GetComponent<PlayFabLogin>();
+        playfabLogin = GameObject.Find("Manager").GetComponent<PlayFabLogin>();
     }
 
 

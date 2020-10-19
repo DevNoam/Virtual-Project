@@ -28,21 +28,21 @@ namespace Mirror.SimpleWeb
         }
 
         [Conditional(SIMPLEWEB_LOG_ENABLED)]
-        public static void DumpBuffer(byte[] buffer, int offset, int length)
-        {
-            if (level < Levels.verbose)
-                return;
-
-            logger.Log($"VERBOSE: <color=blue>{BufferToString(buffer, offset, length)}</color>");
-        }
-
-        [Conditional(SIMPLEWEB_LOG_ENABLED)]
         public static void DumpBuffer(string label, byte[] buffer, int offset, int length)
         {
             if (level < Levels.verbose)
                 return;
 
-            logger.Log($"VERBOSE: <color=blue>{label}: {BufferToString(buffer, offset, length)}</color>");
+            logger.Log(LogType.Log, $"VERBOSE: <color=blue>{label}: {BufferToString(buffer, offset, length)}</color>");
+        }
+
+        [Conditional(SIMPLEWEB_LOG_ENABLED)]
+        public static void DumpBuffer(string label, ArrayBuffer arrayBuffer)
+        {
+            if (level < Levels.verbose)
+                return;
+
+            logger.Log(LogType.Log, $"VERBOSE: <color=blue>{label}: {BufferToString(arrayBuffer.array, 0, arrayBuffer.count)}</color>");
         }
 
         [Conditional(SIMPLEWEB_LOG_ENABLED)]
@@ -52,9 +52,9 @@ namespace Mirror.SimpleWeb
                 return;
 
             if (showColor)
-                logger.Log($"VERBOSE: <color=blue>{msg}</color>");
+                logger.Log(LogType.Log, $"VERBOSE: <color=blue>{msg}</color>");
             else
-                logger.Log($"VERBOSE: {msg}");
+                logger.Log(LogType.Log, $"VERBOSE: {msg}");
         }
 
         [Conditional(SIMPLEWEB_LOG_ENABLED)]
@@ -64,9 +64,23 @@ namespace Mirror.SimpleWeb
                 return;
 
             if (showColor)
-                logger.Log($"INFO: <color=blue>{msg}</color>");
+                logger.Log(LogType.Log, $"INFO: <color=blue>{msg}</color>");
             else
-                logger.Log($"INFO: {msg}");
+                logger.Log(LogType.Log, $"INFO: {msg}");
+        }
+
+        /// <summary>
+        /// An expected Exception was caught, useful for debugging but not important
+        /// </summary>
+        /// <param name="msg"></param>
+        /// <param name="showColor"></param>
+        [Conditional(SIMPLEWEB_LOG_ENABLED)]
+        public static void InfoException(Exception e)
+        {
+            if (level < Levels.info)
+                return;
+
+            logger.Log(LogType.Log, $"INFO_EXCEPTION: <color=blue>{e.GetType().Name}</color> Message: {e.Message}");
         }
 
         [Conditional(SIMPLEWEB_LOG_ENABLED), Conditional(DEBUG)]
@@ -76,9 +90,9 @@ namespace Mirror.SimpleWeb
                 return;
 
             if (showColor)
-                logger.LogWarning($"WARN: <color=orange>{msg}</color>");
+                logger.Log(LogType.Warning, $"WARN: <color=orange>{msg}</color>");
             else
-                logger.LogWarning($"WARN: {msg}");
+                logger.Log(LogType.Warning, $"WARN: {msg}");
         }
 
         [Conditional(SIMPLEWEB_LOG_ENABLED), Conditional(DEBUG)]
@@ -88,18 +102,15 @@ namespace Mirror.SimpleWeb
                 return;
 
             if (showColor)
-                logger.LogError($"ERROR: <color=red>{msg}</color>");
+                logger.Log(LogType.Error, $"ERROR: <color=red>{msg}</color>");
             else
-                logger.LogError($"ERROR: {msg}");
+                logger.Log(LogType.Error, $"ERROR: {msg}");
         }
 
-        [Conditional(SIMPLEWEB_LOG_ENABLED), Conditional(DEBUG)]
         public static void Exception(Exception e)
         {
-            if (level < Levels.error)
-                return;
-
-            logger.LogError($"EXCEPTION: <color=red>{e.GetType().Name}</color> Message: {e.Message}");
+            // always log Exceptions
+            logger.Log(LogType.Error, $"EXCEPTION: <color=red>{e.GetType().Name}</color> Message: {e.Message}");
         }
     }
 }

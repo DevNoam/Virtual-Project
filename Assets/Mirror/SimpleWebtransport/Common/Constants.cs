@@ -1,3 +1,5 @@
+using System.Text;
+
 namespace Mirror.SimpleWeb
 {
     /// <summary>
@@ -59,6 +61,8 @@ namespace Mirror.SimpleWeb
         public const string HandshakeGUID = "258EAFA5-E914-47DA-95CA-C5AB0DC85B11";
 
         public static readonly int HandshakeGUIDLength = HandshakeGUID.Length;
+
+        public static readonly byte[] HandshakeGUIDBytes = Encoding.UTF8.GetBytes(HandshakeGUID);
 
         /// <summary>
         /// Handshake messages will end with \r\n\r\n

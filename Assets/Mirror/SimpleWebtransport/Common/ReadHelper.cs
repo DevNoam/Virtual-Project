@@ -1,18 +1,13 @@
 using System;
 using System.IO;
+using System.Runtime.Serialization;
 
 namespace Mirror.SimpleWeb
 {
-    internal class ReadHelperException : Exception
-    {
-        public ReadHelperException(string message) : base(message) { }
-    }
-
     public static class ReadHelper
     {
         /// <returns>outOffset + length</returns>
         /// <exception cref="ReadHelperException"></exception>
-        /// <exception cref="IOException"></exception>
         public static int Read(Stream stream, byte[] outBuffer, int outOffset, int length)
         {
             int received = 0;
@@ -112,7 +107,7 @@ namespace Mirror.SimpleWeb
             }
             catch (IOException e)
             {
-                Log.Info($"SafeRead IOException\n{e.Message}", false);
+                Log.InfoException(e);
                 return null;
             }
             catch (Exception e)
@@ -120,6 +115,16 @@ namespace Mirror.SimpleWeb
                 Log.Exception(e);
                 return null;
             }
+        }
+    }
+
+    [Serializable]
+    public class ReadHelperException : Exception
+    {
+        public ReadHelperException(string message) : base(message) { }
+
+        protected ReadHelperException(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
         }
     }
 }

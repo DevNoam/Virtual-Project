@@ -2214,6 +2214,7 @@ namespace PlayFab.AdminModels
         TitleDataOverrideNotFound,
         DuplicateKeys,
         WasNotCreatedWithCloudRoot,
+        LegacyMultiplayerServersDeprecated,
         MatchmakingEntityInvalid,
         MatchmakingPlayerAttributesInvalid,
         MatchmakingQueueNotFound,
@@ -2294,8 +2295,22 @@ namespace PlayFab.AdminModels
         ExperimentationInvalidDuration,
         ExperimentationMaxExperimentsReached,
         ExperimentationExperimentSchedulingInProgress,
+        ExperimentationInvalidEndDate,
+        ExperimentationInvalidStartDate,
+        ExperimentationMaxDurationExceeded,
+        ExperimentationExclusionGroupNotFound,
+        ExperimentationExclusionGroupInsufficientCapacity,
+        ExperimentationExclusionGroupCannotDelete,
+        ExperimentationExclusionGroupInvalidTrafficAllocation,
         MaxActionDepthExceeded,
         TitleNotOnUpdatedPricingPlan,
+        SegmentManagementTitleNotInFlight,
+        SegmentManagementNoExpressionTree,
+        SegmentManagementTriggerActionCountOverLimit,
+        SegmentManagementSegmentCountOverLimit,
+        SegmentManagementInvalidSegmentId,
+        SegmentManagementInvalidInput,
+        SegmentManagementInvalidSegmentName,
         SnapshotNotFound
     }
 
@@ -2457,7 +2472,8 @@ namespace PlayFab.AdminModels
     public class GetContentUploadUrlResult : PlayFabResultCommon
     {
         /// <summary>
-        /// URL for uploading content via HTTP PUT method. The URL will expire in approximately one hour.
+        /// URL for uploading content via HTTP PUT method. The URL requires the 'x-ms-blob-type' header to have the value
+        /// 'BlockBlob'. The URL will expire in approximately one hour.
         /// </summary>
         public string URL;
     }
@@ -3140,8 +3156,8 @@ namespace PlayFab.AdminModels
         /// </summary>
         public List<string> Keys;
         /// <summary>
-        /// Name of the override. This value is ignored when used by the game client; otherwise, the overrides are applied
-        /// automatically to the title data.
+        /// Optional field that specifies the name of an override. This value is ignored when used by the game client; otherwise,
+        /// the overrides are applied automatically to the title data.
         /// </summary>
         public string OverrideLabel;
     }
@@ -5554,7 +5570,7 @@ namespace PlayFab.AdminModels
     /// <summary>
     /// Updates permissions for your title. Policies affect what is allowed to happen on your title. Your policy is a collection
     /// of statements that, together, govern particular area for your title. Today, the only allowed policy is called
-    /// 'ApiPolicy' and it governs what calls players are allowed to make.
+    /// 'ApiPolicy' and it governs what api calls are allowed.
     /// </summary>
     [Serializable]
     public class UpdatePolicyRequest : PlayFabRequestCommon

@@ -1,38 +1,26 @@
 using System;
 using System.Net.Sockets;
-using System.Security.Cryptography;
 using System.Threading;
 
 namespace Mirror.SimpleWeb
 {
     public class WebSocketClientStandAlone : SimpleWebClient
     {
-        readonly object lockObject = new object();
-        bool hasClosed;
-
         readonly ClientSslHelper sslHelper;
         readonly ClientHandshake handshake;
-        readonly RNGCryptoServiceProvider random;
+        readonly TcpConfig tcpConfig;
+        Connection conn;
 
-        private Connection conn;
-        readonly int sendTimeout;
-        readonly int receiveTimeout;
 
-        internal WebSocketClientStandAlone(int maxMessageSize, int maxMessagesPerTick, int sendTimeout, int receiveTimeout) : base(maxMessageSize, maxMessagesPerTick)
+        internal WebSocketClientStandAlone(int maxMessageSize, int maxMessagesPerTick, TcpConfig tcpConfig) : base(maxMessageSize, maxMessagesPerTick)
         {
 #if UNITY_WEBGL && !UNITY_EDITOR
             throw new NotSupportedException();
 #else
             sslHelper = new ClientSslHelper();
             handshake = new ClientHandshake();
-            random = new RNGCryptoServiceProvider();
-            this.sendTimeout = sendTimeout;
-            this.receiveTimeout = receiveTimeout;
+            this.tcpConfig = tcpConfig;
 #endif
-        }
-        ~WebSocketClientStandAlone()
-        {
-            random?.Dispose();
         }
 
         public override void Connect(string address)
@@ -48,9 +36,8 @@ namespace Mirror.SimpleWeb
             try
             {
                 TcpClient client = new TcpClient();
-                client.NoDelay = true;
-                client.ReceiveTimeout = receiveTimeout;
-                client.SendTimeout = sendTimeout;
+                tcpConfig.ApplyTo(client);
+
                 Uri uri = new Uri(address);
                 try
                 {
@@ -62,20 +49,22 @@ namespace Mirror.SimpleWeb
                     throw;
                 }
 
-                conn = new Connection(client);
+                conn = new Connection(client, AfterConnectionDisposed);
                 conn.receiveThread = Thread.CurrentThread;
 
                 bool success = sslHelper.TryCreateStream(conn, uri);
                 if (!success)
                 {
-                    conn.Close();
+                    Log.Warn("Failed to create Stream");
+                    conn.Dispose();
                     return;
                 }
 
                 success = handshake.TryHandshake(conn, uri);
                 if (!success)
                 {
-                    conn.Close();
+                    Log.Warn("Failed Handshake");
+                    conn.Dispose();
                     return;
                 }
 
@@ -87,46 +76,47 @@ namespace Mirror.SimpleWeb
 
                 Thread sendThread = new Thread(() =>
                 {
-                    int bufferSize = Constants.HeaderSize + Constants.MaskSize + maxMessageSize;
-                    SendLoop.Loop(conn, bufferSize, true, _ => CloseConnection());
+                    SendLoop.Config sendConfig = new SendLoop.Config(
+                        conn,
+                        bufferSize: Constants.HeaderSize + Constants.MaskSize + maxMessageSize,
+                        setMask: true);
+
+                    SendLoop.Loop(sendConfig);
                 });
 
                 conn.sendThread = sendThread;
                 sendThread.IsBackground = true;
                 sendThread.Start();
 
-                ReceiveLoop.Loop(conn, maxMessageSize, false, receiveQueue, _ => CloseConnection(), bufferPool);
+                ReceiveLoop.Config config = new ReceiveLoop.Config(conn,
+                    maxMessageSize,
+                    false,
+                    receiveQueue,
+                    bufferPool);
+                ReceiveLoop.Loop(config);
             }
-            catch (ThreadInterruptedException) { Log.Info("acceptLoop ThreadInterrupted"); }
-            catch (ThreadAbortException) { Log.Info("acceptLoop ThreadAbort"); }
+            catch (ThreadInterruptedException e) { Log.InfoException(e); }
+            catch (ThreadAbortException e) { Log.InfoException(e); }
             catch (Exception e) { Log.Exception(e); }
             finally
             {
                 // close here incase connect fails
-                CloseConnection();
+                conn.Dispose();
             }
         }
 
-        void CloseConnection()
+        void AfterConnectionDisposed(Connection conn)
         {
-            conn?.Close();
-
-            if (hasClosed) { return; }
-
-            // lock so that hasClosed can be safely set
-            lock (lockObject)
-            {
-                hasClosed = true;
-
-                state = ClientState.NotConnected;
-                // make sure Disconnected event is only called once
-                receiveQueue.Enqueue(new Message(EventType.Disconnected));
-            }
+            state = ClientState.NotConnected;
+            // make sure Disconnected event is only called once
+            receiveQueue.Enqueue(new Message(EventType.Disconnected));
         }
 
         public override void Disconnect()
         {
-            CloseConnection();
+            state = ClientState.Disconnecting;
+            Log.Info("Disconnect Called");
+            conn.Dispose();
         }
 
         public override void Send(ArraySegment<byte> segment)
