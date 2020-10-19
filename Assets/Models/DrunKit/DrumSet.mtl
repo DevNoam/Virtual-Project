@@ -1,0 +1,15 @@
+# File produced by Open Asset Import Library (http://www.assimp.sf.net)
+# (assimp v3.1.206520482)
+
+newmtl Wood
+illum 1
+
+newmtl Skin
+illum 1
+
+newmtl Metalness
+illum 1
+
+newmtl Crash
+illum 1
+

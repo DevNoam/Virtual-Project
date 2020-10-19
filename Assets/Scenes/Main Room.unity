@@ -337,7 +337,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: b52a5f715c26a69438819a8185d925d9, type: 2}
   playerSkin: 0
   playerName: 
-  targetFrameRate: 350
+  targetFrameRate: 60
   ChatLog: {fileID: 681047415880293999}
   LoadingGUI: {fileID: 706883696}
 --- !u!114 &40919616
@@ -6995,8 +6995,8 @@ GameObject:
   - component: {fileID: 1927467919}
   - component: {fileID: 1927467918}
   - component: {fileID: 1927467921}
-  - component: {fileID: 1927467923}
   - component: {fileID: 1927467917}
+  - component: {fileID: 1927467923}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -7013,7 +7013,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1927467916}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0110f245bfcfc7d459681f7bd9ebc590, type: 3}
+  m_Script: {fileID: 11500000, guid: 5f039183eda8945448b822a77e2a9d0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   OnClientConnected:
@@ -7041,16 +7041,11 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   port: 7778
-  maxMessageSize: 16384
-  noDelay: 1
-  sendTimeout: 5000
-  receiveTimeout: 20000
-  serverMaxMessagesPerTick: 10000
-  clientMaxMessagesPerTick: 1000
-  sslEnabled: 1
-  sslCertJson: ./cert.json
-  sslProtocols: 3312
-  _logLevels: 0
+  NoDelay: 1
+  Secure: 0
+  CertificatePath: assets/server.pfx
+  CertificatePassword: 1q2w3e4r
+  EnabledSslProtocols: -1
 --- !u!114 &1927467918
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7082,20 +7077,19 @@ MonoBehaviour:
   runInBackground: 1
   autoStartServerBuild: 1
   showDebugMessages: 0
-  serverTickRate: 10
+  serverTickRate: 15
   offlineScene: Assets/Scenes/Offline&Online.unity
   onlineScene: 
   transport: {fileID: 1927467917}
   networkAddress: earthstars.store
   maxConnections: 5
   disconnectInactiveConnections: 1
-  disconnectInactiveTimeout: 6000
+  disconnectInactiveTimeout: 600
   authenticator: {fileID: 0}
   playerPrefab: {fileID: 1818629808934478575, guid: 75db1a39e61f02142a3c72bdba04dc01, type: 3}
   autoCreatePlayer: 1
   playerSpawnMethod: 0
-  spawnPrefabs:
-  - {fileID: 1818629808934478575, guid: 75db1a39e61f02142a3c72bdba04dc01, type: 3}
+  spawnPrefabs: []
 --- !u!4 &1927467920
 Transform:
   m_ObjectHideFlags: 0
@@ -9422,7 +9416,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -307, y: 0.00006484985}
+  m_AnchoredPosition: {x: -307, y: -0.000038146973}
   m_SizeDelta: {x: 614, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &2872653730047822303
@@ -11318,7 +11312,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5026293578599753675}
   m_HandleRect: {fileID: 1154850046355889001}
   m_Direction: 2
-  m_Value: 0.99999976
+  m_Value: 1.0000024
   m_Size: 0.47787905
   m_NumberOfSteps: 0
   m_OnValueChanged:
