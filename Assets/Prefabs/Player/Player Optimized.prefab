@@ -488,8 +488,8 @@ GameObject:
   - component: {fileID: 77118258497100228}
   - component: {fileID: 626930011625829552}
   - component: {fileID: 4351148582533077677}
-  - component: {fileID: 4235905023288286593}
   - component: {fileID: 8808219740037510286}
+  - component: {fileID: 249322818427047434}
   m_Layer: 0
   m_Name: Player Optimized
   m_TagString: Player
@@ -707,7 +707,20 @@ MonoBehaviour:
   localRotationSensitivity: 0.01
   localScaleSensitivity: 0.01
   target: {fileID: 1818629808975089547}
---- !u!114 &4235905023288286593
+--- !u!65 &8808219740037510286
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1818629808934478575}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &249322818427047434
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -724,19 +737,6 @@ MonoBehaviour:
   visRange: 5
   visUpdateInterval: 1
   forceHidden: 0
---- !u!65 &8808219740037510286
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1818629808934478575}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1818629808975089543
 GameObject:
   m_ObjectHideFlags: 0
