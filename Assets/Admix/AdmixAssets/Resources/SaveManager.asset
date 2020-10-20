@@ -1,0 +1,232 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1407220144, guid: abf3c058d94959640bec02372a894b38, type: 3}
+  m_Name: SaveManager
+  m_EditorClassIdentifier: 
+  fileCache:
+    stamp: by 5f8f17c10814e900081d812c at Tuesday, October 20, 2020 8:39:17 PM
+    appId: 5f8f18530f968c0007fce481
+    appName: VirtualProject
+    versionId: 5f8f18530f968c0007fce482
+    versionStatus: 0
+    versionSeq: 0
+    sdkRev: 2000
+    scenesList:
+    - sceneName: Main Room
+      id: 5f8f1881e8436c00089428dd
+      currentScenePath: Assets/Scenes/Main Room.unity
+      pathsHistory:
+      - Assets/Scenes/Main Room.unity
+      placementsList:
+      - isSavedPlacement: 1
+        invalidReason: 
+        modelKey: 5ee7e9657cea8d42a8b60ac4
+        idInFile: 1308400955
+        placementType: 0
+        placementId: 5f8f20542b0ea70008ef9d82
+        placementName: DCJpPh9QOJF3l33nOQfP
+        placementDisplayName: Banner_1x2 (1)
+        sceneId: 5f8f1881e8436c00089428dd
+        textureResolution: {x: 300, y: 600}
+      - isSavedPlacement: 1
+        invalidReason: 
+        modelKey: 5ee7e9fb7cea8d42a8b60ac7
+        idInFile: 1820057974
+        placementType: 1
+        placementId: 5f8f1a2ffd23580008ae1189
+        placementName: srWHNP6L6GSLaF1F1k4J
+        placementDisplayName: Video_16x9
+        sceneId: 5f8f1881e8436c00089428dd
+        textureResolution: {x: 640, y: 360}
+      - isSavedPlacement: 1
+        invalidReason: 
+        modelKey: 5ee7e9757cea8d42a8b60ac5
+        idInFile: 2142515863
+        placementType: 0
+        placementId: 5f8f1e9e2b0ea70008ef9d7f
+        placementName: Adz4fmp9C1Qugk6Kszat
+        placementDisplayName: Banner_97x25
+        sceneId: 5f8f1881e8436c00089428dd
+        textureResolution: {x: 970, y: 250}
+      - isSavedPlacement: 1
+        invalidReason: 
+        modelKey: 5ee7e9657cea8d42a8b60ac4
+        idInFile: 142451531
+        placementType: 0
+        placementId: 5f8f20542b0ea70008ef9d81
+        placementName: Ndfd4bpkXcBk3fx1vyQ2
+        placementDisplayName: Banner_1x2
+        sceneId: 5f8f1881e8436c00089428dd
+        textureResolution: {x: 300, y: 600}
+  projectScanCache:
+    stamp: 
+    appId: 5f8f18530f968c0007fce481
+    appName: VirtualProject
+    versionId: 
+    versionStatus: 0
+    versionSeq: 0
+    sdkRev: 2000
+    scenesList:
+    - sceneName: Main Room
+      id: 5f8f1881e8436c00089428dd
+      currentScenePath: Assets/Scenes/Main Room.unity
+      pathsHistory: []
+      placementsList:
+      - isSavedPlacement: 1
+        invalidReason: 
+        modelKey: 5ee7e9657cea8d42a8b60ac4
+        idInFile: 1308400955
+        placementType: 0
+        placementId: 5f8f20542b0ea70008ef9d82
+        placementName: DCJpPh9QOJF3l33nOQfP
+        placementDisplayName: Banner_1x2 (1)
+        sceneId: 5f8f1881e8436c00089428dd
+        textureResolution: {x: 300, y: 600}
+      - isSavedPlacement: 1
+        invalidReason: 
+        modelKey: 5ee7e9fb7cea8d42a8b60ac7
+        idInFile: 1820057974
+        placementType: 1
+        placementId: 5f8f1a2ffd23580008ae1189
+        placementName: srWHNP6L6GSLaF1F1k4J
+        placementDisplayName: Video_16x9
+        sceneId: 5f8f1881e8436c00089428dd
+        textureResolution: {x: 640, y: 360}
+      - isSavedPlacement: 1
+        invalidReason: 
+        modelKey: 5ee7e9757cea8d42a8b60ac5
+        idInFile: 2142515863
+        placementType: 0
+        placementId: 5f8f1e9e2b0ea70008ef9d7f
+        placementName: Adz4fmp9C1Qugk6Kszat
+        placementDisplayName: Banner_97x25
+        sceneId: 5f8f1881e8436c00089428dd
+        textureResolution: {x: 970, y: 250}
+      - isSavedPlacement: 1
+        invalidReason: 
+        modelKey: 5ee7e9657cea8d42a8b60ac4
+        idInFile: 142451531
+        placementType: 0
+        placementId: 5f8f20542b0ea70008ef9d81
+        placementName: Ndfd4bpkXcBk3fx1vyQ2
+        placementDisplayName: Banner_1x2
+        sceneId: 5f8f1881e8436c00089428dd
+        textureResolution: {x: 300, y: 600}
+  remoteCache:
+    stamp: 
+    appId: 5f8f18530f968c0007fce481
+    appName: VirtualProject
+    versionId: 5f8f18530f968c0007fce482
+    versionStatus: 0
+    versionSeq: 0
+    sdkRev: 
+    scenesList:
+    - sceneName: Main Room
+      id: 5f8f1881e8436c00089428dd
+      currentScenePath: 
+      pathsHistory: []
+      placementsList:
+      - isSavedPlacement: 0
+        invalidReason: 
+        modelKey: 5ee7e9fb7cea8d42a8b60ac7
+        idInFile: 0
+        placementType: 1
+        placementId: 5f8f1a2ffd23580008ae1189
+        placementName: srWHNP6L6GSLaF1F1k4J
+        placementDisplayName: Video_16x9
+        sceneId: 5f8f1881e8436c00089428dd
+        textureResolution: {x: 0, y: 0}
+      - isSavedPlacement: 0
+        invalidReason: 
+        modelKey: 5ee7e9757cea8d42a8b60ac5
+        idInFile: 0
+        placementType: 0
+        placementId: 5f8f1e9e2b0ea70008ef9d7f
+        placementName: Adz4fmp9C1Qugk6Kszat
+        placementDisplayName: Banner_97x25
+        sceneId: 5f8f1881e8436c00089428dd
+        textureResolution: {x: 0, y: 0}
+      - isSavedPlacement: 0
+        invalidReason: 
+        modelKey: 5ee7e9657cea8d42a8b60ac4
+        idInFile: 0
+        placementType: 0
+        placementId: 5f8f20542b0ea70008ef9d81
+        placementName: Ndfd4bpkXcBk3fx1vyQ2
+        placementDisplayName: Banner_1x2
+        sceneId: 5f8f1881e8436c00089428dd
+        textureResolution: {x: 0, y: 0}
+      - isSavedPlacement: 0
+        invalidReason: 
+        modelKey: 5ee7e9657cea8d42a8b60ac4
+        idInFile: 0
+        placementType: 0
+        placementId: 5f8f20542b0ea70008ef9d82
+        placementName: DCJpPh9QOJF3l33nOQfP
+        placementDisplayName: Banner_1x2 (1)
+        sceneId: 5f8f1881e8436c00089428dd
+        textureResolution: {x: 0, y: 0}
+  remotePostSaveCache:
+    stamp: 
+    appId: 5f8f18530f968c0007fce481
+    appName: VirtualProject
+    versionId: 5f8f18530f968c0007fce482
+    versionStatus: 0
+    versionSeq: 0
+    sdkRev: 
+    scenesList:
+    - sceneName: Main Room
+      id: 5f8f1881e8436c00089428dd
+      currentScenePath: 
+      pathsHistory: []
+      placementsList:
+      - isSavedPlacement: 0
+        invalidReason: 
+        modelKey: 5ee7e9fb7cea8d42a8b60ac7
+        idInFile: 0
+        placementType: 1
+        placementId: 5f8f1a2ffd23580008ae1189
+        placementName: srWHNP6L6GSLaF1F1k4J
+        placementDisplayName: Video_16x9
+        sceneId: 5f8f1881e8436c00089428dd
+        textureResolution: {x: 0, y: 0}
+      - isSavedPlacement: 0
+        invalidReason: 
+        modelKey: 5ee7e9757cea8d42a8b60ac5
+        idInFile: 0
+        placementType: 0
+        placementId: 5f8f1e9e2b0ea70008ef9d7f
+        placementName: Adz4fmp9C1Qugk6Kszat
+        placementDisplayName: Banner_97x25
+        sceneId: 5f8f1881e8436c00089428dd
+        textureResolution: {x: 0, y: 0}
+      - isSavedPlacement: 0
+        invalidReason: 
+        modelKey: 5ee7e9657cea8d42a8b60ac4
+        idInFile: 0
+        placementType: 0
+        placementId: 5f8f20542b0ea70008ef9d81
+        placementName: Ndfd4bpkXcBk3fx1vyQ2
+        placementDisplayName: Banner_1x2
+        sceneId: 5f8f1881e8436c00089428dd
+        textureResolution: {x: 0, y: 0}
+      - isSavedPlacement: 0
+        invalidReason: 
+        modelKey: 5ee7e9657cea8d42a8b60ac4
+        idInFile: 0
+        placementType: 0
+        placementId: 5f8f20542b0ea70008ef9d82
+        placementName: DCJpPh9QOJF3l33nOQfP
+        placementDisplayName: Banner_1x2 (1)
+        sceneId: 5f8f1881e8436c00089428dd
+        textureResolution: {x: 0, y: 0}
+  placementsToHide: []
