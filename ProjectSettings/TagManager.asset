@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ground
+  - MouseHitCollider
+  - Admix
   layers:
   - Default
   - TransparentFX
