@@ -86,7 +86,8 @@ public class ChatSystem : NetworkBehaviour
         //Check the database for bad words.
         playerText.text = message;
         RpcSend(message);
-        ChatCanvas.SetActive(true); //
+        //ChatCanvas.SetActive(true); //DISABLED BECAUSE THE SERVER DOES NOT NEED TO RECEIVE TEXT'S FROM THE CLIENTS ANYMORE.
+        Debug.Log($"{playerName}: {message}"); //CLIENTS MESSAGES WILL BE DEBUGGED ON THE CONSOLE TO MONITOR THE CHAT.
     }
 
     [ClientRpc]
@@ -121,7 +122,7 @@ public class ChatSystem : NetworkBehaviour
         {
             CancelInvoke("CmdDelayedFunction");
         }
-        ChatCanvas.SetActive(false);
+        //ChatCanvas.SetActive(false); //DISABLED BECAUSE THE SERVER DOES NOT NEED TO RECEIVE TEXT'S FROM THE CLIENTS ANYMORE.
         RpcDelayedFunction();
     }
     [ClientRpc]

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0.098
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.13555291, g: 0.15448564, b: 0.1842725, a: 0.098}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 0.098}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -356,8 +356,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89f1009f6c64e4446854978381fcab92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
   SceneID: Disco
   SpawnLocation: {x: 0, y: 1.38, z: -14.21}
 --- !u!65 &320826220
@@ -665,8 +663,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89f1009f6c64e4446854978381fcab92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
   SceneID: Room 2
   SpawnLocation: {x: 0, y: 0, z: 0}
 --- !u!65 &726770271

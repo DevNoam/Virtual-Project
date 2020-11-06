@@ -5,7 +5,7 @@ using Mirror;
 using UnityEngine.AI;
 
 
-public class RoomTransfer : NetworkBehaviour
+public class RoomTransfer : MonoBehaviour
 {
     public string SceneID;
     public Vector3 SpawnLocation;
