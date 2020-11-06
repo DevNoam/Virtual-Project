@@ -7,6 +7,8 @@ using TMPro;
 using UnityEngine.UI;
 using PlayFab;
 using PlayFab.ClientModels;
+using UnityEngine.SceneManagement;
+using JetBrains.Annotations;
 
 public class PlayerManager : NetworkBehaviour
 {
@@ -24,6 +26,7 @@ public class PlayerManager : NetworkBehaviour
     public int SkinColor = 1;
 
     public RoomManager roomManager;
+    public GameObject canvas;
 
     public bool Moving;
     public float rotationSpeed = 20;
@@ -37,12 +40,16 @@ public class PlayerManager : NetworkBehaviour
     {
         roomManager = GameObject.Find("RoomManager").GetComponent<RoomManager>();
         if (!hasAuthority)
-            Destroy(cam);
+        {
+            Destroy(cam.gameObject);
+            Destroy(canvas);
+            canvas = null;
+            cam = null;
+        }
         if (hasAuthority)
         {
             MakeBoldNameForLocalClient();
         }
-
     }
 
     #region Movement
@@ -140,54 +147,75 @@ public class PlayerManager : NetworkBehaviour
     }
     #endregion
 
+    //////////////////
 
-    [Client]
-    public void ChangeRoom(GameObject desiredRoomGameObject, GameObject thisRoom, GameObject desiredSpawnLocation)
+
+    public void ChangeRoom(string RoomName, Vector3 spawnLocation)
     {
+        string currentSceneName = SceneManager.GetActiveScene().name;
         if (isLocalPlayer)
         {
-            desiredRoomGameObject.SetActive(true);
-            CmdChangePosition(desiredSpawnLocation.transform.position, playerName);
-            thisRoom.SetActive(false);
-            roomManager.LoadingGUI.SetActive(true);
-            cam.transform.GetComponent<AudioListener>().enabled = false;
-            Invoke("Arrived", 1f);
-
-            //Reset player:
-            chatSystem.CmdDelayedFunction();
+            CmdChangeRoom(RoomName, currentSceneName, spawnLocation);
         }
     }
 
+
     [Command]
-    public void CmdChangePosition(Vector3 argPosition, string playerName)
+    void CmdChangeRoom(string RoomName, string currentSceneName, Vector3 spawnLocation)
     {
-        player.GetComponentInChildren<NavMeshAgent>().Warp(argPosition);
-        //this.transform.position = argPosition;
-
-        RpcChangePosition(argPosition, playerName);
-    }
-
-    [ClientRpc]
-    public void RpcChangePosition(Vector3 argPosition, string name)
-    {
-        player.GetComponentInChildren<NavMeshAgent>().Warp(argPosition);
-        //this.transform.position = argPosition;
-
-    }
-
-    [Client]
-    void Arrived()
-    {
-        if (player.GetComponentInChildren<NavMeshAgent>().remainingDistance < player.GetComponentInChildren<NavMeshAgent>().stoppingDistance)
+        //Checking if Scene already active on the Server. If now create one.
+        if (UnityEngine.SceneManagement.SceneManager.GetSceneByName(RoomName).IsValid())
         {
-            cam.transform.GetComponent<AudioListener>().enabled = true;
-            roomManager.LoadingGUI.SetActive(false);
+            Debug.Log($"The Scene {RoomName}, is already running.");
         }
         else
         {
-            Arrived();
+            SceneManager.LoadSceneAsync(RoomName, LoadSceneMode.Additive);
+            Debug.Log($"The Scene {RoomName}, scene is now online!.");
         }
+
+        // Move player to the new Scene on the Server side.
+        SceneManager.MoveGameObjectToScene(player.parent.gameObject, SceneManager.GetSceneByName(RoomName));
+
+        //Reposition player
+        player.GetComponentInChildren<NavMeshAgent>().Warp(spawnLocation);
+
+
+        //Telling the client to Load the new Scene
+        SceneMessage Load = new SceneMessage
+        {
+            sceneName = RoomName,
+            sceneOperation = SceneOperation.LoadAdditive,
+        };
+        connectionToClient.Send(Load);
+
+
+        //Telling the client to reposition & move local player + components.
+        RpcChangeRoom(RoomName, currentSceneName, spawnLocation);
+
+        //Telling the client to unload the previous scene.
+        SceneMessage unLoad = new SceneMessage
+        {
+            sceneName = currentSceneName,
+            sceneOperation = SceneOperation.UnloadAdditive
+        };
+        connectionToClient.Send(unLoad);
     }
+    [TargetRpc]
+    void RpcChangeRoom(string RoomName, string currentSceneName, Vector3 spawnLocation)
+    {
+        //Move player to the new Scene
+        SceneManager.MoveGameObjectToScene(player.parent.gameObject, SceneManager.GetSceneByName(RoomName));
+
+        //Reset text bubble
+        chatSystem.CmdDelayedFunction();
+
+        //Position player
+        //player.transform.position = spawnLocation;
+        player.GetComponentInChildren<NavMeshAgent>().Warp(spawnLocation);
+        Resources.UnloadUnusedAssets();
+    }
+    /////////////////
 
     [Client]
     void MakeBoldNameForLocalClient()

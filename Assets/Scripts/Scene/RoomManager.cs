@@ -111,7 +111,7 @@ public class RoomManager : MonoBehaviour
             {
                 if (int.Parse(result2.Data["Modderator"].Value) == 1)
                 {
-                    ChatLog.transform.localPosition = new Vector2(0, 0);
+                    LocalPlayer.chatSystem.chatLog.gameObject.GetComponent<Transform>().parent.parent.parent.parent.gameObject.GetComponent<Transform>().localPosition = new Vector2(0, 1);
                 }
             }
         }, (error) =>
