@@ -1,5 +1,5 @@
 {
-    "stamp": "by 5f8f17c10814e900081d812c at Tuesday, October 20, 2020 8:41:26 PM",
+    "stamp": "by 5f8f17c10814e900081d812c at Friday, November 6, 2020 1:17:28 PM",
     "appId": "5f8f18530f968c0007fce481",
     "appName": "VirtualProject",
     "versionId": "5f8f18530f968c0007fce482",
@@ -73,6 +73,31 @@
                     "textureResolution": {
                         "x": 300.0,
                         "y": 600.0
+                    }
+                }
+            ]
+        },
+        {
+            "sceneName": "Town",
+            "id": "5fa530c6e5ffb30008eac1a8",
+            "currentScenePath": "Assets/Scenes/Town.unity",
+            "pathsHistory": [
+                "Assets/Scenes/Town.unity"
+            ],
+            "placementsList": [
+                {
+                    "isSavedPlacement": false,
+                    "invalidReason": "multiapp existing name",
+                    "modelKey": "5ee7e9757cea8d42a8b60ac5",
+                    "idInFile": 2142515863,
+                    "placementType": 0,
+                    "placementId": "5fa530c76def2000083f10bd",
+                    "placementName": "Adz4fmp9C1Qugk6Kszat",
+                    "placementDisplayName": "Banner_97x25",
+                    "sceneId": "5fa530c6e5ffb30008eac1a8",
+                    "textureResolution": {
+                        "x": 970.0,
+                        "y": 250.0
                     }
                 }
             ]

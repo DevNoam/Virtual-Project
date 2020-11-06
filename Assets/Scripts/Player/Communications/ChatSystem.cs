@@ -30,8 +30,8 @@ public class ChatSystem : NetworkBehaviour
 
     public void Start()
     {
-        inputFiled = GameObject.Find("InputFieldChat").GetComponent<TMP_InputField>();
-        chatLog = GameObject.Find("ContentChatLog").GetComponent<Transform>();
+        //inputFiled = GameObject.Find("InputFieldChat").GetComponent<TMP_InputField>();
+        //chatLog = GameObject.Find("ContentChatLog").GetComponent<Transform>();
     }
 
     [Client]
@@ -73,10 +73,10 @@ public class ChatSystem : NetworkBehaviour
                     badword = false;
                 }
             }
-            //Clear InputFiled
-            inputFiled.text = null;
-            inputFiled.Select();
         }
+        //Clear InputFiled
+        inputFiled.text = null;
+        inputFiled.Select();
     }
 
 

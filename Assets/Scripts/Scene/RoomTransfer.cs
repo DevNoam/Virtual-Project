@@ -8,16 +8,7 @@ using UnityEngine.AI;
 public class RoomTransfer : NetworkBehaviour
 {
     public string SceneID;
-    [Tooltip("The room you want to go to, NetWork start position gameObject")]
-    public GameObject desiredSpawnLocation;
-    [Tooltip("The GameObject of the room you want to go to.")]
-    public GameObject desiredRoomGameObject;
-
-    public GameObject thisRoom;
-
-    public Transform player;
-    PlayerManager playerManager;
-
+    public Vector3 SpawnLocation;
 
 
     // Start is called before the first frame update
@@ -26,7 +17,7 @@ public class RoomTransfer : NetworkBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            other.transform.GetComponentInParent<PlayerManager>().ChangeRoom(desiredRoomGameObject, thisRoom, desiredSpawnLocation);
+            other.transform.GetComponentInParent<PlayerManager>().ChangeRoom(SceneID, SpawnLocation);
         }
     }
 }
