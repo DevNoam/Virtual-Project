@@ -50,6 +50,11 @@ public class PlayerManager : NetworkBehaviour
         {
             MakeBoldNameForLocalClient();
         }
+        if (isServer || isServerOnly)
+        {
+            GameObject followPlayer = this.transform.Find("MoveableComponents").gameObject;
+            Destroy(followPlayer.gameObject);
+        }
     }
 
     #region Movement

@@ -3959,8 +3959,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4296613544552396647}
   m_HandleRect: {fileID: 646130450265747899}
   m_Direction: 2
-  m_Value: 1.0000013
-  m_Size: 0.47787884
+  m_Value: 1.0000026
+  m_Size: 0.4778791
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4551,7 +4551,7 @@ GameObject:
   - component: {fileID: 3523712890218025140}
   - component: {fileID: 5332749686479320250}
   m_Layer: 0
-  m_Name: Canvas (2)
+  m_Name: ChatCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6491,7 +6491,7 @@ GameObject:
   - component: {fileID: 9182250744986233202}
   - component: {fileID: 6355471226845970571}
   m_Layer: 0
-  m_Name: CanvasChat
+  m_Name: QuickPlayerInfo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7227,7 +7227,7 @@ GameObject:
   - component: {fileID: 1720649256368628580}
   - component: {fileID: 7467091031566657193}
   m_Layer: 0
-  m_Name: MoveabkeComponents
+  m_Name: MoveableComponents
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

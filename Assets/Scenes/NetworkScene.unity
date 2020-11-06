@@ -204,8 +204,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89f1009f6c64e4446854978381fcab92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
   SceneID: Town
   SpawnLocation: {x: 0, y: 1.38, z: -2.68}
 --- !u!65 &142097616
@@ -516,7 +514,7 @@ MonoBehaviour:
   showDebugMessages: 0
   serverTickRate: 10
   offlineScene: Assets/Scenes/Offline&Online.unity
-  onlineScene: Assets/Scenes/Town.unity
+  onlineScene: Assets/Scenes/Room/Town.unity
   transport: {fileID: 1973976708}
   networkAddress: localhost
   maxConnections: 5
