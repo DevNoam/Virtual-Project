@@ -24,6 +24,7 @@ public class ChatSystem : NetworkBehaviour
     public GameObject chatLogInstantiate;
     public Transform chatLogContainer;
     public Transform chatLogParent;
+
     [HideInInspector]
     public string playerName;
     public CommandsManager commandsManager;
@@ -31,7 +32,8 @@ public class ChatSystem : NetworkBehaviour
     public void Start()
     {
         //inputFiled = GameObject.Find("InputFieldChat").GetComponent<TMP_InputField>();
-        //chatLog = GameObject.Find("ContentChatLog").GetComponent<Transform>();
+        chatLogParent = GameObject.Find("SharedCanvasUI/ChatLog").GetComponent<Transform>();
+        chatLogContainer = GameObject.Find("SharedCanvasUI/ChatLog/Panel/ChatLog Container/Viewport/ContentChatLog").GetComponent<Transform>();
     }
 
     [Client]
@@ -107,23 +109,29 @@ public class ChatSystem : NetworkBehaviour
     [ClientRpc]
     void RpcSendGlobal(string playerName, string message)
     {
-        Debug.Log("Message arrived to all clients");
+        Debug.Log("Message arrived to all the clients");
 
         playerText.text = message;
-        ChatCanvas.SetActive(true);
 
 
         //----CHAT LOG----//
         GameObject ChatLogObject = Instantiate(chatLogInstantiate) as GameObject;
+
         ChatLogObject.GetComponentInChildren<TMP_Text>().text = "<b>" + playerName + ":</b> " + message;
         //Assign player profile URL when clicking the button
+
         ChatLogObject.transform.SetParent(chatLogContainer.transform, false);
 
         if (chatLogContainer.transform.childCount >= 50)
         {
             GameObject.Destroy(chatLogContainer.transform.GetChild(1).gameObject);
         }
+
+        //Active the TextBubble above the client.
+        ChatCanvas.SetActive(true);
+
     }
+
 
     void OnGUI()
     {

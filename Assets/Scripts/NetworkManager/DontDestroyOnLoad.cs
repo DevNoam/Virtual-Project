@@ -9,7 +9,6 @@ public class DontDestroyOnLoad : MonoBehaviour
 
     PlayerManager playerManagerLocal;
 
-
     void Start()
     {
         DontDestroyOnLoad(this.gameObject);
