@@ -27,6 +27,7 @@ public class PlayerManager : NetworkBehaviour
 
     public RoomManager roomManager;
     public GameObject canvas;
+    public GameObject LoadingFrame;
 
     public bool Moving;
     public float rotationSpeed = 20;
@@ -49,6 +50,7 @@ public class PlayerManager : NetworkBehaviour
         if (hasAuthority)
         {
             MakeBoldNameForLocalClient();
+            LoadingFrame = this.transform.Find("CanvasUI/Loading").gameObject;
         }
         if (isServer || isServerOnly)
         {
@@ -154,10 +156,16 @@ public class PlayerManager : NetworkBehaviour
 
     //////////////////
 
+    #region Room switching
+
 
     public void ChangeRoom(string RoomName, Vector3 spawnLocation)
     {
         string currentSceneName = SceneManager.GetActiveScene().name;
+
+        LoadingFrame.SetActive(true);
+        StartCoroutine(Arrived(1, currentSceneName));
+
         if (isLocalPlayer)
         {
             CmdChangeRoom(RoomName, currentSceneName, spawnLocation);
@@ -220,7 +228,24 @@ public class PlayerManager : NetworkBehaviour
         player.GetComponentInChildren<NavMeshAgent>().Warp(spawnLocation);
         Resources.UnloadUnusedAssets();
     }
-    /////////////////
+
+
+    IEnumerator Arrived(float Seconds , string currentSceneName)
+    {
+        yield return new WaitForSeconds(Seconds);
+        if (gameObject.scene.name != currentSceneName)
+        {
+            LoadingFrame.SetActive(false);
+        }
+        else
+        {
+            StartCoroutine(Arrived(0.5f, currentSceneName));
+        }
+    }
+
+
+    #endregion
+
 
     [Client]
     void MakeBoldNameForLocalClient()
