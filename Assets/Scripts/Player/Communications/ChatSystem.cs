@@ -10,8 +10,6 @@ using UnityEngine.Networking;
 public class ChatSystem : NetworkBehaviour
 {
 
-    //Texting:
-
     public TMP_InputField inputFiled;
 
     public TMP_Text playerText;
@@ -24,7 +22,9 @@ public class ChatSystem : NetworkBehaviour
     public string[] badWords;
 
     public GameObject chatLogInstantiate;
-    public Transform chatLog;
+    public Transform chatLogContainer;
+    public Transform chatLogParent;
+    [HideInInspector]
     public string playerName;
     public CommandsManager commandsManager;
 
@@ -38,73 +38,90 @@ public class ChatSystem : NetworkBehaviour
     public void Send()
     {
         string text = inputFiled.text;
-        bool isCommand = false;
         if (text.Trim().Length >= 1)
         {
             if (text.StartsWith("/"))
             {
-                commandsManager.ReceivedCommand(inputFiled.text);
+                string command = inputFiled.text;
+                //Clear the Inputfield.
+                inputFiled.text = null;
+                inputFiled.Select();
 
-                isCommand = true;
+                commandsManager.ReceivedCommand(command);
             }
-            if (isCommand != true)
+            else
             {
-                bool badword = false;
-
-                for (int i = 0; i < badWords.Length; i++)
-                {
-                    if (text.ToLower().Contains(badWords[i]))
-                    {
-                        Debug.Log("Bad Word detected!");
-                        badword = true;
-                    }
-                }
-                if (badword == false)
-                {
-                    if (IsInvoking("CmdDelayedFunction") == true)
-                    {
-                        CancelInvoke("CmdDelayedFunction");
-                    }
-                    CmdSend(text.TrimStart());
-                    Invoke("CmdDelayedFunction", timetoClear);
-                }
-                else if (badword == true)
-                {
-                    badword = false;
-                }
+                CallServerToCheckMessage(text, playerName);
             }
         }
+
         //Clear InputFiled
         inputFiled.text = null;
         inputFiled.Select();
     }
 
-
     [Command]
-    void CmdSend(string message)
+    void CallServerToCheckMessage(string Message, string playerName)
     {
-        //Check the database for bad words.
-        playerText.text = message;
-        RpcSend(message);
-        //ChatCanvas.SetActive(true); //DISABLED BECAUSE THE SERVER DOES NOT NEED TO RECEIVE TEXT'S FROM THE CLIENTS ANYMORE.
-        Debug.Log($"{playerName}: {message}"); //CLIENTS MESSAGES WILL BE DEBUGGED ON THE CONSOLE TO MONITOR THE CHAT.
+        ServerCheckMessage(Message, playerName);
+    }
+
+
+    [Server]
+    void ServerCheckMessage(string Message, string playerName)
+    {
+        string text = Message;
+        if (text.Trim().Length >= 1)
+        {
+            bool badword = false;
+
+            for (int i = 0; i < badWords.Length; i++)
+            {
+                if (text.ToLower().Contains(badWords[i]))
+                {
+                    Debug.Log("Bad Word detected!");
+                    //Send warning to Client, If warning extended the limit, Mute the Client.
+                    //This field is for Playfab.
+                    badword = true;
+                }
+            }
+            if (badword == false)
+            {
+                if (IsInvoking("CmdDelayedFunction") == true)
+                {
+                    CancelInvoke("CmdDelayedFunction");
+                }
+                playerText.text = Message;
+                RpcSendGlobal(playerName, text.TrimStart());
+                Debug.Log($"{playerName}: {Message}"); //CLIENT MESSAGE WILL BE DEBUGGED ON THE CONSOLE TO MONITOR THE CHAT.
+
+                Invoke("CmdDelayedFunction", timetoClear);
+            }
+            else if (badword == true)
+            {
+                badword = false;
+            }
+        }
     }
 
     [ClientRpc]
-    void RpcSend(string message)
+    void RpcSendGlobal(string playerName, string message)
     {
+        Debug.Log("Message arrived to all clients");
+
         playerText.text = message;
         ChatCanvas.SetActive(true);
-        
+
+
         //----CHAT LOG----//
         GameObject ChatLogObject = Instantiate(chatLogInstantiate) as GameObject;
         ChatLogObject.GetComponentInChildren<TMP_Text>().text = "<b>" + playerName + ":</b> " + message;
-        //Assign player profile when clicking the button
-        ChatLogObject.transform.SetParent(chatLog.transform, false);
+        //Assign player profile URL when clicking the button
+        ChatLogObject.transform.SetParent(chatLogContainer.transform, false);
 
-        if (chatLog.transform.childCount >= 50)
+        if (chatLogContainer.transform.childCount >= 50)
         {
-            GameObject.Destroy(chatLog.transform.GetChild(1).gameObject);
+            GameObject.Destroy(chatLogContainer.transform.GetChild(1).gameObject);
         }
     }
 
@@ -115,7 +132,10 @@ public class ChatSystem : NetworkBehaviour
                 Send();
             }
     }
-    [Command]
+
+
+
+    [Server]
     public void CmdDelayedFunction()
     {
         if (IsInvoking("CmdDelayedFunction") == true)

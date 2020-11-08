@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 40919617}
   - component: {fileID: 40919615}
+  - component: {fileID: 40919616}
   m_Layer: 0
   m_Name: RoomManager
   m_TagString: Untagged
@@ -169,6 +170,20 @@ MonoBehaviour:
   targetFrameRate: 350
   ChatLog: {fileID: 0}
   LoadingGUI: {fileID: 0}
+--- !u!114 &40919616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 40919614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48a30854563444741a3ddcadd4c73d94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  networkManager: {fileID: 0}
+  closingTimer: 10
 --- !u!4 &40919617
 Transform:
   m_ObjectHideFlags: 0
@@ -3158,8 +3173,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89f1009f6c64e4446854978381fcab92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
   SceneID: Town
   SpawnLocation: {x: 0, y: 0, z: -2.68}
 --- !u!65 &1406796435
