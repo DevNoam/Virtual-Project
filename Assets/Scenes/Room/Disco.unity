@@ -106,18 +106,18 @@ NavMeshSettings:
   m_BuildSettings:
     serializedVersion: 2
     agentTypeID: 0
-    agentRadius: 0.2
+    agentRadius: 0.4
     agentHeight: 2
     agentSlope: 45
-    agentClimb: 1
+    agentClimb: 0.4
     ledgeDropHeight: 0
-    maxJumpAcrossDistance: 0
+    maxJumpAcrossDistance: 0.24
     minRegionArea: 2
     manualCellSize: 0
-    cellSize: 0.06666667
+    cellSize: 0.13333334
     manualTileSize: 0
     tileSize: 256
-    accuratePlacement: 0
+    accuratePlacement: 1
     maxJobWorkers: 0
     preserveTilesOutsideBounds: 0
     debug:
@@ -182,8 +182,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48a30854563444741a3ddcadd4c73d94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkManager: {fileID: 0}
   closingTimer: 10
+  PlayersInScene: 0
+  networkManager: {fileID: 0}
 --- !u!4 &40919617
 Transform:
   m_ObjectHideFlags: 0
@@ -2866,7 +2867,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 8
+  m_StaticEditorFlags: 40
   m_IsActive: 1
 --- !u!4 &1370493429
 Transform:
@@ -2876,7 +2877,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1370493428}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.4, z: -6.5899982}
+  m_LocalPosition: {x: 0, y: -0.45, z: -6.5899982}
   m_LocalScale: {x: 0.57903206, y: 0.13844997, z: 16.573288}
   m_Children: []
   m_Father: {fileID: 1406796437}
