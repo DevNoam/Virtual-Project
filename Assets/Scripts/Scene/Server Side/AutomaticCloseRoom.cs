@@ -10,15 +10,17 @@ public class AutomaticCloseRoom : MonoBehaviour
 
 
     private string roomName;
-    public NetworkManager networkManager;
     public float closingTimer;
+    public int PlayersInScene;
+    public NetworkManager networkManager;
+
+
     [Server]
     void Start()
     {
+        networkManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
         roomName = gameObject.scene.name;
         Debug.Log(roomName);
-
-        networkManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
 
         Invoke("CloseRoom", closingTimer);
 
@@ -27,15 +29,28 @@ public class AutomaticCloseRoom : MonoBehaviour
     [Server]
     void CloseRoom()
     {
-        if (GameObject.FindGameObjectsWithTag("Player") != null) // SEARCH FOR PLAYER INSIDE SPECIFIC SCENE!!!.
+        GameObject[] _RootSceneObjects = SceneManager.GetSceneByName(roomName).GetRootGameObjects();
+
+
+        bool HasActivePlayers = false;
+        for (int i = 3; i < _RootSceneObjects.Length; i++)
         {
-            Invoke("CloseRoom", closingTimer);
-            Debug.Log($"Found players on {roomName} closing has been aborted.");
+            if (_RootSceneObjects[i].name.Contains(networkManager.playerPrefab.name + "(Clone)"))
+            {
+                HasActivePlayers = true;
+                break;
+            }
         }
-        else
+        if (HasActivePlayers == false)
         {
-            Debug.Log($"The room {roomName} closed!");
+            Debug.Log($"The room {roomName} has been closed!");
             SceneManager.UnloadSceneAsync(roomName);
+
+        }
+        else if (HasActivePlayers == true)
+        {
+            Debug.Log($"The room: {roomName}, has active players inside.");
+            Invoke("CloseRoom", closingTimer);
         }
     }
 }
