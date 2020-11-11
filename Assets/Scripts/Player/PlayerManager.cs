@@ -163,11 +163,10 @@ public class PlayerManager : NetworkBehaviour
     {
         string currentSceneName = SceneManager.GetActiveScene().name;
 
-        LoadingFrame.SetActive(true);
-        StartCoroutine(Arrived(1, currentSceneName));
-
         if (isLocalPlayer)
         {
+            LoadingFrame.SetActive(true);
+            StartCoroutine(Arrived(1, currentSceneName));
             CmdChangeRoom(RoomName, currentSceneName, spawnLocation);
         }
     }

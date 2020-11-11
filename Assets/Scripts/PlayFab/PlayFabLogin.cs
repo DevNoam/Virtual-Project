@@ -28,6 +28,8 @@ public class PlayFabLogin : MonoBehaviour
 
     public Material[] skins;
 
+
+
     public void Start()
     {
         if (string.IsNullOrEmpty(PlayFabSettings.staticSettings.TitleId))

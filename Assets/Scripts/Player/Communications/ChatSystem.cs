@@ -109,8 +109,6 @@ public class ChatSystem : NetworkBehaviour
     [ClientRpc]
     void RpcSendGlobal(string playerName, string message)
     {
-        Debug.Log("Message arrived to all the clients");
-
         playerText.text = message;
 
 
@@ -143,7 +141,7 @@ public class ChatSystem : NetworkBehaviour
 
 
 
-    [Server]
+    [ServerCallback]
     public void CmdDelayedFunction()
     {
         if (IsInvoking("CmdDelayedFunction") == true)
