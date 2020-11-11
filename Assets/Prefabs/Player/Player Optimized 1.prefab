@@ -1634,7 +1634,7 @@ MonoBehaviour:
   SkinColor: 1
   roomManager: {fileID: 0}
   canvas: {fileID: 7242873393193683150}
-  LoadingFrame: {fileID: 0}
+  LoadingFrame: {fileID: 4464274116008026372}
   Moving: 0
   rotationSpeed: 20
   chatSystem: {fileID: 1818629808934478573}

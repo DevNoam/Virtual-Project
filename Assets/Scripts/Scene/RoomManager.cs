@@ -28,7 +28,6 @@ public class RoomManager : MonoBehaviour
     }
 
 
-
     void LookForPlayer()
     {
         if (NetworkManager.singleton.isNetworkActive)
@@ -45,7 +44,6 @@ public class RoomManager : MonoBehaviour
                     if (LocalPlayer != null)
                     {
                         ThisPlayerJoined();
-                        //Invoke("ThisPlayerJoined", 0.1f);
                     }
                 }
             }

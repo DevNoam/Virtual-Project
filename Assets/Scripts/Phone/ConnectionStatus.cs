@@ -13,7 +13,7 @@ namespace Mirror
 
         private void Awake()
         {
-            InvokeRepeating("ApplyConnection", 0, TimeToCheckForPing);
+            InvokeRepeating("ApplyConnection", 0.4f, TimeToCheckForPing);
         }
 
 

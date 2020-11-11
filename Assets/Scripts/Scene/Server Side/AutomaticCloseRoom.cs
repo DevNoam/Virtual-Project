@@ -8,36 +8,33 @@ public class AutomaticCloseRoom : MonoBehaviour
 {
     // Start is called before the first frame update
 
-
     private string roomName;
     public float closingTimer;
-    public int PlayersInScene;
-    public NetworkManager networkManager;
+    private NetworkManager networkManager;
 
-
-    [Server]
-    void Start()
+    [ServerCallback]
+    void Start() //
     {
         networkManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
         roomName = gameObject.scene.name;
-        Debug.Log(roomName);
-
         Invoke("CloseRoom", closingTimer);
-
     }
 
-    [Server]
+
+
+    [ServerCallback]
     void CloseRoom()
     {
         GameObject[] _RootSceneObjects = SceneManager.GetSceneByName(roomName).GetRootGameObjects();
 
-
         bool HasActivePlayers = false;
-        for (int i = 3; i < _RootSceneObjects.Length; i++)
+        for (int i = 0; i < _RootSceneObjects.Length; i++)
         {
             if (_RootSceneObjects[i].name.Contains(networkManager.playerPrefab.name + "(Clone)"))
             {
                 HasActivePlayers = true;
+                Debug.Log($"The room: {roomName}, has active players inside.");
+                Invoke("CloseRoom", closingTimer);
                 break;
             }
         }
@@ -46,11 +43,6 @@ public class AutomaticCloseRoom : MonoBehaviour
             Debug.Log($"The room {roomName} has been closed!");
             SceneManager.UnloadSceneAsync(roomName);
 
-        }
-        else if (HasActivePlayers == true)
-        {
-            Debug.Log($"The room: {roomName}, has active players inside.");
-            Invoke("CloseRoom", closingTimer);
         }
     }
 }
