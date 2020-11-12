@@ -26,12 +26,17 @@ public class PlayFabLogin : MonoBehaviour
 
 
 
-    public Material[] skins;
 
+    public Material[] skins;
 
 
     public void Start()
     {
+        if (Application.isBatchMode == true)
+        {
+            SceneManager.LoadScene(1);
+        }
+
         if (string.IsNullOrEmpty(PlayFabSettings.staticSettings.TitleId))
         {
             //Please change the titleId below to your own titleId from PlayFab Game Manager

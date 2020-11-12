@@ -41,6 +41,7 @@ public class AutomaticCloseRoom : MonoBehaviour
         if (HasActivePlayers == false)
         {
             Debug.Log($"The room {roomName} has been closed!");
+            Resources.UnloadUnusedAssets();
             SceneManager.UnloadSceneAsync(roomName);
 
         }
