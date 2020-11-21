@@ -1600,6 +1600,7 @@ MonoBehaviour:
   RegisterMessage: {fileID: 296744545}
   LoadingPanel: {fileID: 927541325}
   registerPlayerNameGUI: {fileID: 1250363619}
+  AccountVerificationReminder: {fileID: 1134417153486027225, guid: 7f2afaae41515d84ba234d8f15f8206a, type: 3}
   skins:
   - {fileID: 2100000, guid: e1d80331ec24eb645a717b12280bf671, type: 2}
   - {fileID: 2100000, guid: 18ac7c56fb03e754e99309617b8bb5e1, type: 2}
