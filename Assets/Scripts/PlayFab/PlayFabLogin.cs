@@ -24,47 +24,39 @@ public class PlayFabLogin : MonoBehaviour
     public GameObject LoadingPanel;
     public TMP_Text registerPlayerNameGUI;
 
-
-
+    public GameObject AccountVerificationReminder;
 
     public Material[] skins;
 
 
     public void Start()
     {
-        if (Application.isBatchMode == true)
+        if (Application.isBatchMode == true) //If is server, Instantly load the Server.
         {
             SceneManager.LoadScene(1);
         }
 
         if (string.IsNullOrEmpty(PlayFabSettings.staticSettings.TitleId))
         {
-            //Please change the titleId below to your own titleId from PlayFab Game Manager
-            //If you have already set the value in the Editor Extensions, this can be skipped.
-
-
             PlayFabSettings.staticSettings.TitleId = "8D6DB";
         }
 
     }
-    string randomToken;
+
     private void OnLoginSuccess(LoginResult result)
     {
         {
             PlayFabClientAPI.GetPlayerStatistics(new GetPlayerStatisticsRequest(),
                 results =>
                 {
-                    Debug.Log("Received the following Statistics:");
                     foreach (var eachStat in results.Statistics)
                         switch (eachStat.StatisticName)
                         {
                             case "VerifiedStatus":
-                                if (eachStat.Value == 1)
                                 {
                                     if (RememberMeLogin.isOn == true)
                                     {
-                                        Debug.Log("1");
-
+                                        //SAVE PLAYER CREDENTIALS ON LOCAL PC.
                                         PlayerPrefs.SetInt("USERSAVED", 1);
                                         PlayerPrefs.SetString("USERNAME", UserNameLogin);
                                         PlayerPrefs.SetString("PASSWORD", UserPasswordLogin);
@@ -75,19 +67,17 @@ public class PlayFabLogin : MonoBehaviour
                                     }
                                     else
                                     {
-                                        Debug.Log("1");
+                                        //PLAYER CREDENTIALS SAVING HAS BEEN SKIPPED.
 
                                         LoadingGUI();
                                         SceneManager.LoadSceneAsync(1);
                                     }
+                                    if(eachStat.Value == 0)
+                                    {
+                                        Instantiate(AccountVerificationReminder);
+                                    }
+                                    break;
                                 }
-                                else
-                                {
-                                    ErrorGUI();
-                                    LoginMessage.color = new Color32(255, 0, 30, 255);
-                                    LoginMessage.text = "Please verify your email.";
-                                }
-                                break;
                         }
                 }, error => Debug.LogError(error.GenerateErrorReport())
 );
@@ -156,6 +146,13 @@ public class PlayFabLogin : MonoBehaviour
         RegisterMessage.text = "Error";
     }
 
+
+
+
+
+    #region Gui_InputFields
+
+
     public void getUserPasswordLogin(string passwordIn)
     {
         UserPasswordLogin = passwordIn;
@@ -190,6 +187,7 @@ public class PlayFabLogin : MonoBehaviour
     {
         desierdColor = Color;
     }
+    #endregion
 
 
     public void SendRecoveryEmail()
