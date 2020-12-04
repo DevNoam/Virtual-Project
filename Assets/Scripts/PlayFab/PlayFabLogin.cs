@@ -62,14 +62,12 @@ public class PlayFabLogin : MonoBehaviour
                                         PlayerPrefs.SetString("PASSWORD", UserPasswordLogin);
                                         PlayerPrefs.Save();
 
-                                        LoadingGUI();
                                         SceneManager.LoadSceneAsync(1);
                                     }
                                     else
                                     {
                                         //PLAYER CREDENTIALS SAVING HAS BEEN SKIPPED.
 
-                                        LoadingGUI();
                                         SceneManager.LoadSceneAsync(1);
                                     }
                                     if(eachStat.Value == 0)
@@ -118,8 +116,8 @@ public class PlayFabLogin : MonoBehaviour
                         RegisterMessage.color = new Color32(26, 238, 0, 255);
                         RegisterMessage.text = "Registred";
 
-                        LoadingPanel.SetActive(false);
-                    PlayFabClientAPI.ExecuteCloudScript(new ExecuteCloudScriptRequest()
+                        LoadingPanel.GetComponent<Animator>().SetTrigger("End");//
+                        PlayFabClientAPI.ExecuteCloudScript(new ExecuteCloudScriptRequest()
                     {
                         FunctionName = "NewPlayer",
                         GeneratePlayStreamEvent = true,
@@ -205,14 +203,21 @@ public class PlayFabLogin : MonoBehaviour
         var request = new LoginWithPlayFabRequest { Username = UserNameLogin, Password = UserPasswordLogin };
         PlayFabClientAPI.LoginWithPlayFab(request, OnLoginSuccess, OnLoginFailure);
     }
+    public void OnExistedLogin(string userName, string passWord)
+    {
+        LoadingGUI();
+        var request = new LoginWithPlayFabRequest { Username = userName, Password = passWord };
+        PlayFabClientAPI.LoginWithPlayFab(request, OnLoginSuccess, OnLoginFailure);
+    }
 
 
     public void LoadingGUI()
     {
         LoadingPanel.SetActive(true);
+        LoadingPanel.GetComponent<Animator>().SetTrigger("Start");
     }
     public void ErrorGUI()
     {
-        LoadingPanel.SetActive(false);
+        LoadingPanel.GetComponent<Animator>().SetTrigger("End");
     }
 }

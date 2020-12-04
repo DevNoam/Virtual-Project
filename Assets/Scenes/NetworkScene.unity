@@ -1003,8 +1003,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 995838744}
   m_HandleRect: {fileID: 995838743}
   m_Direction: 2
-  m_Value: 1.0000024
-  m_Size: 0.4778792
+  m_Value: 1.0000013
+  m_Size: 0.47787887
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1919,7 +1919,7 @@ MonoBehaviour:
   receiveTimeout: 20000
   serverMaxMessagesPerTick: 10000
   clientMaxMessagesPerTick: 1000
-  sslEnabled: 1
+  sslEnabled: 0
   sslCertJson: ./cert.json
   sslProtocols: 3312
   _logLevels: 0
@@ -1991,7 +1991,7 @@ MonoBehaviour:
   offlineScene: Assets/Scenes/Offline&Online.unity
   onlineScene: Assets/Scenes/Room/Town.unity
   transport: {fileID: 1973976708}
-  networkAddress: earthstars.store
+  networkAddress: localhost
   maxConnections: 5
   disconnectInactiveConnections: 1
   disconnectInactiveTimeout: 6000

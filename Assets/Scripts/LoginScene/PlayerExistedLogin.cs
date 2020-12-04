@@ -11,6 +11,7 @@ public class PlayerExistedLogin : MonoBehaviour
     string playerName;
     public TMP_Text playerNametext;
     PlayFabLogin playfabLogin;
+    PlayFabLogin playFabLogin;
 
     // Start is called before the first frame update
     void Start()
@@ -24,22 +25,11 @@ public class PlayerExistedLogin : MonoBehaviour
     
     public void ButtonOnClick()
     {
-        playfabLogin.LoadingGUI();
         string UserPasswordLogin = PlayerPrefs.GetString("PASSWORD");
 
-        var request = new LoginWithPlayFabRequest { Username = playerName, Password = UserPasswordLogin };
-        PlayFabClientAPI.LoginWithPlayFab(request, LoginSuccess, LoginFaild);
-    }
-    void LoginSuccess(LoginResult result)
-    {
-        SceneManager.LoadSceneAsync(1);
+        playfabLogin.OnExistedLogin(playerName, UserPasswordLogin);
     }
 
-    void LoginFaild(PlayFabError error)
-    {
-        playfabLogin.ErrorGUI();
-        Debug.LogError(error.GenerateErrorReport());
-    }
 
 
     #region RemoveAccount
@@ -50,7 +40,6 @@ public class PlayerExistedLogin : MonoBehaviour
         PlayerPrefs.DeleteKey("USERNAME");
         PlayerPrefs.DeleteKey("PASSWORD");
         PlayerPrefs.Save();
-        playfabLogin.LoadingGUI();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
