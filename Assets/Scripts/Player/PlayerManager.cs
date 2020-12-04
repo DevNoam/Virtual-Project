@@ -27,7 +27,7 @@ public class PlayerManager : NetworkBehaviour
 
     public RoomManager roomManager;
     public GameObject canvas;
-    public GameObject LoadingFrame;
+    public GameObject LoadingFrame; //
 
     public bool Moving;
     public float rotationSpeed = 20;
@@ -50,7 +50,8 @@ public class PlayerManager : NetworkBehaviour
         if (hasAuthority)
         {
             MakeBoldNameForLocalClient();
-            LoadingFrame = this.transform.Find("CanvasUI/Loading").gameObject;
+            LoadingFrame = GameObject.Find("LoadingCanvas/LoadingSplashScreen").gameObject;
+            LoadingFrame.GetComponent<Animator>().SetTrigger("End");
         }
         if (isServer || isServerOnly)
         {
@@ -166,6 +167,7 @@ public class PlayerManager : NetworkBehaviour
         if (isLocalPlayer)
         {
             LoadingFrame.SetActive(true);
+            LoadingFrame.GetComponent<Animator>().SetTrigger("Start");
             StartCoroutine(Arrived(1, currentSceneName));
             CmdChangeRoom(RoomName, currentSceneName, spawnLocation);
         }
@@ -176,7 +178,7 @@ public class PlayerManager : NetworkBehaviour
     void CmdChangeRoom(string RoomName, string currentSceneName, Vector3 spawnLocation)
     {
         //Checking if Scene already active on the Server. If now create one.
-        if (UnityEngine.SceneManagement.SceneManager.GetSceneByName(RoomName).IsValid())
+        if (SceneManager.GetSceneByName(RoomName).IsValid())
         {
             Debug.Log($"The Scene {RoomName}, is already running.");
         }
@@ -234,7 +236,7 @@ public class PlayerManager : NetworkBehaviour
         yield return new WaitForSeconds(Seconds);
         if (gameObject.scene.name != currentSceneName)
         {
-            LoadingFrame.SetActive(false);
+            LoadingFrame.GetComponent<Animator>().SetTrigger("End");
         }
         else
         {

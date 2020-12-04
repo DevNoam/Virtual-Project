@@ -1467,7 +1467,7 @@ GameObject:
   - component: {fileID: 8808219740037510286}
   - component: {fileID: 5690225701869801596}
   m_Layer: 0
-  m_Name: Player Optimized 1
+  m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1582,6 +1582,8 @@ MonoBehaviour:
   - prick
   - pube
   - pussy
+  - chaturebate
+  - pornhub
   - queer
   - scrotum
   - sex
@@ -1633,7 +1635,7 @@ MonoBehaviour:
   SkinColor: 1
   roomManager: {fileID: 0}
   canvas: {fileID: 7242873393193683150}
-  LoadingFrame: {fileID: 4464274116008026372}
+  LoadingFrame: {fileID: 0}
   Moving: 0
   rotationSpeed: 20
   chatSystem: {fileID: 1818629808934478573}
@@ -1663,8 +1665,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0
-  syncInterval: 0
-  clientAuthority: 1
+  syncInterval: 0.1
+  clientAuthority: 0
   localPositionSensitivity: 0.01
   localRotationSensitivity: 0.01
   localScaleSensitivity: 0.01
@@ -5873,7 +5875,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.2735849, g: 0.2735849, b: 0.2735849, a: 0.6392157}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
