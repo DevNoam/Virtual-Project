@@ -83,6 +83,23 @@ public class RoomManager : MonoBehaviour
             {
                 playerSkin = int.Parse(result2.Data["PlayerCurrentColor"].Value);
                 LocalPlayer.CmdReady(playerName);
+
+
+                if (PlayerPrefs.HasKey("USERSAVED"))
+                {
+                    if (PlayerPrefs.GetString("USERNAME").ToUpper() == playerName.ToUpper())
+                    {
+                        PlayerPrefs.SetInt("PLAYERCOLOR", int.Parse(result2.Data["PlayerCurrentColor"].Value));
+                    }
+                    else if (PlayerPrefs.GetString("USERNAME2").ToUpper() == playerName.ToUpper())
+                    {
+                        PlayerPrefs.SetInt("PLAYERCOLOR2", int.Parse(result2.Data["PlayerCurrentColor"].Value));
+                    }
+                    else if (PlayerPrefs.GetString("USERNAME3").ToUpper() == playerName.ToUpper())
+                    {
+                        PlayerPrefs.SetInt("PLAYERCOLOR3", int.Parse(result2.Data["PlayerCurrentColor"].Value));
+                    }
+                }
             }
             else if (result2.Data.ContainsKey("PlayerOwnedColors"))
             {

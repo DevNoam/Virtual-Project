@@ -1987,7 +1987,7 @@ MonoBehaviour:
   runInBackground: 1
   autoStartServerBuild: 1
   showDebugMessages: 0
-  serverTickRate: 10
+  serverTickRate: 5
   offlineScene: Assets/Scenes/Offline&Online.unity
   onlineScene: Assets/Scenes/Room/Town.unity
   transport: {fileID: 1973976708}
