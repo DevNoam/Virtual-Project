@@ -57,16 +57,39 @@ public class PlayFabLogin : MonoBehaviour
                                     if (RememberMeLogin.isOn == true)
                                     {
                                         //SAVE PLAYER CREDENTIALS ON LOCAL PC.
-                                        PlayerPrefs.SetInt("USERSAVED", 1);
-                                        PlayerPrefs.SetString("USERNAME", UserNameLogin);
-                                        PlayerPrefs.SetString("PASSWORD", UserPasswordLogin);
-                                        PlayerPrefs.Save();
+                                        if (PlayerPrefs.GetInt("USERSAVED") == 0 || PlayerPrefs.GetInt("USERSAVED") == null)
+                                        {
+                                            PlayerPrefs.SetInt("USERSAVED", 1);
+                                            PlayerPrefs.SetString("USERNAME", UserNameLogin);
+                                            PlayerPrefs.SetString("PASSWORD", UserPasswordLogin);
+                                            PlayerPrefs.Save();
 
-                                        SceneManager.LoadSceneAsync(1);
+                                            SceneManager.LoadSceneAsync(1);
+                                        }
+                                        else if (PlayerPrefs.GetInt("USERSAVED") == 1) //THERE IS A PLAYER EXISTED ON THE PC, THIS FIELD WILL SAVE A NEW ACCOUNT.
+                                        {
+                                            int whichSlotIsOpen = 2;
+
+                                            if (PlayerPrefs.GetInt("USERSAVED2") == 0 || PlayerPrefs.GetInt("USERSAVED2") == null)
+                                            {
+                                                whichSlotIsOpen = 2;
+                                            }
+                                            else if (PlayerPrefs.GetInt("USERSAVED3") == 0 || PlayerPrefs.GetInt("USERSAVED3") == null)
+                                            {
+                                                whichSlotIsOpen = 3;
+                                            }
+
+                                            PlayerPrefs.SetInt("USERSAVED" + whichSlotIsOpen, 1);
+                                            PlayerPrefs.SetString("USERNAME" + whichSlotIsOpen, UserNameLogin);
+                                            PlayerPrefs.SetString("PASSWORD" + whichSlotIsOpen, UserPasswordLogin);
+                                            PlayerPrefs.Save();
+
+                                            SceneManager.LoadSceneAsync(1);
+                                        }
                                     }
                                     else
                                     {
-                                        //PLAYER CREDENTIALS SAVING HAS BEEN SKIPPED.
+                                        //IF PLAYER CREDENTIALS SAVING HAS BEEN SKIPPED.
 
                                         SceneManager.LoadSceneAsync(1);
                                     }
@@ -219,5 +242,15 @@ public class PlayFabLogin : MonoBehaviour
     public void ErrorGUI()
     {
         LoadingPanel.GetComponent<Animator>().SetTrigger("End");
+    }
+
+
+
+
+
+    public void GuestLogin()
+    {
+        LoadingGUI();
+        SceneManager.LoadSceneAsync(1);
     }
 }

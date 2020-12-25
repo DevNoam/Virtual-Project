@@ -231,7 +231,7 @@ public class PlayerManager : NetworkBehaviour
     }
 
 
-    IEnumerator Arrived(float Seconds , string currentSceneName)
+    IEnumerator Arrived(float Seconds, string currentSceneName)
     {
         yield return new WaitForSeconds(Seconds);
         if (gameObject.scene.name != currentSceneName)
