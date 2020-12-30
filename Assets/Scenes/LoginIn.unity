@@ -9776,6 +9776,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   imagesDB:
   - {fileID: 21300000, guid: f5b3e79ffb35faa4cb619c7f003b540a, type: 3}
+  - {fileID: 21300000, guid: 47722858e07e622448d42e1cdc7e6526, type: 3}
+  - {fileID: 21300000, guid: 339c1b75b08afaa49b573cde0cd88379, type: 3}
   imageSection: {fileID: 22600319}
   newNewsIn: 5
 --- !u!114 &1557538579
