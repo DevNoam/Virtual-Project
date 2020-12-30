@@ -1637,7 +1637,6 @@ MonoBehaviour:
   Moving: 0
   rotationSpeed: 20
   chatSystem: {fileID: 1818629808934478573}
-  isNewPlayer: 1
 --- !u!114 &77118258497100228
 MonoBehaviour:
   m_ObjectHideFlags: 0

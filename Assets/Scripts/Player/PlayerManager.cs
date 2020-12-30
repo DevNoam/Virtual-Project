@@ -8,8 +8,6 @@ using UnityEngine.UI;
 using PlayFab;
 using PlayFab.ClientModels;
 using UnityEngine.SceneManagement;
-using JetBrains.Annotations;
-
 public class PlayerManager : NetworkBehaviour
 {
     /// Movement
@@ -32,9 +30,6 @@ public class PlayerManager : NetworkBehaviour
     public bool Moving;
     public float rotationSpeed = 20;
     public ChatSystem chatSystem;
-
-    [SerializeField]
-    public bool isNewPlayer = true;
 
 
     void Start()
@@ -74,7 +69,6 @@ public class PlayerManager : NetworkBehaviour
 
         if (Physics.Raycast(ray, out hit) && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
         {
-
             if (Input.GetMouseButtonUp(0) && hit.transform.tag != "MouseHitCollider") // Movement
             {
                 CmdScrPlayerSetDestination(hit.point);
@@ -96,10 +90,11 @@ public class PlayerManager : NetworkBehaviour
     [Command]
     public void CmdScrPlayerSetDestination(Vector3 argPosition)
     {
+        navMeshController.SetDestination(argPosition);
         RpcScrPlayerSetDestination(argPosition);
     }
 
-    [ClientRpc]
+    [ClientRpc] //Only the caller of the CMD Command will receive this callback
     public void RpcScrPlayerSetDestination(Vector3 argPosition)
     {
         Moving = true;
@@ -128,28 +123,32 @@ public class PlayerManager : NetworkBehaviour
 
     public void SendName(string playername, int playerSkin)
     {
-        CmdScrPlayerName(playername, playerSkin);
+        CmdScrPlayerName(playername, playerSkin, player.transform.position);
     }
 
 
 
     [Command]
-    public void CmdScrPlayerName(string playername, int playerSkin)
+    public void CmdScrPlayerName(string playername, int playerSkin, Vector3 playerPosition)
     {
         playerNameMesh.text = playername;
         player.GetComponent<Renderer>().material = roomManager.skins[playerSkin];
         //SkinColor = playerSkin;
 
         chatSystem.playerName = playername;
-        RpcScrPlayerName(playername, playerSkin);
+        navMeshController.Warp(playerPosition);
+        Debug.Log(playername + " Has pinged his location!");
+        RpcScrPlayerName(playername, playerSkin, playerPosition);
     }
 
     [ClientRpc]
-    public void RpcScrPlayerName(string playername, int playerSkin)
+    public void RpcScrPlayerName(string playername, int playerSkin, Vector3 playerPosition)
     {
         playerNameMesh.text = playername;
         player.GetComponent<Renderer>().material = roomManager.skins[playerSkin];
         //SkinColor = playerSkin;
+
+        navMeshController.Warp(playerPosition);
 
         chatSystem.playerName = playername;
     }
