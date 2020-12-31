@@ -30,6 +30,8 @@ public class PlayerManager : NetworkBehaviour
     public bool Moving;
     public float rotationSpeed = 20;
     public ChatSystem chatSystem;
+    [HideInInspector]
+    public bool isModderator = false;
 
 
     void Start()
@@ -158,17 +160,40 @@ public class PlayerManager : NetworkBehaviour
 
     #region Room switching
 
+    public static bool DoesSceneExist(string name)
+    {
+        if (string.IsNullOrEmpty(name))
+            return false;
 
+        for (int i = 0; i < SceneManager.sceneCountInBuildSettings; i++)
+        {
+            var scenePath = SceneUtility.GetScenePathByBuildIndex(i);
+            var lastSlash = scenePath.LastIndexOf("/");
+            var sceneName = scenePath.Substring(lastSlash + 1, scenePath.LastIndexOf(".") - lastSlash - 1);
+
+            if (string.Compare(name, sceneName, true) == 0)
+                return true;
+        }
+
+        return false;
+    }
     public void ChangeRoom(string RoomName, Vector3 spawnLocation)
     {
         string currentSceneName = SceneManager.GetActiveScene().name;
 
-        if (isLocalPlayer)
+        if (isLocalPlayer && DoesSceneExist(RoomName) == true)
         {
-            LoadingFrame.SetActive(true);
-            LoadingFrame.GetComponent<Animator>().SetTrigger("Start");
-            StartCoroutine(Arrived(1, currentSceneName));
+            if (RoomName.ToUpper() != currentSceneName.ToUpper())
+            {
+                StartCoroutine(Arrived(1, currentSceneName));
+                LoadingFrame.SetActive(true);
+                LoadingFrame.GetComponent<Animator>().SetTrigger("Start");
+            }
             CmdChangeRoom(RoomName, currentSceneName, spawnLocation);
+        }
+        else
+        {
+            Debug.Log("The scene: " + RoomName + " Is invaild!, Your request has been canceled.");
         }
     }
 
@@ -187,39 +212,47 @@ public class PlayerManager : NetworkBehaviour
             Debug.Log($"The Scene {RoomName}, scene is now online!.");
         }
 
-        // Move player to the new Scene on the Server side.
-        SceneManager.MoveGameObjectToScene(player.parent.gameObject, SceneManager.GetSceneByName(RoomName));
-
+        if (RoomName.ToUpper() != currentSceneName.ToUpper()) //Check if the player wants to Teleport to other room or Respawn.
+        {
+            // Move player to the new Scene on the Server side.
+            SceneManager.MoveGameObjectToScene(player.parent.gameObject, SceneManager.GetSceneByName(RoomName));
+        }
         //Reposition player
         player.GetComponentInChildren<NavMeshAgent>().Warp(spawnLocation);
 
-
-        //Telling the client to Load the new Scene
-        SceneMessage Load = new SceneMessage
+        if (RoomName.ToUpper() != currentSceneName.ToUpper()) //Check if the player wants to Teleport to other room or Respawn.
         {
-            sceneName = RoomName,
-            sceneOperation = SceneOperation.LoadAdditive,
-        };
-        connectionToClient.Send(Load);
-
+            //Telling the client to Load the new Scene
+            SceneMessage Load = new SceneMessage
+            {
+                sceneName = RoomName,
+                sceneOperation = SceneOperation.LoadAdditive,
+            };
+            connectionToClient.Send(Load);
+        }
 
         //Telling the client to reposition & move local player + components.
         RpcChangeRoom(RoomName, currentSceneName, spawnLocation);
 
-        //Telling the client to unload the previous scene.
-        SceneMessage unLoad = new SceneMessage
+        if (RoomName.ToUpper() != currentSceneName.ToUpper()) //Check if the player wants to Teleport to other room or Respawn.
         {
-            sceneName = currentSceneName,
-            sceneOperation = SceneOperation.UnloadAdditive
-        };
-        connectionToClient.Send(unLoad);
+            //Telling the client to unload the previous scene.
+            SceneMessage unLoad = new SceneMessage
+            {
+                sceneName = currentSceneName,
+                sceneOperation = SceneOperation.UnloadAdditive
+            };
+            connectionToClient.Send(unLoad);
+        }
     }
     [TargetRpc]
     void RpcChangeRoom(string RoomName, string currentSceneName, Vector3 spawnLocation)
     {
         //Move player to the new Scene
-        SceneManager.MoveGameObjectToScene(player.parent.gameObject, SceneManager.GetSceneByName(RoomName));
-
+        if (RoomName.ToUpper() != currentSceneName.ToUpper()) //Check if the player wants to Teleport to other room or Respawn.
+        {
+            SceneManager.MoveGameObjectToScene(player.parent.gameObject, SceneManager.GetSceneByName(RoomName));
+        }
         //Reset text bubble
         chatSystem.CmdDelayedFunction();
 
