@@ -127,6 +127,7 @@ public class RoomManager : MonoBehaviour
                 if (int.Parse(result2.Data["Modderator"].Value) == 1)
                 {
                     LocalPlayer.chatSystem.chatLogParent.gameObject.GetComponent<Transform>().localPosition = new Vector2(0, 1);
+                    LocalPlayer.isModderator = true;
                 }
             }
         }, (error) =>

@@ -4,27 +4,33 @@ using UnityEngine;
 using PlayFab;
 using PlayFab.ClientModels;
 
-public class CommandsManager : MonoBehaviour
+using Mirror;
+
+public class CommandsManager : NetworkBehaviour
 {
     private bool lookingForFunction = false;
 
     private string _Parameter;
+
+    public PlayerManager playerManager;
+
+    [Client]
     public void ReceivedCommand(string CommandName)
     {
-        string command = CommandName;
-        Debug.Log("Command received!, The command: " + command);
+        _Parameter = null; //Clear the Parameter Variable.
+        string command = CommandName; //Making a new Variable for easy coding.
+        Debug.Log("Command sent!, The command: " + command);  //Telling the Client that his command has been sent.
 
         command = command.Substring(1);
-        command = command.ToUpper();
-
+        command = command.ToUpper(); //Make the whole command string with CAPS.
 
         lookingForFunction = true;
-        
+
         for (int i = 0; i < 2; i++)
         {
             if (lookingForFunction == true && i == 0) // THIS IS LOCAL COMMAND
             {
-                if (command.Contains(" "))
+                if (command.Contains(" ")) //Check if there is a Parameter to the command for Example "/Warp "Disco""
                 {
                     _Parameter = command.Split(' ')[1];
                 }
@@ -40,23 +46,45 @@ public class CommandsManager : MonoBehaviour
                     FunctionName = commanditself,
                     FunctionParameter = new { parameter = _Parameter },
                     GeneratePlayStreamEvent = true
-                }, CloudResults => { Debug.Log("Executed PlayFab CloudScript!");
+                }, CloudResults => {
+                    Debug.Log("Executed PlayFab CloudScript!");
                     lookingForFunction = false;
                 }, error => { });
-                _Parameter = null;
                 break;
             }
         }
     }
 
-    private void FREEHAT()
-    {
-        Debug.Log("FREE HAT!, You didn't received anything actually. " + _Parameter);
+    /// <IMPORTANT!>
+    /// MAKE SURE TO WRITE NEW COMMANDS VOID'S WITH CAPS!
+    /// </IMPORTANT>
 
+    [Client]
+    private void PING()
+    {
+        lookingForFunction = false;
+        Debug.Log("PONG! " + _Parameter);
+        Debug.Log("Your ping status: " + (int)(NetworkTime.rtt * 1000));
 
         //playerspeed = Parameter; //EXAMPLE FOR USING LOCAL COMMAND USING PARAMETER
-        _Parameter = null; // CLEAR THE PARAMETER!!!
-
         // Here you can execute custom PlayFab request, or change local value like the speed of the Local Player.
+    }
+
+
+    //Change room
+    [Client]
+    private void WARP()
+    {
+        lookingForFunction = false;
+        playerManager.ChangeRoom(_Parameter, new Vector3(0, 0, 0));
+        Debug.Log("Teleported to: " + _Parameter);
+    }
+
+    [Client]
+    private void RESPAWN()
+    {
+        lookingForFunction = false;
+        playerManager.ChangeRoom(gameObject.scene.name, new Vector3(0, 0, 0));
+        Debug.Log("RESPAWNED!");
     }
 }
