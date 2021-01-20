@@ -57,7 +57,7 @@ public class PlayFabLogin : MonoBehaviour
                                     if (RememberMeLogin.isOn == true)
                                     {
                                         //SAVE PLAYER CREDENTIALS ON LOCAL PC.
-                                        if (PlayerPrefs.GetInt("USERSAVED") == 0 || PlayerPrefs.GetInt("USERSAVED") == null)
+                                        if (PlayerPrefs.GetInt("USERSAVED") == 0)
                                         {
                                             PlayerPrefs.SetInt("USERSAVED", 1);
                                             PlayerPrefs.SetString("USERNAME", UserNameLogin);
@@ -70,11 +70,11 @@ public class PlayFabLogin : MonoBehaviour
                                         {
                                             int whichSlotIsOpen = 2;
 
-                                            if (PlayerPrefs.GetInt("USERSAVED2") == 0 || PlayerPrefs.GetInt("USERSAVED2") == null)
+                                            if (PlayerPrefs.GetInt("USERSAVED2") == 0)
                                             {
                                                 whichSlotIsOpen = 2;
                                             }
-                                            else if (PlayerPrefs.GetInt("USERSAVED3") == 0 || PlayerPrefs.GetInt("USERSAVED3") == null)
+                                            else if (PlayerPrefs.GetInt("USERSAVED3") == 0)
                                             {
                                                 whichSlotIsOpen = 3;
                                             }
