@@ -27,11 +27,18 @@ public class PlayerManager : NetworkBehaviour
     public GameObject canvas;
     public GameObject LoadingFrame; //
 
-    public bool Moving;
     public float rotationSpeed = 20;
     public ChatSystem chatSystem;
     [HideInInspector]
     public bool isModderator = false;
+
+    [Tooltip("MovementType is how the local player will move: True = Hold to move. False = Click to move to destination")]
+    private bool CanRotate = true;
+    private float heledLevel = 0;
+    private bool isHeled = false;
+    public int pressSensive = 25;
+
+    public int movementype = 1;
 
 
     void Start()
@@ -71,24 +78,77 @@ public class PlayerManager : NetworkBehaviour
 
         if (Physics.Raycast(ray, out hit) && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
         {
-            if (Input.GetMouseButtonUp(0) && hit.transform.tag != "MouseHitCollider") // Movement
+            if (Input.GetMouseButton(0) && hit.transform.tag != "MouseHitCollider")
             {
-                CmdScrPlayerSetDestination(hit.point);
-            }
-
-            if (Moving == false && Input.GetAxis("Mouse X") != 0 || Moving == false && Input.GetAxis("Mouse Y") != 0) // Rotation
-            {
-                var lookPos = hit.point - player.transform.position;
-                lookPos.y = 0;
-                var rotation = Quaternion.LookRotation(lookPos);
-                player.transform.rotation = Quaternion.Slerp(player.transform.rotation, rotation, Time.deltaTime * rotationSpeed);
-            }
-            if (navMeshController.remainingDistance < navMeshController.stoppingDistance && Moving == true)
-            {
-                Moving = false;
+                //CmdScrPlayerSetDestination(hit.point);
+                if (heledLevel < pressSensive && isHeled == false)
+                {
+                    if (navMeshController.angularSpeed > 500)
+                        navMeshController.angularSpeed = 500;
+                    CmdScrPlayerSetDestination(hit.point);
+                    CanRotate = false;
+                    heledLevel += Time.deltaTime * 100;
+                }
+                else if (heledLevel >= pressSensive)
+                {
+                    Debug.Log("Heled");
+                    CmdScrPlayerSetDestination(hit.point);
+                    if (isHeled == false && CanRotate == false)
+                    {
+                        //navMeshController.angularSpeed = 0;
+                        isHeled = true;
+                        CanRotate = true;
+                        Debug.Log("CanRotate TRUE");
+                    }
+                }
             }
         }
+
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            if (isHeled == false)
+            {
+                Debug.Log("Released regular Movement");
+                heledLevel = 0;
+            }
+            else if (isHeled == true)
+            {
+                isHeled = false;
+                //navMeshController.angularSpeed = 500;
+                Debug.Log("Released from hold");
+                if (movementype == 1)
+                {
+                    navMeshController.ResetPath();
+
+                }
+                else if (movementype == 2)
+                {
+                    navMeshController.SetDestination(player.transform.position);
+                }
+                else if (movementype == 3)
+                {
+                    navMeshController.SetDestination(hit.point);
+                    CanRotate = false;
+                }
+                //CanRotate = false;
+                heledLevel = 0;
+            }
+        }
+
+        if (CanRotate == true && Input.GetAxis("Mouse X") != 0 || CanRotate == true && Input.GetAxis("Mouse Y") != 0) // Rotation
+        {
+            var lookPos = hit.point - player.transform.position;
+            lookPos.y = 0;
+            var rotation = Quaternion.LookRotation(lookPos);
+            player.transform.rotation = Quaternion.Slerp(player.transform.rotation, rotation, Time.deltaTime * rotationSpeed);
+        }
+        if (navMeshController.remainingDistance < navMeshController.stoppingDistance && CanRotate == false)
+        {
+            CanRotate = true;
+        }
     }
+
     [Command]
     public void CmdScrPlayerSetDestination(Vector3 argPosition)
     {
@@ -99,10 +159,9 @@ public class PlayerManager : NetworkBehaviour
     [ClientRpc] //Only the caller of the CMD Command will receive this callback
     public void RpcScrPlayerSetDestination(Vector3 argPosition)
     {
-        Moving = true;
         navMeshController.SetDestination(argPosition);
-    }
 
+    }
     #endregion
 
 
