@@ -239,7 +239,7 @@ public class PlayerManager : NetworkBehaviour
     public void ChangeRoom(string RoomName, Vector3 spawnLocation)
     {
         string currentSceneName = SceneManager.GetActiveScene().name;
-
+        chatSystem.inputFiled.text = null;
         if (isLocalPlayer && DoesSceneExist(RoomName) == true)
         {
             if (RoomName.ToUpper() != currentSceneName.ToUpper())
@@ -289,6 +289,8 @@ public class PlayerManager : NetworkBehaviour
             };
             connectionToClient.Send(Load);
         }
+
+        chatSystem.CmdDelayedFunction();
 
         //Telling the client to reposition & move local player + components.
         RpcChangeRoom(RoomName, currentSceneName, spawnLocation);

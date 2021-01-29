@@ -95,7 +95,7 @@ public class ChatSystem : NetworkBehaviour
                 }
                 playerText.text = Message;
                 RpcSendGlobal(playerName, text.TrimStart());
-                Debug.Log($"{playerName}: {Message}"); //CLIENT MESSAGE WILL BE DEBUGGED ON THE CONSOLE TO MONITOR THE CHAT.
+                Debug.Log($"{playerName}: {Message}"); //CLIENT MESSAGE WILL DEBUGGED TO THE CONSOLE.
 
                 Invoke("CmdDelayedFunction", timetoClear);
             }
