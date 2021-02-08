@@ -349,4 +349,10 @@ public class PlayerManager : NetworkBehaviour
 
     }
 
+
+
+    public void updateMovementType(int valueIn)
+    {
+        movementype = valueIn;
+    }
 }
