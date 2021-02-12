@@ -9,7 +9,6 @@ using UnityEngine.Networking;
 
 public class ChatSystem : NetworkBehaviour
 {
-
     public TMP_InputField inputFiled;
 
     public TMP_Text playerText;
@@ -81,7 +80,7 @@ public class ChatSystem : NetworkBehaviour
             {
                 if (text.ToLower().Contains(badWords[i]))
                 {
-                    Debug.Log("Bad Word detected!");
+                    //Debug.Log("Bad Word detected!");
                     //Send warning to Client, If warning extended the limit, Mute the Client.
                     //This field is for Playfab.
                     badword = true;
@@ -95,7 +94,7 @@ public class ChatSystem : NetworkBehaviour
                 }
                 playerText.text = Message;
                 RpcSendGlobal(playerName, text.TrimStart());
-                Debug.Log($"{playerName}: {Message}"); //CLIENT MESSAGE WILL DEBUGGED TO THE CONSOLE.
+                //Debug.Log($"{playerName}: {Message}"); //CLIENT MESSAGE WILL DEBUGGED TO THE CONSOLE.
 
                 Invoke("CmdDelayedFunction", timetoClear);
             }

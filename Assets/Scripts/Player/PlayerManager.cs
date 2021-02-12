@@ -15,20 +15,33 @@ public class PlayerManager : NetworkBehaviour
     public Camera cam;
 
     public Transform player;
+
+    [SerializeField]
+    private GameObject playerObject;
     /// Player Name
-    [SyncVar]
-    public string playerName;
-    public TextMeshPro playerNameMesh;
-    public TextMeshPro PlayerCircle;
-    [SyncVar]
-    public int SkinColor = 1;
+
+    [SyncVar(hook = nameof(updatePlayerName))]
+    public string playerName = "Loading..";
+
+    [SyncVar(hook = nameof(updatePlayerColor))]
+    [SerializeField]
+    private int SkinColor = 1;
+
+    [SerializeField]
+    private TextMeshPro playerNameMesh;
+
+    [SerializeField]
+    private TextMeshPro PlayerCircle;
 
     public RoomManager roomManager;
-    public GameObject canvas;
-    public GameObject LoadingFrame; //
+    [SerializeField]
+    private GameObject canvas;
+    public GameObject LoadingFrame;
 
-    public float rotationSpeed = 20;
+    [SerializeField]
+    private float rotationSpeed = 20;
     public ChatSystem chatSystem;
+
     [HideInInspector]
     public bool isModderator = false;
 
@@ -36,7 +49,8 @@ public class PlayerManager : NetworkBehaviour
     private bool CanRotate = true;
     private float heledLevel = 0;
     private bool isHeled = false;
-    public int pressSensive = 25;
+    [SerializeField]
+    private int pressSensive = 25;
 
     public int movementype = 1;
 
@@ -59,19 +73,22 @@ public class PlayerManager : NetworkBehaviour
         }
         if (isServer || isServerOnly)
         {
-            GameObject followPlayer = this.transform.Find("MoveableComponents").gameObject;
-            Destroy(followPlayer.gameObject);
+            /*GameObject followPlayer = this.transform.Find("MoveableComponents").gameObject;
+            Destroy(followPlayer.gameObject);*/
         }
     }
 
+    public override void OnStartAuthority()
+    {
+        base.OnStartAuthority();
+        cam.gameObject.tag = "MainCamera";
+    }
     #region Movement
 
+    [ClientCallback]
     void Update()
     {
-        if (!hasAuthority)
-        {
-            return;
-        }
+        if (!hasAuthority) { return; }
 
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
@@ -103,8 +120,6 @@ public class PlayerManager : NetworkBehaviour
                 }
             }
         }
-
-
         if (Input.GetMouseButtonUp(0))
         {
             if (isHeled == false)
@@ -135,7 +150,6 @@ public class PlayerManager : NetworkBehaviour
                 heledLevel = 0;
             }
         }
-
         if (CanRotate == true && Input.GetAxis("Mouse X") != 0 || CanRotate == true && Input.GetAxis("Mouse Y") != 0) // Rotation
         {
             var lookPos = hit.point - player.transform.position;
@@ -164,61 +178,39 @@ public class PlayerManager : NetworkBehaviour
     }
     #endregion
 
-
-    [Command]
-    public void CmdReady(string playername)
-    {
-        playerName = playername;
-        RpcSendPlayerName();
-    }
-
-
     #region Player Name management
 
-    [ClientRpc]
-    void RpcSendPlayerName()
+    [Command] 
+    public void CmdUpdatePlayerName(string playername, int color) 
     {
-        roomManager.SendNameToClients();
+        playerName = playername;
+        SkinColor = color;
     }
 
-
-    public void SendName(string playername, int playerSkin)
+    private void updatePlayerName(string oldName, string newName)
     {
-        CmdScrPlayerName(playername, playerSkin, player.transform.position);
+        playerName = newName;
+        playerNameMesh.text = playerName;
+        chatSystem.playerName = playerName;
+        Debug.Log("updatePlayerName!");
     }
-
+    private void updatePlayerColor(int oldColor, int newColor)
+    {
+        SkinColor = newColor;
+        playerObject.GetComponent<Renderer>().material = roomManager.skins[SkinColor];
+    }
 
 
     [Command]
-    public void CmdScrPlayerName(string playername, int playerSkin, Vector3 playerPosition)
+    public void CmdScrPlayerName(Vector3 playerPosition)
     {
-        playerNameMesh.text = playername;
-        player.GetComponent<Renderer>().material = roomManager.skins[playerSkin];
-        //SkinColor = playerSkin;
-
-        chatSystem.playerName = playername;
         navMeshController.Warp(playerPosition);
-        Debug.Log(playername + " Has pinged his location!");
-        RpcScrPlayerName(playername, playerSkin, playerPosition);
-    }
-
-    [ClientRpc]
-    public void RpcScrPlayerName(string playername, int playerSkin, Vector3 playerPosition)
-    {
-        playerNameMesh.text = playername;
-        player.GetComponent<Renderer>().material = roomManager.skins[playerSkin];
-        //SkinColor = playerSkin;
-
-        navMeshController.Warp(playerPosition);
-
-        chatSystem.playerName = playername;
     }
     #endregion
 
     //////////////////
 
     #region Room switching
-
     public static bool DoesSceneExist(string name)
     {
         if (string.IsNullOrEmpty(name))
@@ -274,10 +266,10 @@ public class PlayerManager : NetworkBehaviour
         if (RoomName.ToUpper() != currentSceneName.ToUpper()) //Check if the player wants to Teleport to other room or Respawn.
         {
             // Move player to the new Scene on the Server side.
-            SceneManager.MoveGameObjectToScene(player.parent.gameObject, SceneManager.GetSceneByName(RoomName));
+            SceneManager.MoveGameObjectToScene(player.gameObject, SceneManager.GetSceneByName(RoomName));
         }
         //Reposition player
-        player.GetComponentInChildren<NavMeshAgent>().Warp(spawnLocation);
+        navMeshController.Warp(spawnLocation);
 
         if (RoomName.ToUpper() != currentSceneName.ToUpper()) //Check if the player wants to Teleport to other room or Respawn.
         {
@@ -312,14 +304,14 @@ public class PlayerManager : NetworkBehaviour
         //Move player to the new Scene
         if (RoomName.ToUpper() != currentSceneName.ToUpper()) //Check if the player wants to Teleport to other room or Respawn.
         {
-            SceneManager.MoveGameObjectToScene(player.parent.gameObject, SceneManager.GetSceneByName(RoomName));
+            SceneManager.MoveGameObjectToScene(player.gameObject, SceneManager.GetSceneByName(RoomName));
         }
         //Reset text bubble
         chatSystem.CmdDelayedFunction();
 
         //Position player
         //player.transform.position = spawnLocation;
-        player.GetComponentInChildren<NavMeshAgent>().Warp(spawnLocation);
+        navMeshController.Warp(spawnLocation);
         Resources.UnloadUnusedAssets();
     }
 
@@ -336,8 +328,6 @@ public class PlayerManager : NetworkBehaviour
             StartCoroutine(Arrived(0.5f, currentSceneName));
         }
     }
-
-
     #endregion
 
 
