@@ -1003,8 +1003,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 995838744}
   m_HandleRect: {fileID: 995838743}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.47787914
+  m_Value: 0.9999985
+  m_Size: 0.47787932
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1997,7 +1997,7 @@ MonoBehaviour:
   disconnectInactiveConnections: 1
   disconnectInactiveTimeout: 6000
   authenticator: {fileID: 0}
-  playerPrefab: {fileID: 1818629808934478575, guid: db4b324aa874ef540be9713ea70a63dd, type: 3}
+  playerPrefab: {fileID: 8701936629083937580, guid: ad1d92c07361de845a8755f8d03c356f, type: 3}
   autoCreatePlayer: 1
   playerSpawnMethod: 0
   spawnPrefabs: []

@@ -16,14 +16,16 @@ public class PlayerManager : NetworkBehaviour
 
     public Transform player;
 
+    public Animator animator;
+
     [SerializeField]
     private GameObject playerObject;
     /// Player Name
 
     [SyncVar(hook = nameof(updatePlayerName))]
-    public string playerName = "Loading..";
+    private string playerName = "Loading..";
 
-    [SyncVar(hook = nameof(updatePlayerColor))]
+    //[SyncVar(hook = nameof(updatePlayerColor))]
     [SerializeField]
     private int SkinColor = 1;
 
@@ -103,6 +105,7 @@ public class PlayerManager : NetworkBehaviour
                     if (navMeshController.angularSpeed > 500)
                         navMeshController.angularSpeed = 500;
                     CmdScrPlayerSetDestination(hit.point);
+                    AnimationWalk(0.5f);
                     CanRotate = false;
                     heledLevel += Time.deltaTime * 100;
                 }
@@ -110,6 +113,7 @@ public class PlayerManager : NetworkBehaviour
                 {
                     Debug.Log("Heled");
                     CmdScrPlayerSetDestination(hit.point);
+                    AnimationWalk(0.5f);
                     if (isHeled == false && CanRotate == false)
                     {
                         //navMeshController.angularSpeed = 0;
@@ -135,16 +139,18 @@ public class PlayerManager : NetworkBehaviour
                 if (movementype == 1)
                 {
                     navMeshController.ResetPath();
-
+                    AnimationStopMoving();
                 }
                 else if (movementype == 2)
                 {
                     navMeshController.SetDestination(player.transform.position);
+                    AnimationStopMoving();
                 }
                 else if (movementype == 3)
                 {
                     navMeshController.SetDestination(hit.point);
                     CanRotate = false;
+                    AnimationStopMoving();
                 }
                 //CanRotate = false;
                 heledLevel = 0;
@@ -160,6 +166,16 @@ public class PlayerManager : NetworkBehaviour
         if (navMeshController.remainingDistance < navMeshController.stoppingDistance && CanRotate == false)
         {
             CanRotate = true;
+            AnimationStopMoving();
+        }
+
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            if (navMeshController.remainingDistance < navMeshController.stoppingDistance)
+            {
+                playerObject.transform.rotation = Quaternion.Slerp(transform.rotation, cam.transform.rotation, Time.deltaTime * 1);
+                AnimationWaving();
+            }
         }
     }
 
@@ -174,7 +190,18 @@ public class PlayerManager : NetworkBehaviour
     public void RpcScrPlayerSetDestination(Vector3 argPosition)
     {
         navMeshController.SetDestination(argPosition);
-
+    }
+    private void AnimationWalk(float speed)
+    {
+        animator.SetFloat("Moving", speed);
+    }
+    private void AnimationStopMoving()
+    {
+        animator.SetFloat("Moving", 0f);
+    }
+    private void AnimationWaving()
+    {
+        animator.SetTrigger("Wave");
     }
     #endregion
 
@@ -189,10 +216,8 @@ public class PlayerManager : NetworkBehaviour
 
     private void updatePlayerName(string oldName, string newName)
     {
-        playerName = newName;
-        playerNameMesh.text = playerName;
-        chatSystem.playerName = playerName;
-        Debug.Log("updatePlayerName!");
+        playerNameMesh.text = newName;
+        chatSystem.playerName = newName;
     }
     private void updatePlayerColor(int oldColor, int newColor)
     {
