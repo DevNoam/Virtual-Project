@@ -55,9 +55,9 @@ public class CommandsManager : NetworkBehaviour
         }
     }
 
-    /// <IMPORTANT!>
-    /// MAKE SURE TO WRITE NEW COMMANDS VOID'S WITH CAPS!
-    /// </IMPORTANT>
+    //////////
+    /// MAKE SURE TO WRITE VOID WITH CAPS!
+    ///////////
 
     [Client]
     private void PING()
@@ -75,6 +75,7 @@ public class CommandsManager : NetworkBehaviour
     [Client]
     private void WARP()
     {
+        if(_Parameter == "Disco")
         lookingForFunction = false;
         playerManager.ChangeRoom(_Parameter, new Vector3(0, 0, 0));
         Debug.Log("Teleported to: " + _Parameter);

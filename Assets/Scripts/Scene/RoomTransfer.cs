@@ -7,8 +7,10 @@ using UnityEngine.AI;
 
 public class RoomTransfer : MonoBehaviour
 {
-    public string SceneID;
-    public Vector3 SpawnLocation;
+    [SerializeField]
+    private string SceneID;
+    [SerializeField]
+    private Vector3 SpawnLocation;
 
 
     // Start is called before the first frame update

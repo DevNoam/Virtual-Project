@@ -28,23 +28,26 @@ public class PlayFabLogin : MonoBehaviour
 
     public Material[] skins;
 
+    public NetworkHUD NetworkManagerHUD;
+
 
     public void Start()
     {
+        NetworkManagerHUD.enabled = false;
         if (Application.isBatchMode == true) //If is server, Instantly load the Server.
         {
-            SceneManager.LoadScene(1);
+            //NetworkManager.SetActive(true);
         }
 
         if (string.IsNullOrEmpty(PlayFabSettings.staticSettings.TitleId))
         {
             PlayFabSettings.staticSettings.TitleId = "8D6DB";
         }
-
     }
 
     private void OnLoginSuccess(LoginResult result)
     {
+        NetworkManagerHUD.enabled = true;
         {
             PlayFabClientAPI.GetPlayerStatistics(new GetPlayerStatisticsRequest(),
                 results =>
@@ -64,7 +67,8 @@ public class PlayFabLogin : MonoBehaviour
                                             PlayerPrefs.SetString("PASSWORD", UserPasswordLogin);
                                             PlayerPrefs.Save();
 
-                                            SceneManager.LoadSceneAsync(1);
+                                            //SceneManager.LoadSceneAsync(1);
+                                            NetworkManagerHUD.enableHUD();
                                         }
                                         else if (PlayerPrefs.GetInt("USERSAVED") == 1) //THERE IS A PLAYER EXISTED ON THE PC, THIS FIELD WILL SAVE A NEW ACCOUNT.
                                         {
@@ -84,16 +88,18 @@ public class PlayFabLogin : MonoBehaviour
                                             PlayerPrefs.SetString("PASSWORD" + whichSlotIsOpen, UserPasswordLogin);
                                             PlayerPrefs.Save();
 
-                                            SceneManager.LoadSceneAsync(1);
+                                            //SceneManager.LoadSceneAsync(1);
+                                            NetworkManagerHUD.enableHUD();
                                         }
                                     }
                                     else
                                     {
                                         //IF PLAYER CREDENTIALS SAVING HAS BEEN SKIPPED.
 
-                                        SceneManager.LoadSceneAsync(1);
+                                        //SceneManager.LoadSceneAsync(1);
+                                        NetworkManagerHUD.enableHUD();
                                     }
-                                    if(eachStat.Value == 0)
+                                    if (eachStat.Value == 0)
                                     {
                                         Instantiate(AccountVerificationReminder);
                                     }
@@ -210,7 +216,6 @@ public class PlayFabLogin : MonoBehaviour
     }
     #endregion
 
-
     public void SendRecoveryEmail()
     {
         var request = new SendAccountRecoveryEmailRequest { Email = resetEmail, TitleId = PlayFabSettings.staticSettings.TitleId};
@@ -245,12 +250,10 @@ public class PlayFabLogin : MonoBehaviour
     }
 
 
-
-
-
     public void GuestLogin()
     {
         LoadingGUI();
-        SceneManager.LoadSceneAsync(1);
+        //SceneManager.LoadSceneAsync(1);
+        NetworkManagerHUD.enableHUD();
     }
 }

@@ -234,7 +234,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 1
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -355,7 +355,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SceneID: Disco
-  SpawnLocation: {x: 0, y: 1.38, z: -14.21}
+  SpawnLocation: {x: 0, y: 0, z: 0}
 --- !u!65 &320826220
 BoxCollider:
   m_ObjectHideFlags: 0
