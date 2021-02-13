@@ -4,23 +4,29 @@ using UnityEngine;
 using Mirror;
 using System.Diagnostics;
 
-public class FollowPlayer : MonoBehaviour
+public class FollowPlayer : NetworkBehaviour
 { 
-    public GameObject following;
+    [SerializeField]
+    private GameObject following;
+        
+    public Camera cam;
     [Range(0.0f, 150.0f)]
-    public float interested; 
-    public Vector3 followPosition;
-    //Transform cam;
+    [SerializeField]
+    private float interested; 
+    [SerializeField]
+    private Vector3 followPosition;
 
-    void Start()
+
+    public void Start()
     {
-        //cam = GameObject.Find("Main Camera").GetComponent<Transform>();
+        cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
     }
 
+    [ClientCallback]
     void LateUpdate()
     {
         transform.position = Vector3.MoveTowards(transform.position, following.transform.position + followPosition, interested);
-        transform.LookAt(transform.position/* + cam.forward*/);
+        transform.LookAt(transform.position + cam.transform.forward);
     }
 
 }

@@ -15,6 +15,8 @@ public class CameraFollowing : MonoBehaviour
     void Start()
     {
         cam = this.transform;
+        this.transform.parent = null;
+        DontDestroyOnLoad(this);
     }
 
     void LateUpdate()
