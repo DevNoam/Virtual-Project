@@ -31,7 +31,7 @@ public class PlayerExistedLogin : MonoBehaviour
             playerImage.GetComponent<Image>().sprite = playerImageLlist[PlayerPrefs.GetInt("PLAYERCOLOR" + slotNumber)];
         }
         playerNametext.text = playerName.ToUpper();
-        playfabLogin = GameObject.Find("Manager").GetComponent<PlayFabLogin>();
+        playfabLogin = GameObject.Find("LoginManager").GetComponent<PlayFabLogin>();
     }
 
 
