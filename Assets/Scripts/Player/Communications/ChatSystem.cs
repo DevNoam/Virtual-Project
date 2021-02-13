@@ -4,8 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Mirror;
 using TMPro;
-using UnityEngine.Networking;
-
+using UnityEngine.EventSystems;
 
 public class ChatSystem : NetworkBehaviour
 {
@@ -58,7 +57,11 @@ public class ChatSystem : NetworkBehaviour
 
         //Clear InputFiled
         inputFiled.text = null;
-        inputFiled.Select();
+        EventSystem.current.SetSelectedGameObject(null);
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            inputFiled.Select();
+        }
     }
 
     [Command]
