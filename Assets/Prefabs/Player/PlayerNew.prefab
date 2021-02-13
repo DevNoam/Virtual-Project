@@ -10774,7 +10774,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0500a0a1f4bc1e4d89e940e40b8461c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncMode: 1
+  syncMode: 0
   syncInterval: 0.1
   inputFiled: {fileID: 7961103094889345776}
   playerText: {fileID: 3508551717405742471}
@@ -10878,14 +10878,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36ab6f27d330eaa4aa00a4c4513a356d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncMode: 1
+  syncMode: 0
   syncInterval: 0.1
   navMeshController: {fileID: 1028009894112402039}
   cam: {fileID: 2311889951073756170}
   player: {fileID: 8701936629083937554}
   animator: {fileID: 7873139283540552468}
+  networkAnimator: {fileID: 3023112005135977041}
   playerObject: {fileID: 8701936629110961732}
-  playerName: Loading..
   SkinColor: 1
   playerNameMesh: {fileID: 1296407044174070752}
   PlayerCircle: {fileID: 4387157052350892202}

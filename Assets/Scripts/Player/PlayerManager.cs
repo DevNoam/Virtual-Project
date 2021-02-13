@@ -16,7 +16,10 @@ public class PlayerManager : NetworkBehaviour
 
     public Transform player;
 
-    public Animator animator;
+    [SerializeField]
+    private Animator animator;
+    [SerializeField]
+    private NetworkAnimator networkAnimator;
 
     [SerializeField]
     private GameObject playerObject;
@@ -139,18 +142,20 @@ public class PlayerManager : NetworkBehaviour
                 if (movementype == 1)
                 {
                     navMeshController.ResetPath();
+                    CanRotate = false;
                     AnimationStopMoving();
+                }
+                else if (movementype == 1)
+                {
+                    navMeshController.SetDestination(player.transform.position);
+                    CanRotate = false;
+
+                    //AnimationStopMoving();
                 }
                 else if (movementype == 2)
                 {
-                    navMeshController.SetDestination(player.transform.position);
-                    AnimationStopMoving();
-                }
-                else if (movementype == 3)
-                {
                     navMeshController.SetDestination(hit.point);
                     CanRotate = false;
-                    AnimationStopMoving();
                 }
                 //CanRotate = false;
                 heledLevel = 0;
@@ -169,14 +174,14 @@ public class PlayerManager : NetworkBehaviour
             AnimationStopMoving();
         }
 
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.W) && !chatSystem.inputFiled.isFocused)
         {
             if (navMeshController.remainingDistance < navMeshController.stoppingDistance)
             {
                 playerObject.transform.rotation = Quaternion.Slerp(transform.rotation, cam.transform.rotation, Time.deltaTime * 1);
                 AnimationWaving();
             }
-        }
+        }   
     }
 
     [Command]
@@ -202,6 +207,7 @@ public class PlayerManager : NetworkBehaviour
     private void AnimationWaving()
     {
         animator.SetTrigger("Wave");
+        networkAnimator.SetTrigger("Wave");
     }
     #endregion
 
