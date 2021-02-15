@@ -8,7 +8,7 @@ using UnityEngine.Networking;
 public class ServerStatus : MonoBehaviour
 {
     public int data = 0; //amount of connected players from all the rooms.
-    //public bool isServer = false;
+    public bool isServer = false;
     public int runTime = 0; //how many seconds the server is running
     private string applicationVersion;
     
@@ -18,7 +18,7 @@ public class ServerStatus : MonoBehaviour
 
     void Start()
     {
-        if (!Application.isBatchMode)
+        if (!Application.isBatchMode && isServer == false)
         {
             Destroy(this);
         }

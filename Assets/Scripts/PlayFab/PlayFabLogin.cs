@@ -331,4 +331,9 @@ public class PlayFabLogin : MonoBehaviour
         newVersion.SetActive(false);
         noInternet.SetActive(false);
     }
+
+    public void openServerStatusPage()
+    {
+        Application.OpenURL("https://moominrewritten.000webhostapp.com/VirtualProject/");
+    }
 }
