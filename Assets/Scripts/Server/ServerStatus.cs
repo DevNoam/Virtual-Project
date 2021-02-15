@@ -8,20 +8,23 @@ using UnityEngine.Networking;
 public class ServerStatus : MonoBehaviour
 {
     public int data = 0; //amount of connected players from all the rooms.
-    public bool isServer = false;
+    //public bool isServer = false;
     public int runTime = 0; //how many seconds the server is running
+    private string applicationVersion;
     
 
-    private string postUrl = "https://moominrewritten.000webhostapp.com/VirtualProject/PostConnectedPlayers.php";
+    [Tooltip("ConnectedPlayers.txt server info should go here.")]
+    public string postUrl;
 
     void Start()
     {
-        if (!Application.isBatchMode && isServer == false)
+        if (!Application.isBatchMode)
         {
             Destroy(this);
         }
-        else if (isServer == true)
+        else
         {
+            applicationVersion = Application.version;
             InvokeRepeating("Invoking", 10, 120);
             StartCoroutine(time());
         }
@@ -59,6 +62,7 @@ public class ServerStatus : MonoBehaviour
         List<IMultipartFormSection> wwwForm = new List<IMultipartFormSection>();
         wwwForm.Add(new MultipartFormDataSection("curActivePlayers", data.ToString()));
         wwwForm.Add(new MultipartFormDataSection("upTime", uptime));
+        wwwForm.Add(new MultipartFormDataSection("serverVersion", applicationVersion));
 
         UnityWebRequest www = UnityWebRequest.Post(postUrl, wwwForm);
 

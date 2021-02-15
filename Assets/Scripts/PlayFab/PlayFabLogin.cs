@@ -5,6 +5,7 @@ using PlayFab.ClientModels;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Networking;
 using TMPro;
 
 public class PlayFabLogin : MonoBehaviour
@@ -30,6 +31,13 @@ public class PlayFabLogin : MonoBehaviour
 
     public NetworkHUD NetworkManagerHUD;
 
+    [Header("ServerStatus")]
+    public TMP_Text onlinePlayers;
+    public TMP_Text serverVersion;
+    public GameObject newVersion;
+    public GameObject noInternet;
+    [Tooltip("ConnectedPlayers.txt server info should go here.")]
+    public string serverStatusURL;
 
     public void Start()
     {
@@ -43,6 +51,10 @@ public class PlayFabLogin : MonoBehaviour
         {
             PlayFabSettings.staticSettings.TitleId = "8D6DB";
         }
+        StartCoroutine(FetchServerVersion(serverStatusURL));
+        StartCoroutine(FetchOnlinePlayers(serverStatusURL));
+        if (newVersion.activeInHierarchy)
+            newVersion.SetActive(false);
     }
 
     private void OnLoginSuccess(LoginResult result)
@@ -255,5 +267,68 @@ public class PlayFabLogin : MonoBehaviour
         LoadingGUI();
         //SceneManager.LoadSceneAsync(1);
         NetworkManagerHUD.enableHUD();
+    }
+
+
+    IEnumerator FetchServerVersion(string uri)
+    {
+        serverVersion.text = $"V: {Application.version}";
+        using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
+        {
+            // Request and wait for the desired page.
+            yield return webRequest.SendWebRequest();
+
+            string[] lines = webRequest.downloadHandler.text.Split();
+
+            if (webRequest.isNetworkError)
+            {
+                onlinePlayers.text = $"$ERROR";
+                noInternet.SetActive(true);
+                yield return new WaitForSeconds(5f);
+                StartCoroutine(FetchServerVersion(uri));
+            }
+            else
+            {
+                checkIfclientupdated(lines[6]);
+            }
+        }
+    }
+    IEnumerator FetchOnlinePlayers(string uri)
+    {
+        using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
+        {
+            // Request and wait for the desired page.
+            yield return webRequest.SendWebRequest();
+
+            string[] pages = uri.Split('/');
+            int page = pages.Length - 1;
+
+            string[] lines = webRequest.downloadHandler.text.Split();
+
+            if (webRequest.isNetworkError)
+            {
+                onlinePlayers.text = $"Players online: ? / ?";
+            }
+            else
+            {
+                onlinePlayers.text = $"Players online: {lines[0]} / 25";
+            }
+
+            yield return new WaitForSeconds(30f);
+            StartCoroutine(FetchOnlinePlayers(uri));
+        }
+    }
+
+    private void checkIfclientupdated(string version)
+    {
+        if (version != Application.version)
+        {
+            newVersion.SetActive(true);
+        }
+    }
+    public void passBarriers()
+    {
+        newVersion.SetActive(false);
+        noInternet.SetActive(false);
     }
 }
