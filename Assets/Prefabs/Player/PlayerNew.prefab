@@ -2208,7 +2208,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8384991638361971199
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11431,13 +11431,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9081165541491377903}
-  m_LocalRotation: {x: 0.21788757, y: -0, z: -0, w: 0.9759739}
+  m_LocalRotation: {x: 0, y: 0.97597384, z: -0.21788773, w: 0}
   m_LocalPosition: {x: 0.072618484, y: 10.156979, z: -18.228207}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8701936629083937554}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 25.17, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 25.17, y: 180, z: 0}
 --- !u!20 &2311889951073756170
 Camera:
   m_ObjectHideFlags: 0
@@ -11501,7 +11501,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3e910ac307ad93488a713fcfcfbd763, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  following: {fileID: 8701936629110961736}
+  following: {fileID: 4297329744705646958}
   interested: 100
   followPosition: {x: 0, y: 7.13, z: -11.98}
 --- !u!1 &9220757255470414797
