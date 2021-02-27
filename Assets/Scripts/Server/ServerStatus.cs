@@ -62,7 +62,7 @@ public class ServerStatus : MonoBehaviour
         List<IMultipartFormSection> wwwForm = new List<IMultipartFormSection>();
         wwwForm.Add(new MultipartFormDataSection("curActivePlayers", data.ToString()));
         wwwForm.Add(new MultipartFormDataSection("upTime", uptime));
-        wwwForm.Add(new MultipartFormDataSection("serverVersion", applicationVersion));
+        wwwForm.Add(new MultipartFormDataSection("serverVersion", "ServerVersion: " + applicationVersion));
 
         UnityWebRequest www = UnityWebRequest.Post(postUrl, wwwForm);
 

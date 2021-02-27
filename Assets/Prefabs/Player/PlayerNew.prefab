@@ -4584,7 +4584,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: d6600ecfaa9c63f40b02be34a6dc3885, type: 3}
   m_Controller: {fileID: 9100000, guid: ea6dcd3066ee51b4d8fad57ea637acb5, type: 2}
-  m_CullingMode: 1
+  m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -10977,7 +10977,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0
-  syncInterval: 0.1
+  syncInterval: 0
   clientAuthority: 1
   animator: {fileID: 7873139283540552468}
 --- !u!1 &8701936629110961732

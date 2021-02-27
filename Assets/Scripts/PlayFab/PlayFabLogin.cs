@@ -279,6 +279,15 @@ public class PlayFabLogin : MonoBehaviour
             yield return webRequest.SendWebRequest();
 
             string[] lines = webRequest.downloadHandler.text.Split();
+            string version = "1";
+
+            for (int i = 0; i < lines.Length; i++)
+            {
+                if (lines[i] == "ServerVersion:")
+                {
+                    version = lines[i + 1];
+                }
+            }
 
             if (webRequest.isNetworkError)
             {
@@ -289,7 +298,7 @@ public class PlayFabLogin : MonoBehaviour
             }
             else
             {
-                checkIfclientupdated(lines[6]);
+                checkIfclientupdated(version);
             }
         }
     }
@@ -321,9 +330,13 @@ public class PlayFabLogin : MonoBehaviour
 
     private void checkIfclientupdated(string version)
     {
+        Debug.Log(version);
         if (version != Application.version)
         {
             newVersion.SetActive(true);
+        }else
+        {
+            return;
         }
     }
     public void passBarriers()

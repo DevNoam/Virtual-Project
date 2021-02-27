@@ -8,6 +8,7 @@ using UnityEngine.UI;
 using PlayFab;
 using PlayFab.ClientModels;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 public class PlayerManager : NetworkBehaviour
 {
     /// Movement
@@ -52,6 +53,7 @@ public class PlayerManager : NetworkBehaviour
 
     [Tooltip("MovementType is how the local player will move: True = Hold to move. False = Click to move to destination")]
     private bool CanRotate = true;
+    [SerializeField]
     private float heledLevel = 0;
     private bool isHeled = false;
     [SerializeField]
@@ -97,32 +99,33 @@ public class PlayerManager : NetworkBehaviour
 
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit) && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+#if UNITY_EDITOR
+        if (Physics.Raycast(ray, out hit) && !EventSystem.current.IsPointerOverGameObject())
+#elif UNITY_ANDROID || UNITY_IOS
+            if (Physics.Raycast(ray, out hit) && !EventSystem.current.IsPointerOverGameObject(0))
+#else
+        if (Physics.Raycast(ray, out hit) && !EventSystem.current.IsPointerOverGameObject())
+#endif
         {
             if (Input.GetMouseButton(0) && hit.transform.tag != "MouseHitCollider")
             {
-                //CmdScrPlayerSetDestination(hit.point);
                 if (heledLevel < pressSensive && isHeled == false)
                 {
                     if (navMeshController.angularSpeed > 500)
                         navMeshController.angularSpeed = 500;
                     CmdScrPlayerSetDestination(hit.point);
-                    AnimationWalk(0.5f);
                     CanRotate = false;
                     heledLevel += Time.deltaTime * 100;
                 }
                 else if (heledLevel >= pressSensive)
                 {
-                    Debug.Log("Heled");
+                    //Debug.Log("Heled");
                     CmdScrPlayerSetDestination(hit.point);
-                    AnimationWalk(0.5f);
                     if (isHeled == false && CanRotate == false)
                     {
-                        //navMeshController.angularSpeed = 0;
                         isHeled = true;
                         CanRotate = true;
-                        Debug.Log("CanRotate TRUE");
+                        //Debug.Log("CanRotate TRUE");
                     }
                 }
             }
@@ -131,56 +134,59 @@ public class PlayerManager : NetworkBehaviour
         {
             if (isHeled == false)
             {
-                Debug.Log("Released regular Movement");
+                //Debug.Log("Released regular Movement");
                 heledLevel = 0;
             }
             else if (isHeled == true)
             {
                 isHeled = false;
                 //navMeshController.angularSpeed = 500;
-                Debug.Log("Released from hold");
+                //Debug.Log("Released from hold");
                 if (movementype == 1)
                 {
-                    navMeshController.ResetPath();
-                    CanRotate = false;
-                    AnimationStopMoving();
-                }
-                else if (movementype == 1)
-                {
-                    navMeshController.SetDestination(player.transform.position);
-                    CanRotate = false;
-
-                    //AnimationStopMoving();
+                    CmdScrPlayerSetDestination(transform.position);
+                    CanRotate = true;
                 }
                 else if (movementype == 2)
                 {
-                    navMeshController.SetDestination(hit.point);
+                    CmdScrPlayerSetDestination(hit.point);
                     CanRotate = false;
                 }
-                //CanRotate = false;
                 heledLevel = 0;
             }
         }
-        if (CanRotate == true && Input.GetAxis("Mouse X") != 0 || CanRotate == true && Input.GetAxis("Mouse Y") != 0) // Rotation
+        if (navMeshController.remainingDistance > navMeshController.stoppingDistance)
+        {
+            AnimationWalk(0.5f);
+        }
+        else if (navMeshController.remainingDistance <= navMeshController.stoppingDistance && CanRotate == false)
+        {
+            CanRotate = true;
+            AnimationStopMoving();
+        }
+        else if (navMeshController.remainingDistance <= navMeshController.stoppingDistance)
+        {
+            AnimationStopMoving();
+        }
+
+#if UNITY_EDITOR
+        if (CanRotate == true && (Input.GetAxis("Mouse X") != 0 || CanRotate == true && Input.GetAxis("Mouse Y") != 0)) // Rotation
+#elif UNITY_ANDROID || UNITY_IOS
+        if (CanRotate == true && (Input.GetAxis("Mouse X") != 0 || CanRotate == true && Input.GetAxis("Mouse Y") != 0) && !EventSystem.current.IsPointerOverGameObject(0)) // Rotation
+#else
+        if (CanRotate == true && ((Input.GetAxis("Mouse X") != 0 || CanRotate == true && Input.GetAxis("Mouse Y") != 0)) // Rotation
+#endif
         {
             var lookPos = hit.point - player.transform.position;
             lookPos.y = 0;
             var rotation = Quaternion.LookRotation(lookPos);
             player.transform.rotation = Quaternion.Slerp(player.transform.rotation, rotation, Time.deltaTime * rotationSpeed);
         }
-        if (navMeshController.remainingDistance < navMeshController.stoppingDistance && CanRotate == false)
-        {
-            CanRotate = true;
-            AnimationStopMoving();
-        }
 
-        if (Input.GetKeyDown(KeyCode.W) && !chatSystem.inputFiled.isFocused)
+
+        if (Input.GetKeyDown("w") && !chatSystem.inputFiled.isFocused && (navMeshController.remainingDistance <= navMeshController.stoppingDistance))
         {
-            if (navMeshController.remainingDistance < navMeshController.stoppingDistance)
-            {
-                playerObject.transform.rotation = Quaternion.Slerp(transform.rotation, cam.transform.rotation, Time.deltaTime * 1);
-                AnimationWaving();
-            }
+            AnimationWaving();
         }   
     }
 
@@ -196,6 +202,10 @@ public class PlayerManager : NetworkBehaviour
     {
         navMeshController.SetDestination(argPosition);
     }
+
+
+
+    /////Animations
     private void AnimationWalk(float speed)
     {
         animator.SetFloat("Moving", speed);
@@ -204,14 +214,14 @@ public class PlayerManager : NetworkBehaviour
     {
         animator.SetFloat("Moving", 0f);
     }
-    private void AnimationWaving()
+    public void AnimationWaving()
     {
         animator.SetTrigger("Wave");
         networkAnimator.SetTrigger("Wave");
     }
-    #endregion
+#endregion
 
-    #region Player Name management
+#region Player Name management
 
     [Command] 
     public void CmdUpdatePlayerName(string playername, int color) 
@@ -237,11 +247,11 @@ public class PlayerManager : NetworkBehaviour
     {
         navMeshController.Warp(playerPosition);
     }
-    #endregion
+#endregion
 
     //////////////////
 
-    #region Room switching
+#region Room switching
     public static bool DoesSceneExist(string name)
     {
         if (string.IsNullOrEmpty(name))
@@ -359,7 +369,7 @@ public class PlayerManager : NetworkBehaviour
             StartCoroutine(Arrived(0.5f, currentSceneName));
         }
     }
-    #endregion
+#endregion
 
 
     [Client]
@@ -369,8 +379,6 @@ public class PlayerManager : NetworkBehaviour
         PlayerCircle.gameObject.SetActive(true);
 
     }
-
-
 
     public void updateMovementType(int valueIn)
     {

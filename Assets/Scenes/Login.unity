@@ -2286,8 +2286,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eff98d54a107ae448b0f5cd13746752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Note: Shows message when mouse out of game bounds. This tells that the chatLog
-    will closed
+  Note: This component shouldn't be removed, it does important stuff.
 --- !u!114 &296530519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3131,8 +3130,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -97.299805, y: 36.899902}
-  m_SizeDelta: {x: 32.507812, y: 11.755787}
+  m_AnchoredPosition: {x: -145.88, y: 37}
+  m_SizeDelta: {x: 52.290207, y: 11.755787}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &458007284
 MonoBehaviour:
@@ -4043,7 +4042,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -41.59961, y: 10.799805}
+  m_AnchoredPosition: {x: -42, y: 11}
   m_SizeDelta: {x: 39.937317, y: 31.581024}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &560944040
@@ -4559,7 +4558,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 508.7, y: 45.600098}
+  m_AnchoredPosition: {x: 509, y: 45.5}
   m_SizeDelta: {x: 263.75748, y: 8.498537}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &588399258
@@ -6900,7 +6899,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -65.2}
+  m_AnchoredPosition: {x: 0, y: -65}
   m_SizeDelta: {x: 237.08923, y: 8.498535}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &998976906
@@ -9294,15 +9293,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eff98d54a107ae448b0f5cd13746752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Note: 'NetworkManager: this component currently managing the Network Manager: NetworkManagerHUD
-    (Shows buttons: Host, join game). Connects automaticlly to the server if player
-    using Webgl.
-
-    And controlling PlayFab login script.
-
-
-    In the future only
-    NetworkManager will be there.'
+  Note: This component shouldn't be removed, it does important stuff.
 --- !u!114 &1219375353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12168,7 +12159,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -307, y: -0.0000038146973}
+  m_AnchoredPosition: {x: -307, y: 0.000022888184}
   m_SizeDelta: {x: 614, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1549520562
@@ -13771,7 +13762,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eff98d54a107ae448b0f5cd13746752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Note: Opens the ChatLog
+  Note: This component shouldn't be removed, it does important stuff.
 --- !u!114 &1710186368
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15729,9 +15720,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eff98d54a107ae448b0f5cd13746752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Note: 'Trigger for changing room, currently inavtive
-
-'
+  Note: This component shouldn't be removed, it does important stuff.
 --- !u!114 &1995201853
 MonoBehaviour:
   m_ObjectHideFlags: 0

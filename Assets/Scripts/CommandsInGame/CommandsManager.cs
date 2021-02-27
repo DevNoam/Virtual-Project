@@ -88,4 +88,10 @@ public class CommandsManager : NetworkBehaviour
         playerManager.ChangeRoom(gameObject.scene.name, new Vector3(0, 0, 0));
         Debug.Log("RESPAWNED!");
     }
+
+    [Client]
+    private void WAVE()
+    {
+        playerManager.AnimationWaving();
+    }
 }
