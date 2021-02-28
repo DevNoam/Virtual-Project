@@ -1,14 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 public class MoveableWindow : MonoBehaviour, IDragHandler, IEndDragHandler
 {
-
     private RectTransform rectTransform;
     [SerializeField] private Canvas canvas;
     private bool isOverProfile;
     public Vector2 InstantiatePosition;
+    [SerializeField]
+    private ToolBarManager toolbarManager;
+
+    public string CloseAnimationName;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +29,7 @@ public class MoveableWindow : MonoBehaviour, IDragHandler, IEndDragHandler
         {
             this.rectTransform.localPosition = InstantiatePosition;
             this.gameObject.SetActive(false);
+            if (CloseAnimationName != null) { toolbarManager.animationStop(CloseAnimationName); }
         }
     }
 }
