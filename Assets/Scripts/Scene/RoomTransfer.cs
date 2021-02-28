@@ -19,7 +19,7 @@ public class RoomTransfer : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            other.transform.GetComponentInParent<PlayerManager>().ChangeRoom(SceneID, SpawnLocation);
+            other.transform.GetComponentInParent<RoomsManager>().ChangeRoom(SceneID, SpawnLocation);
         }
     }
 }

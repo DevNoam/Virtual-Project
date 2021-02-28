@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using Mirror;
 using TMPro;
 using UnityEngine.EventSystems;
@@ -11,8 +8,6 @@ public class ChatSystem : NetworkBehaviour
     public TMP_InputField inputFiled;
 
     public TMP_Text playerText;
-    [SyncVar]
-    string playermessage;
 
     public float timetoClear = 4f;
     public GameObject ChatCanvas;
@@ -25,7 +20,7 @@ public class ChatSystem : NetworkBehaviour
 
     [HideInInspector]
     public string playerName;
-    public CommandsManager commandsManager;
+    public PlayerManager playerManager;
 
     public void Start()
     {
@@ -47,7 +42,7 @@ public class ChatSystem : NetworkBehaviour
                 inputFiled.text = null;
                 inputFiled.Select();
 
-                commandsManager.ReceivedCommand(command);
+                playerManager.commandsManager.ReceivedCommand(command);
             }
             else
             {
@@ -136,9 +131,9 @@ public class ChatSystem : NetworkBehaviour
     void OnGUI()
     {
         if (inputFiled.isFocused && isLocalPlayer && inputFiled.text != "" && Input.GetButtonDown("Submit"))
-            {
-                Send();
-            }
+        {
+            Send();
+        }
     }
 
 

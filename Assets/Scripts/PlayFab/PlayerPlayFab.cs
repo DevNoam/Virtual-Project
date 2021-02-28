@@ -7,7 +7,8 @@ using PlayFab;
 using PlayFab.ClientModels;
 public class PlayerPlayFab : NetworkBehaviour
 {
-    public PlayerManager localPlayer;
+    [SerializeField]
+    private PlayerManager localPlayer;
 
     private void Start()
     {
@@ -29,7 +30,7 @@ public class PlayerPlayFab : NetworkBehaviour
             {
                 if (Successs2.Data.ContainsKey("PlayerCurrentColor"))
                 {
-                    localPlayer.CmdUpdatePlayerName(Successs.PlayerProfile.DisplayName.ToString(), int.Parse(Successs2.Data["PlayerCurrentColor"].Value));
+                    localPlayer.CmdUpdatePlayerName(Successs.PlayerProfile.DisplayName.ToString());
                     //localPlayer.CmdSetName(localPlayer.playerName, localPlayer.SkinColor, localPlayer.player.transform.position);
 
                     /////////////////////////

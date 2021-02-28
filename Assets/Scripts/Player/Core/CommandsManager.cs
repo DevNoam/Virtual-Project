@@ -1,9 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using PlayFab;
 using PlayFab.ClientModels;
-
 using Mirror;
 
 public class CommandsManager : NetworkBehaviour
@@ -12,7 +9,8 @@ public class CommandsManager : NetworkBehaviour
 
     private string _Parameter;
 
-    public PlayerManager playerManager;
+    [SerializeField]
+    private PlayerManager playerManager;
 
     [Client]
     public void ReceivedCommand(string CommandName)
@@ -56,7 +54,7 @@ public class CommandsManager : NetworkBehaviour
     }
 
     //////////
-    /// MAKE SURE TO WRITE VOID WITH CAPS!
+    /// MAKE SURE TO WRITE THE VOID's WITH CAPS!
     ///////////
 
     [Client]
@@ -77,7 +75,7 @@ public class CommandsManager : NetworkBehaviour
     {
         if(_Parameter == "Disco")
         lookingForFunction = false;
-        playerManager.ChangeRoom(_Parameter, new Vector3(0, 0, 0));
+        playerManager.roomsManager.ChangeRoom(_Parameter, new Vector3(0, 0, 0));
         Debug.Log("Teleported to: " + _Parameter);
     }
 
@@ -85,13 +83,13 @@ public class CommandsManager : NetworkBehaviour
     private void RESPAWN()
     {
         lookingForFunction = false;
-        playerManager.ChangeRoom(gameObject.scene.name, new Vector3(0, 0, 0));
+        playerManager.roomsManager.ChangeRoom(gameObject.scene.name, new Vector3(0, 0, 0));
         Debug.Log("RESPAWNED!");
     }
 
     [Client]
     private void WAVE()
     {
-        playerManager.AnimationWaving();
+        playerManager.animationsManager.AnimationWaving();
     }
 }

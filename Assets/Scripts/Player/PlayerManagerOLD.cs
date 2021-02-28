@@ -9,7 +9,7 @@ using PlayFab;
 using PlayFab.ClientModels;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
-public class PlayerManager : NetworkBehaviour
+public class PlayerManagerOLD : NetworkBehaviour
 {
     /// Movement
     public NavMeshAgent navMeshController;
@@ -187,7 +187,7 @@ public class PlayerManager : NetworkBehaviour
         if (Input.GetKeyDown("w") && !chatSystem.inputFiled.isFocused && (navMeshController.remainingDistance <= navMeshController.stoppingDistance))
         {
             AnimationWaving();
-        }   
+        }
     }
 
     [Command]
@@ -219,12 +219,12 @@ public class PlayerManager : NetworkBehaviour
         animator.SetTrigger("Wave");
         networkAnimator.SetTrigger("Wave");
     }
-#endregion
+    #endregion
 
-#region Player Name management
+    #region Player Name management
 
-    [Command] 
-    public void CmdUpdatePlayerName(string playername, int color) 
+    [Command]
+    public void CmdUpdatePlayerName(string playername, int color)
     {
         playerName = playername;
         SkinColor = color;
@@ -247,11 +247,11 @@ public class PlayerManager : NetworkBehaviour
     {
         navMeshController.Warp(playerPosition);
     }
-#endregion
+    #endregion
 
     //////////////////
 
-#region Room switching
+    #region Room switching
     public static bool DoesSceneExist(string name)
     {
         if (string.IsNullOrEmpty(name))
@@ -369,7 +369,7 @@ public class PlayerManager : NetworkBehaviour
             StartCoroutine(Arrived(0.5f, currentSceneName));
         }
     }
-#endregion
+    #endregion
 
 
     [Client]
