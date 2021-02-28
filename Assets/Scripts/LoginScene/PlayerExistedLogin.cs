@@ -12,10 +12,9 @@ public class PlayerExistedLogin : MonoBehaviour
     string playerName;
     public TMP_Text playerNametext;
     PlayFabLogin playfabLogin;
-    PlayFabLogin playFabLogin;
     public int slotNumber;
-    public GameObject playerImage;
-    public Sprite[] playerImageLlist;
+    //public GameObject playerImage;
+    //public Sprite[] playerImageLlist;
 
     // Start is called before the first frame update
     void Start()
@@ -23,12 +22,12 @@ public class PlayerExistedLogin : MonoBehaviour
         if (slotNumber <= 1)
         {
             playerName = PlayerPrefs.GetString("USERNAME");
-            playerImage.GetComponent<Image>().sprite = playerImageLlist[PlayerPrefs.GetInt("PLAYERCOLOR")];
+            //playerImage.GetComponent<Image>().sprite = playerImageLlist[PlayerPrefs.GetInt("PLAYERCOLOR")];
         }
         else if (slotNumber >= 2)
         {
             playerName = PlayerPrefs.GetString("USERNAME" + slotNumber);
-            playerImage.GetComponent<Image>().sprite = playerImageLlist[PlayerPrefs.GetInt("PLAYERCOLOR" + slotNumber)];
+            //playerImage.GetComponent<Image>().sprite = playerImageLlist[PlayerPrefs.GetInt("PLAYERCOLOR" + slotNumber)];
         }
         playerNametext.text = playerName.ToUpper();
         playfabLogin = GameObject.Find("LoginManager").GetComponent<PlayFabLogin>();
