@@ -1702,6 +1702,12 @@ MonoBehaviour:
   - {fileID: 2100000, guid: ac623a2713f7ec14c8ddcc71b5ef8db3, type: 2}
   - {fileID: 2100000, guid: 8dff3f28b48b44c4396f1850668bc2c9, type: 2}
   - {fileID: 2100000, guid: b52a5f715c26a69438819a8185d925d9, type: 2}
+  NetworkManagerHUD: {fileID: 0}
+  onlinePlayers: {fileID: 0}
+  serverVersion: {fileID: 0}
+  newVersion: {fileID: 0}
+  noInternet: {fileID: 0}
+  serverStatusURL: 
 --- !u!4 &222471294
 Transform:
   m_ObjectHideFlags: 0
