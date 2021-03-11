@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class IfPlayerExisted : MonoBehaviour
+public class IfPlayerExist : MonoBehaviour
 {
     public GameObject loginPanel;
     public GameObject ExistedPlayer;

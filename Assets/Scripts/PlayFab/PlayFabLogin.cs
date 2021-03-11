@@ -10,6 +10,8 @@ using TMPro;
 
 public class PlayFabLogin : MonoBehaviour
 {
+    [SerializeField]
+    private string playFabID;
     private string UserNameLogin;
     private string UserPasswordLogin;
     public GameObject loginPanel;
@@ -49,7 +51,7 @@ public class PlayFabLogin : MonoBehaviour
 
         if (string.IsNullOrEmpty(PlayFabSettings.staticSettings.TitleId))
         {
-            PlayFabSettings.staticSettings.TitleId = "8D6DB";
+            PlayFabSettings.staticSettings.TitleId = playFabID;
         }
         StartCoroutine(FetchServerVersion(serverStatusURL));
         StartCoroutine(FetchOnlinePlayers(serverStatusURL));

@@ -1459,6 +1459,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1818629808934478545}
+  - component: {fileID: 8392354562427828040}
   - component: {fileID: 1818629808934478544}
   - component: {fileID: 1818629808934478573}
   - component: {fileID: 1818629808934478572}
@@ -1467,7 +1468,7 @@ GameObject:
   - component: {fileID: 5690225701869801596}
   - component: {fileID: 8050842820288963508}
   m_Layer: 0
-  m_Name: Player 1
+  m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1492,6 +1493,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8392354562427828040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1818629808934478575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9eff98d54a107ae448b0f5cd13746752, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Note: Old playerGame object, Don't use that.
 --- !u!114 &1818629808934478544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1611,7 +1625,7 @@ MonoBehaviour:
   chatLogContainer: {fileID: 0}
   chatLogParent: {fileID: 0}
   playerName: 
-  commandsManager: {fileID: 77118258497100228}
+  playerManager: {fileID: 0}
 --- !u!114 &1818629808934478572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1626,22 +1640,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 1
   syncInterval: 0.1
-  navMeshController: {fileID: 8050842820288963508}
-  cam: {fileID: 4749913080219049417}
   player: {fileID: 1818629808934478545}
-  playerObject: {fileID: 1818629808975089543}
-  playerName: Loading..
   playerNameMesh: {fileID: 8071484313993263651}
   PlayerCircle: {fileID: 6709307324516954473}
-  SkinColor: 1
-  roomManager: {fileID: 0}
   canvas: {fileID: 7242873393193683150}
   LoadingFrame: {fileID: 0}
-  rotationSpeed: 25
-  chatSystem: {fileID: 1818629808934478573}
   isModderator: 0
-  pressSensive: 25
   movementype: 1
+  chatSystem: {fileID: 1818629808934478573}
+  playerMovement: {fileID: 0}
+  roomsManager: {fileID: 0}
+  commandsManager: {fileID: 0}
+  animationsManager: {fileID: 0}
+  playerPlayFab: {fileID: 0}
 --- !u!114 &77118258497100228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5046,6 +5057,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvas: {fileID: 176467974273543752}
   InstantiatePosition: {x: 0, y: 0}
+  toolbarManager: {fileID: 0}
+  CloseAnimationName: 
 --- !u!1 &6716506385571193536
 GameObject:
   m_ObjectHideFlags: 0
@@ -5829,6 +5842,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OpenEmoji: {fileID: 4002574179909703168}
   OpenEmojiContainer: {fileID: 5105066932361505418}
+  animator: {fileID: 0}
 --- !u!1 &7348194208049065454
 GameObject:
   m_ObjectHideFlags: 0

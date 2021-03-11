@@ -1950,7 +1950,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 178737016}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1080, y: -639.47363, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2.030075, y: 2.030075, z: 2.030075}
   m_Children: []
   m_Father: {fileID: 405198715}
@@ -2075,6 +2075,7 @@ GameObject:
   m_Component:
   - component: {fileID: 222471294}
   - component: {fileID: 222471287}
+  - component: {fileID: 222471288}
   m_Layer: 0
   m_Name: LoginManager
   m_TagString: Untagged
@@ -2094,6 +2095,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 701f1936dc0c87440845aafd2fd02cc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playFabID: 8D6DB
   loginPanel: {fileID: 1611452044}
   RegisterPanel: {fileID: 1794335725}
   RememberMeLogin: {fileID: 1183633417}
@@ -2118,6 +2120,27 @@ MonoBehaviour:
   newVersion: {fileID: 972046432}
   noInternet: {fileID: 1543351470}
   serverStatusURL: https://moominrewritten.000webhostapp.com/VirtualProject/ConnectedPlayers.txt
+--- !u!114 &222471288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 222471286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9eff98d54a107ae448b0f5cd13746752, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Note: 'PlayFab Login Manager,
+
+    Important Variables:
+
+    PlayFabID - Yours
+    PlayFab Game ID.
+
+    ServerStatusURL - Your server Status page URL, address
+    to the file (ConnectedPlayers.txt).'
 --- !u!4 &222471294
 Transform:
   m_ObjectHideFlags: 0
@@ -2937,6 +2960,7 @@ GameObject:
   - component: {fileID: 405198714}
   - component: {fileID: 405198713}
   - component: {fileID: 405198712}
+  - component: {fileID: 405198716}
   m_Layer: 5
   m_Name: LoginGUI
   m_TagString: Untagged
@@ -3031,6 +3055,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &405198716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 405198711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9eff98d54a107ae448b0f5cd13746752, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Note: Login GUI Components.
 --- !u!1 &442120109
 GameObject:
   m_ObjectHideFlags: 0
@@ -9208,9 +9245,9 @@ GameObject:
   - component: {fileID: 1219375356}
   - component: {fileID: 1219375355}
   - component: {fileID: 1219375353}
-  - component: {fileID: 1219375352}
   - component: {fileID: 1219375351}
   - component: {fileID: 1219375350}
+  - component: {fileID: 1219375352}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -9294,7 +9331,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eff98d54a107ae448b0f5cd13746752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Note: This component shouldn't be removed, it does important stuff.
+  Note: 'NetworkManager, this component mange the Network and handle Server & Clients
+    connections.
+
+
+    ServerStatus component is made to real time track your server.
+
+    Data
+    = The total clients connected to the server.
+
+    IsServer = Mark only for the
+    Server build.
+
+    RunTime = Total time the server is active.
+
+    PostUrl =
+    This is the URL the script is broadcasting the information to, use the File (PostConnectedPlayers.php)
+    under your status page domain.
+
+    Keep this address secret.'
 --- !u!114 &1219375353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9521,6 +9576,7 @@ GameObject:
   - component: {fileID: 1221738635}
   - component: {fileID: 1221738634}
   - component: {fileID: 1221738638}
+  - component: {fileID: 1221738639}
   m_Layer: 5
   m_Name: LoadingCanvas
   m_TagString: Untagged
@@ -9620,6 +9676,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a09ef8588a01cb46822da411dd04a2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1221738639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1221738633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9eff98d54a107ae448b0f5cd13746752, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Note: "LoadingCanvas, \nthis component is the loading GUI that shown on Loading.\nYou
+    can Manage the splash screens on the Child object."
 --- !u!1 &1223720091
 GameObject:
   m_ObjectHideFlags: 0
@@ -10877,6 +10947,7 @@ GameObject:
   - component: {fileID: 1426389455}
   - component: {fileID: 1426389454}
   - component: {fileID: 1426389453}
+  - component: {fileID: 1426389458}
   m_Layer: 5
   m_Name: SharedCanvasUI
   m_TagString: Untagged
@@ -10976,6 +11047,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1426389458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1426389452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9eff98d54a107ae448b0f5cd13746752, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Note: 'This component manges The SharedCanvas,
+
+    Under this Canvas, there is
+    the ChatLog componenet.'
 --- !u!1 &1449989819
 GameObject:
   m_ObjectHideFlags: 0
@@ -12350,6 +12437,7 @@ GameObject:
   - component: {fileID: 1557538579}
   - component: {fileID: 1557538578}
   - component: {fileID: 1557538577}
+  - component: {fileID: 1557538576}
   m_Layer: 5
   m_Name: LoadingSplashScreen
   m_TagString: Untagged
@@ -12379,6 +12467,25 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 2827.0127, y: 2095.3242}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1557538576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1557538574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9eff98d54a107ae448b0f5cd13746752, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Note: 'Here you can manage the Images shown in the Loading screen.
+
+
+    ImagesDB
+    = The images you want to show.
+
+    NewNewsIn = The time between each image.'
 --- !u!95 &1557538577
 Animator:
   serializedVersion: 3

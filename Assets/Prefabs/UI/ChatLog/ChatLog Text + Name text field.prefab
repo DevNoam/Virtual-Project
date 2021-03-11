@@ -148,8 +148,9 @@ GameObject:
   - component: {fileID: 6297737807187390848}
   - component: {fileID: 8377171821019222806}
   - component: {fileID: 8159143337143359924}
+  - component: {fileID: -4492249268599809879}
   m_Layer: 5
-  m_Name: Button
+  m_Name: ChatLog Text + Name text field
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -296,3 +297,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 2
+--- !u!114 &-4492249268599809879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9185266888689925048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9eff98d54a107ae448b0f5cd13746752, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Note: This is a text log Text container that Instantiate on the ChatLog UI.

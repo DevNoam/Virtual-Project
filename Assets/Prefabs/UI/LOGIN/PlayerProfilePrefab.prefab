@@ -279,6 +279,7 @@ GameObject:
   - component: {fileID: 1555655255277418911}
   - component: {fileID: 7811298522537373889}
   - component: {fileID: 7280951981355459903}
+  - component: {fileID: 835762123926062728}
   m_Layer: 5
   m_Name: PlayerProfilePrefab
   m_TagString: Untagged
@@ -416,18 +417,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerNametext: {fileID: 4901399325410651377}
   slotNumber: 0
-  playerImage: {fileID: 7818391710815137465}
-  playerImageLlist:
-  - {fileID: 21300000, guid: 2dc58b66a4245bc4fb930f5c49725c73, type: 3}
-  - {fileID: 21300000, guid: 2dc58b66a4245bc4fb930f5c49725c73, type: 3}
-  - {fileID: 21300000, guid: e651084909a5b82429d6bc6748fad571, type: 3}
-  - {fileID: 21300000, guid: 42bf223c2dfa9cb4eafce5526560d723, type: 3}
-  - {fileID: 21300000, guid: a84487fd28e7da74db51f2205d973800, type: 3}
-  - {fileID: 21300000, guid: 4c3c6293508c7a44ab19013f0ea2f040, type: 3}
-  - {fileID: 21300000, guid: fa70ba8703cd4ef4babb3a698114b262, type: 3}
-  - {fileID: 21300000, guid: 2067cb05da73c184ea6d0aec6d93a4e3, type: 3}
-  - {fileID: 21300000, guid: a12b6fbb24d55074798f61384c616fd6, type: 3}
-  - {fileID: 21300000, guid: b85cf3f5906fb6749a20a69b4b9a2260, type: 3}
+--- !u!114 &835762123926062728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6786859349663664366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9eff98d54a107ae448b0f5cd13746752, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Note: 'This prefab instantiates in the Login Menu,
+
+    If a Client saved his player
+    Info in his PC, This component will Instantiate in the Login page.'
 --- !u!1 &7818391710815137465
 GameObject:
   m_ObjectHideFlags: 0

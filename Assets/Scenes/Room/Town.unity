@@ -180,11 +180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eff98d54a107ae448b0f5cd13746752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Note: 'This component managing the scene.
-
-    Currently if new player is joining
-    the scene, the RoomManager finds the new player & attaching his name from PlayFabLogin
-    script to his player.'
+  Note: 
 --- !u!4 &40919617
 Transform:
   m_ObjectHideFlags: 0
