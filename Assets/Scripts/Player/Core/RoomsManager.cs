@@ -22,7 +22,6 @@ public class RoomsManager : NetworkBehaviour
             if (string.Compare(name, sceneName, true) == 0)
                 return true;
         }
-
         return false;
     }
     public void ChangeRoom(string RoomName, Vector3 spawnLocation)
@@ -33,7 +32,7 @@ public class RoomsManager : NetworkBehaviour
         {
             if (RoomName.ToUpper() != currentSceneName.ToUpper())
             {
-                StartCoroutine(Arrived(1, currentSceneName));
+                //StartCoroutine(Arrived(1, currentSceneName));
                 playerManager.LoadingFrame.SetActive(true);
                 playerManager.LoadingFrame.GetComponent<Animator>().SetTrigger("Start");
             }
@@ -110,19 +109,17 @@ public class RoomsManager : NetworkBehaviour
         //player.transform.position = spawnLocation;
         playerManager.playerMovement.ClientWarp(spawnLocation);
         Resources.UnloadUnusedAssets();
+        StartCoroutine(Arrived(0, currentSceneName));
     }
 
 
     IEnumerator Arrived(float Seconds, string currentSceneName)
     {
         yield return new WaitForSeconds(Seconds);
+        
         if (gameObject.scene.name != currentSceneName)
         {
             playerManager.LoadingFrame.GetComponent<Animator>().SetTrigger("End");
-        }
-        else
-        {
-            StartCoroutine(Arrived(0.5f, currentSceneName));
         }
     }
 }

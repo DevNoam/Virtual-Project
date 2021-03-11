@@ -105,7 +105,7 @@ public class PlayerMovement : NetworkBehaviour
 #elif UNITY_ANDROID || UNITY_IOS
         if (CanRotate == true && (Input.GetAxis("Mouse X") != 0 || CanRotate == true && Input.GetAxis("Mouse Y") != 0) && !EventSystem.current.IsPointerOverGameObject(0)) // Rotation
 #else
-        if (CanRotate == true && ((Input.GetAxis("Mouse X") != 0 || CanRotate == true && Input.GetAxis("Mouse Y") != 0)) // Rotation
+        if (CanRotate == true && (Input.GetAxis("Mouse X") != 0 || CanRotate == true && Input.GetAxis("Mouse Y") != 0)) // Rotation
 #endif
         {
             var lookPos = hit.point - player.transform.position;
