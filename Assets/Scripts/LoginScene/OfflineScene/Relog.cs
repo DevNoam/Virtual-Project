@@ -16,8 +16,9 @@ public class Relog : MonoBehaviour
 
         for (int i = 0; i < GameObjects.Length; i++)
         {
-            if (GameObjects[i].name == "OfflineManager") { 
-            
+            if (GameObjects[i].name == "OfflineManager")
+            {
+
             }
             else
             {
@@ -25,7 +26,10 @@ public class Relog : MonoBehaviour
             }
         }
         Resources.UnloadUnusedAssets();
-        DontDestroyOnLoad(Instantiate(disconnectedPrefab));
+        if (!Application.isBatchMode)
+        {
+            DontDestroyOnLoad(Instantiate(disconnectedPrefab));
+        }
         SceneManager.LoadScene(1);
     }
 }
