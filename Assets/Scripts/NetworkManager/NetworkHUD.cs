@@ -45,6 +45,7 @@ public class NetworkHUD : MonoBehaviour
         }
         else
         {
+            manager.StartHost();
             enabled = true;
             showGUI = true;
         }
