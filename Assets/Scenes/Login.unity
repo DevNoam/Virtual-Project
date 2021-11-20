@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -9553,7 +9553,7 @@ MonoBehaviour:
   offlineScene: Assets/Scenes/Offline&Online.unity
   onlineScene: Assets/Scenes/Room/Town.unity
   transport: {fileID: 1219375351}
-  networkAddress: noams.ddns.net
+  networkAddress: virtualproject.noamsapir.me
   maxConnections: 25
   disconnectInactiveConnections: 1
   disconnectInactiveTimeout: 6000
@@ -16481,8 +16481,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1168937776}
   m_HandleRect: {fileID: 1168937775}
   m_Direction: 2
-  m_Value: 1.0000019
-  m_Size: 0.4778792
+  m_Value: 0.99999934
+  m_Size: 0.47787893
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

@@ -59,12 +59,10 @@ public class PlayerManager : NetworkBehaviour
         playerMovement.cam.gameObject.tag = "MainCamera";
     }
 
-    [Client]
     void MakeBoldNameForLocalClient()
     {
         playerNameMesh.fontStyle = FontStyles.Bold;
         PlayerCircle.gameObject.SetActive(true);
-
     }
 
     #region Name Management

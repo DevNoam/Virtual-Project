@@ -1,0 +1,725 @@
+Using pre-set license
+Built from '2020.2/release' branch; Version is '2020.2.1f1 (270dd8c3da1c) revision 2559448'; Using compiler version '192528614'; Build Type 'Release'
+OS: 'Windows 10  (10.0.0) 64bit' Language: 'en' Physical Memory: 16329 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
+
+ COMMAND LINE ARGUMENTS:
+C:\Program Files\Unity\Hub\Editor\2020.2.1f1\Editor\Unity.exe
+-adb2
+-batchMode
+-noUpm
+-name
+AssetImportWorker0
+-projectPath
+C:/Users/noam1/Desktop/Virtual/Virtual
+-logFile
+Logs/AssetImportWorker0.log
+-srvPort
+64027
+Successfully changed project path to: C:/Users/noam1/Desktop/Virtual/Virtual
+C:/Users/noam1/Desktop/Virtual/Virtual
+Using Asset Import Pipeline V2.
+Refreshing native plugins compatible for Editor in 40.35 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 2020.2.1f1 (270dd8c3da1c)
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2020.2.1f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path C:/Users/noam1/Desktop/Virtual/Virtual/Assets
+GfxDevice: creating device client; threaded=0
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: NVIDIA GeForce GTX 1060 3GB (ID=0x1c02)
+    Vendor:   
+    VRAM:     2988 MB
+    Driver:   30.0.14.7196
+Initialize mono
+Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2020.2.1f1/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2020.2.1f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
+Mono config path = 'C:/Program Files/Unity/Hub/Editor/2020.2.1f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56528
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.2.1f1/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.2.1f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.2.1f1/Editor/Data/PlaybackEngines/LinuxStandaloneSupport/UnityEditor.LinuxStandalone.Extensions.dll
+Registered in 0.003577 seconds.
+Native extension for LinuxStandalone target not found
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 40.63 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.471 seconds
+Platform modules already initialized, skipping
+Registering precompiled user dll's ...
+Registered in 0.005062 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for LinuxStandalone target not found
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.62 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Find all reader and writers took 102 milliseconds
+Script Module: UnityEngine.UI.dll
+Weave behaviours and messages took93 milliseconds
+Find all reader and writers took 75 milliseconds
+Script Module: UnityEngine.TestRunner.dll
+Weave behaviours and messages took26 milliseconds
+Find all reader and writers took 82 milliseconds
+Script Module: PlayFab.dll
+Weave behaviours and messages took185 milliseconds
+Find all reader and writers took 97 milliseconds
+Script Module: Assembly-CSharp.dll
+[PlayerPlayFab] NetworkBehaviourProcessor
+[AnimationsManager] NetworkBehaviourProcessor
+[ChatSystem] NetworkBehaviourProcessor
+[CommandsManager] NetworkBehaviourProcessor
+[PlayerManager] NetworkBehaviourProcessor
+[PlayerMovement] NetworkBehaviourProcessor
+[RoomsManager] NetworkBehaviourProcessor
+[FollowPlayer] NetworkBehaviourProcessor
+[PlayerManagerOLD] NetworkBehaviourProcessor
+Weave behaviours and messages took40 milliseconds
+  ProcessSitesModule Assembly-CSharp.dll elapsed time:00:00:00.0730000
+Find all reader and writers took 80 milliseconds
+Script Module: SimpleWebTransport.dll
+Weave behaviours and messages took7 milliseconds
+Find all reader and writers took 84 milliseconds
+Script Module: Unity.Timeline.dll
+Weave behaviours and messages took27 milliseconds
+Find all reader and writers took 76 milliseconds
+Script Module: Mirror.Examples.dll
+[Projectile] NetworkBehaviourProcessor
+[Tank] NetworkBehaviourProcessor
+[NetworkRoomPlayer] NetworkBehaviourProcessor
+[NetworkRoomPlayerExt] NetworkBehaviourProcessor
+[PlayerController] NetworkBehaviourProcessor
+[PlayerScore] NetworkBehaviourProcessor
+[RandomColor] NetworkBehaviourProcessor
+[Reward] NetworkBehaviourProcessor
+[Spawner] NetworkBehaviourProcessor
+[Ball] NetworkBehaviourProcessor
+[Player] NetworkBehaviourProcessor
+[PhysicsCollision] NetworkBehaviourProcessor
+[PlayerController] NetworkBehaviourProcessor
+[PlayerScore] NetworkBehaviourProcessor
+[RandomColor] NetworkBehaviourProcessor
+[Reward] NetworkBehaviourProcessor
+[Spawner] NetworkBehaviourProcessor
+[Player] NetworkBehaviourProcessor
+[MonsterMovement] NetworkBehaviourProcessor
+[PlayerMovement] NetworkBehaviourProcessor
+[Player] NetworkBehaviourProcessor
+[PlayerController] NetworkBehaviourProcessor
+[RandomColor] NetworkBehaviourProcessor
+[ShootingTankBehaviour] NetworkBehaviourProcessor
+[ZoneHandler] NetworkBehaviourProcessor
+Weave behaviours and messages took14 milliseconds
+  ProcessSitesModule Mirror.Examples.dll elapsed time:00:00:00
+Find all reader and writers took 75 milliseconds
+Script Module: Mirror.Components.dll
+[NetworkAnimator] NetworkBehaviourProcessor
+[NetworkRoomPlayer] NetworkBehaviourProcessor
+[NetworkLobbyPlayer] NetworkBehaviourProcessor
+[NetworkVisibility] NetworkBehaviourProcessor
+[NetworkVisibility] Found NetworkBehaviour Mirror.NetworkVisibility
+[NetworkVisibility] Process Start
+[NetworkVisibility]   GenerateSerialization
+[NetworkVisibility]   GenerateDeSerialization
+[NetworkVisibility] Process Done
+[NetworkMatchChecker] NetworkBehaviourProcessor
+[NetworkVisibility] NetworkBehaviourProcessor
+[NetworkProximityChecker] NetworkBehaviourProcessor
+[NetworkRoomPlayer] NetworkBehaviourProcessor
+[NetworkVisibility] NetworkBehaviourProcessor
+[NetworkSceneChecker] NetworkBehaviourProcessor
+[NetworkTransformBase] NetworkBehaviourProcessor
+[NetworkTransform] NetworkBehaviourProcessor
+[NetworkTransformBase] NetworkBehaviourProcessor
+[NetworkTransformBase] NetworkBehaviourProcessor
+[NetworkTransformChild] NetworkBehaviourProcessor
+[NetworkLerpRigidbody] NetworkBehaviourProcessor
+[NetworkRigidbody] NetworkBehaviourProcessor
+[NetworkRigidbody2D] NetworkBehaviourProcessor
+[NetworkTransformBase] NetworkBehaviourProcessor
+[NetworkTransform] NetworkBehaviourProcessor
+[NetworkTransformBase] NetworkBehaviourProcessor
+[NetworkTransformBase] NetworkBehaviourProcessor
+[NetworkTransformChild] NetworkBehaviourProcessor
+Weave behaviours and messages took29 milliseconds
+  ProcessSitesModule Mirror.Components.dll elapsed time:00:00:00.0009692
+Find all reader and writers took 74 milliseconds
+Script Module: Mirror.Tests.Common.dll
+Weave behaviours and messages took1 milliseconds
+Find all reader and writers took 95 milliseconds
+Script Module: Unity.TextMeshPro.dll
+Weave behaviours and messages took80 milliseconds
+Find all reader and writers took 69 milliseconds
+Script Module: Mirror.Tests.Runtime.dll
+Weave behaviours and messages took6 milliseconds
+Find all reader and writers took 68 milliseconds
+Script Module: Telepathy.dll
+Weave behaviours and messages took2 milliseconds
+Find all reader and writers took 74 milliseconds
+Script Module: Mirror.Authenticators.dll
+Weave behaviours and messages took4 milliseconds
+  ProcessSitesModule Mirror.Authenticators.dll elapsed time:00:00:00
+Find all reader and writers took 74 milliseconds
+Script Module: Mirror.Examples.Cloud.GUI.dll
+Weave behaviours and messages took3 milliseconds
+Find all reader and writers took 73 milliseconds
+Script Module: Mirror.Cloud.dll
+Weave behaviours and messages took3 milliseconds
+Find all reader and writers took 70 milliseconds
+Script Module: kcp2k.dll
+Weave behaviours and messages took4 milliseconds
+Find all reader and writers took 73 milliseconds
+Script Module: Mirror.Examples.Cloud.Pong.dll
+[Ball] NetworkBehaviourProcessor
+[BallManager] NetworkBehaviourProcessor
+[Player] NetworkBehaviourProcessor
+Weave behaviours and messages took3 milliseconds
+  ProcessSitesModule Mirror.Examples.Cloud.Pong.dll elapsed time:00:00:00
+Find all reader and writers took 69 milliseconds
+Script Module: Mirror.example.RigidbodyPhysics.dll
+[AddForce] NetworkBehaviourProcessor
+Weave behaviours and messages took4 milliseconds
+Find all reader and writers took 71 milliseconds
+Script Module: Mirror.Tests.Performance.Runtime.dll
+Weave behaviours and messages took0 milliseconds
+Find all reader and writers took 103 milliseconds
+Script Module: UnityEditor.TestRunner.dll
+Weave behaviours and messages took41 milliseconds
+Find all reader and writers took 94 milliseconds
+Script Module: UnityEditor.UI.dll
+Weave behaviours and messages took13 milliseconds
+Find all reader and writers took 98 milliseconds
+Script Module: Mirror.Tests.dll
+[EmptyBehaviour] NetworkBehaviourProcessor
+[SyncVarGameObjectEqualExposedBehaviour] NetworkBehaviourProcessor
+[SyncVarNetworkIdentityEqualExposedBehaviour] NetworkBehaviourProcessor
+[NetworkBehaviourSendCommandInternalComponent] NetworkBehaviourProcessor
+[NetworkBehaviourSendRPCInternalComponent] NetworkBehaviourProcessor
+[NetworkBehaviourSendTargetRPCInternalComponent] NetworkBehaviourProcessor
+[NetworkBehaviourDelegateComponent] NetworkBehaviourProcessor
+[NetworkBehaviourSetSyncVarGameObjectComponent] NetworkBehaviourProcessor
+[NetworkBehaviourGetSyncVarGameObjectComponent] NetworkBehaviourProcessor
+[NetworkBehaviourSetSyncVarNetworkIdentityComponent] NetworkBehaviourProcessor
+[NetworkBehaviourGetSyncVarNetworkIdentityComponent] NetworkBehaviourProcessor
+[NetworkBehaviourInitSyncObjectExposed] NetworkBehaviourProcessor
+[OnNetworkDestroyComponent] NetworkBehaviourProcessor
+[OnStartClientComponent] NetworkBehaviourProcessor
+[OnStartLocalPlayerComponent] NetworkBehaviourProcessor
+[NetworkBehaviourHookGuardTester] NetworkBehaviourProcessor
+[NetworkBehaviourInitSyncObjectTester] NetworkBehaviourProcessor
+[CommandTestNetworkBehaviour] NetworkBehaviourProcessor
+[RpcTestNetworkBehaviour] NetworkBehaviourProcessor
+[OnStartClientTestNetworkBehaviour] NetworkBehaviourProcessor
+[OnNetworkDestroyTestNetworkBehaviour] NetworkBehaviourProcessor
+[TestObjectBehaviour] NetworkBehaviourProcessor
+[TestPlayerBehaviour] NetworkBehaviourProcessor
+[HookBehaviour] NetworkBehaviourProcessor
+[GameObjectHookBehaviour] NetworkBehaviourProcessor
+[NetworkIdentityHookBehaviour] NetworkBehaviourProcessor
+[StaticHookBehaviour] NetworkBehaviourProcessor
+[VirtualHookBase] NetworkBehaviourProcessor
+[VirtualHookBase] NetworkBehaviourProcessor
+[VirtualOverrideHook] NetworkBehaviourProcessor
+[AbstractHookBase] NetworkBehaviourProcessor
+[AbstractHookBase] NetworkBehaviourProcessor
+[AbstractHook] NetworkBehaviourProcessor
+[MockPlayer] NetworkBehaviourProcessor
+[AbstractBehaviour] NetworkBehaviourProcessor
+[BehaviourWithSyncVar] NetworkBehaviourProcessor
+[AbstractBehaviour] NetworkBehaviourProcessor
+[OverrideBehaviourFromSyncVar] NetworkBehaviourProcessor
+[AbstractBehaviour] NetworkBehaviourProcessor
+[OverrideBehaviourWithSyncVarFromSyncVar] NetworkBehaviourProcessor
+[AbstractBehaviour] NetworkBehaviourProcessor
+[MiddleClass] NetworkBehaviourProcessor
+[AbstractBehaviour] NetworkBehaviourProcessor
+[MiddleClass] NetworkBehaviourProcessor
+[SubClass] NetworkBehaviourProcessor
+[AbstractBehaviour] NetworkBehaviourProcessor
+[MiddleClassWithSyncVar] NetworkBehaviourProcessor
+[AbstractBehaviour] NetworkBehaviourProcessor
+[MiddleClassWithSyncVar] NetworkBehaviourProcessor
+[SubClassFromSyncVar] NetworkBehaviourProcessor
+[BehaviourWithSyncVarWithOnSerialize] NetworkBehaviourProcessor
+[AbstractBehaviour] NetworkBehaviourProcessor
+[OverrideBehaviourFromSyncVarWithOnSerialize] NetworkBehaviourProcessor
+[AbstractBehaviour] NetworkBehaviourProcessor
+[OverrideBehaviourWithSyncVarFromSyncVarWithOnSerialize] NetworkBehaviourProcessor
+[AttributeBehaviour_NetworkBehaviour] NetworkBehaviourProcessor
+[DataSenderBehaviour] NetworkBehaviourProcessor
+[PayloadTestBehaviour] NetworkBehaviourProcessor
+[BehaviourWithEvents] NetworkBehaviourProcessor
+[VirtualClientRpc] NetworkBehaviourProcessor
+[VirtualClientRpc] NetworkBehaviourProcessor
+[VirtualNoOverrideClientRpc] NetworkBehaviourProcessor
+[VirtualClientRpc] NetworkBehaviourProcessor
+[VirtualOverrideClientRpc] NetworkBehaviourProcessor
+[VirtualClientRpc] NetworkBehaviourProcessor
+[VirtualOverrideClientRpcWithBase] NetworkBehaviourProcessor
+[ClientRpcBehaviour] NetworkBehaviourProcessor
+[ExcludeOwnerBehaviour] NetworkBehaviourProcessor
+[VirtualCommand] NetworkBehaviourProcessor
+[VirtualCommand] NetworkBehaviourProcessor
+[VirtualNoOverrideCommand] NetworkBehaviourProcessor
+[VirtualCommand] NetworkBehaviourProcessor
+[VirtualOverrideCommand] NetworkBehaviourProcessor
+[VirtualCommand] NetworkBehaviourProcessor
+[VirtualOverrideCommandWithBase] NetworkBehaviourProcessor
+[VirtualCommand] NetworkBehaviourProcessor
+[VirtualOverrideCommandWithBase] NetworkBehaviourProcessor
+[VirtualOverrideCommandWithBase2] NetworkBehaviourProcessor
+[AuthorityBehaviour] NetworkBehaviourProcessor
+[IgnoreAuthorityBehaviour] NetworkBehaviourProcessor
+[SenderConnectionBehaviour] NetworkBehaviourProcessor
+[SenderConnectionIgnoreAuthorityBehaviour] NetworkBehaviourProcessor
+[VirtualTargetRpc] NetworkBehaviourProcessor
+[VirtualTargetRpc] NetworkBehaviourProcessor
+[VirtualNoOverrideTargetRpc] NetworkBehaviourProcessor
+[VirtualTargetRpc] NetworkBehaviourProcessor
+[VirtualOverrideTargetRpc] NetworkBehaviourProcessor
+[VirtualTargetRpc] NetworkBehaviourProcessor
+[VirtualOverrideTargetRpcWithBase] NetworkBehaviourProcessor
+[TargetRpcBehaviour] NetworkBehaviourProcessor
+Weave behaviours and messages took112 milliseconds
+  ProcessSitesModule Mirror.Tests.dll elapsed time:00:00:00.0050001
+Find all reader and writers took 71 milliseconds
+Script Module: WeaverTestExtraAssembly.dll
+Weave behaviours and messages took3 milliseconds
+  ProcessSitesModule WeaverTestExtraAssembly.dll elapsed time:00:00:00
+Find all reader and writers took 72 milliseconds
+Script Module: Mirror.CompilerSymbols.dll
+Weave behaviours and messages took0 milliseconds
+Find all reader and writers took 77 milliseconds
+Script Module: Unity.DeviceSimulator.Tests.Common.dll
+Weave behaviours and messages took0 milliseconds
+Find all reader and writers took 79 milliseconds
+Script Module: PlayFabSDKEditor.dll
+Weave behaviours and messages took0 milliseconds
+Mono: successfully reloaded assembly
+- Completed reload, in  7.483 seconds
+Platform modules already initialized, skipping
+========================================================================
+Worker process is ready to serve import requests
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.03 seconds
+Refreshing native plugins compatible for Editor in 0.38 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1647 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 78.6 MB.
+System memory in use after: 78.7 MB.
+
+Unloading 20 unused Assets to reduce memory usage. Loaded Objects now: 2079.
+Total: 2.540700 ms (FindLiveObjects: 0.184600 ms CreateObjectMapping: 0.069800 ms MarkObjects: 2.226300 ms  DeleteObjects: 0.058600 ms)
+
+========================================================================
+Received Import Request.
+  path: Assets/Prefabs
+  artifactKey: Guid(9860a89277d3b6e41a9ea2c19d6e99ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs using Guid(9860a89277d3b6e41a9ea2c19d6e99ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b6858a86b49c9872a7c6b9ff4c232964') in 0.009280 seconds
+  Import took 0.012512 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000222 seconds.
+  path: Assets/Prefabs/Player/Player.prefab
+  artifactKey: Guid(db4b324aa874ef540be9713ea70a63dd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Player/Player.prefab using Guid(db4b324aa874ef540be9713ea70a63dd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '876112e574de3a44b9b7f9021f11a2b3') in 0.282930 seconds
+  Import took 0.286586 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000227 seconds.
+  path: Assets/Prefabs/Player
+  artifactKey: Guid(95973e1e7495cda4da219ced6941bf88) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Player using Guid(95973e1e7495cda4da219ced6941bf88) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b4000f025ca1685e9d78fcc5e8a3c432') in 0.002596 seconds
+  Import took 0.006233 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000211 seconds.
+  path: Assets/Prefabs/Player/PlayerNew.prefab
+  artifactKey: Guid(f7096fe7e11f2e748a4f0b2ef0ce6597) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Player/PlayerNew.prefab using Guid(f7096fe7e11f2e748a4f0b2ef0ce6597) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4c6e5e76879e292ffc029cf7244e7413') in 0.356350 seconds
+  Import took 0.361059 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000307 seconds.
+  path: Assets/Prefabs/Player/PlayerNewOLD.prefab
+  artifactKey: Guid(ad1d92c07361de845a8755f8d03c356f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Player/PlayerNewOLD.prefab using Guid(ad1d92c07361de845a8755f8d03c356f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dfcd6bf9912a7ee039ac638d5888e95e') in 0.313417 seconds
+  Import took 0.318163 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.004577 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for LinuxStandalone target not found
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.42 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.015 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.40 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1628 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 92.9 MB.
+System memory in use after: 93.0 MB.
+
+Unloading 19 unused Assets to reduce memory usage. Loaded Objects now: 2092.
+Total: 1.852300 ms (FindLiveObjects: 0.175100 ms CreateObjectMapping: 0.057700 ms MarkObjects: 1.586900 ms  DeleteObjects: 0.031300 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 148.254483 seconds.
+  path: Assets/PlayerNew2.prefab
+  artifactKey: Guid(77e80dbe5e5993449a7e83faf14393ad) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/PlayerNew2.prefab using Guid(77e80dbe5e5993449a7e83faf14393ad) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a2b6ac019beeac7ceb58c17b18eaaeb6') in 0.513832 seconds
+  Import took 0.519501 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.811733 seconds.
+  path: Assets/LoginNEW.unity
+  artifactKey: Guid(fbe4f617af36f7e48b772e59df8c43b7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/LoginNEW.unity using Guid(fbe4f617af36f7e48b772e59df8c43b7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4728c0c0f3c10c92c6f23ca544ecb913') in 0.008983 seconds
+  Import took 0.012399 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 191.913294 seconds.
+  path: Assets/Sprites (2D)
+  artifactKey: Guid(15113be4bf94a0a4396a899a679a3ddb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites (2D) using Guid(15113be4bf94a0a4396a899a679a3ddb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '794e20c7ba3ab0953f9529d02b38a5b6') in 0.008944 seconds
+  Import took 0.012787 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000923 seconds.
+  path: Assets/Sprites (2D)
+  artifactKey: Guid(15113be4bf94a0a4396a899a679a3ddb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites (2D) using Guid(15113be4bf94a0a4396a899a679a3ddb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '794e20c7ba3ab0953f9529d02b38a5b6') in 0.004343 seconds
+  Import took 0.007642 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.046577 seconds.
+  path: Assets/Sprites (2D)/AppIcon.png
+  artifactKey: Guid(303f38fb8b1ba854da4cd92001bb6682) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites (2D)/AppIcon.png using Guid(303f38fb8b1ba854da4cd92001bb6682) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b9cfa1ad1799c63eabe2e36e8c78a5b2') in 0.096790 seconds
+  Import took 0.100851 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000248 seconds.
+  path: Assets/Sprites (2D)/ProjectLogo.png
+  artifactKey: Guid(85e80643b9a35514d90123080800545f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites (2D)/ProjectLogo.png using Guid(85e80643b9a35514d90123080800545f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '98591845958ad19247388f5bb04823ad') in 0.022711 seconds
+  Import took 0.025967 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.001808 seconds.
+  path: Assets/Sprites (2D)/ProjectLogo.png
+  artifactKey: Guid(85e80643b9a35514d90123080800545f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites (2D)/ProjectLogo.png using Guid(85e80643b9a35514d90123080800545f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '98591845958ad19247388f5bb04823ad') in 0.032408 seconds
+  Import took 0.035526 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.931595 seconds.
+  path: Assets/Sprites (2D)/UI
+  artifactKey: Guid(40f8abbda24067e41a09c06157052a33) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites (2D)/UI using Guid(40f8abbda24067e41a09c06157052a33) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '64ea1fd807ef8119e885253836b357ea') in 0.025998 seconds
+  Import took 0.039145 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.043993 seconds.
+  path: Assets/Sprites (2D)/UI/abstract-phone-wallpaper.jpg
+  artifactKey: Guid(85054b042faf1c245b81f9b819620816) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites (2D)/UI/abstract-phone-wallpaper.jpg using Guid(85054b042faf1c245b81f9b819620816) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3f1215054fb2d5bf14cae171f98408e6') in 0.058062 seconds
+  Import took 0.062723 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.546018 seconds.
+  path: Assets/Sprites (2D)/UI/101512_logo_512x512.png
+  artifactKey: Guid(408db1994208d2a4caef144f95d8c423) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites (2D)/UI/101512_logo_512x512.png using Guid(408db1994208d2a4caef144f95d8c423) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '287eed08979f435b20f9d90b30ce787c') in 0.014613 seconds
+  Import took 0.018901 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 29.799645 seconds.
+  path: Assets/Sprites (2D)/UI/Register/PlayerImages (OLD)/1.png
+  artifactKey: Guid(2dc58b66a4245bc4fb930f5c49725c73) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites (2D)/UI/Register/PlayerImages (OLD)/1.png using Guid(2dc58b66a4245bc4fb930f5c49725c73) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ebd1106ff78a8b358703b2780675ee1f') in 0.030915 seconds
+  Import took 0.034590 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000342 seconds.
+  path: Assets/Sprites (2D)/UI/Register/PlayerImages (OLD)/6.png
+  artifactKey: Guid(fa70ba8703cd4ef4babb3a698114b262) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites (2D)/UI/Register/PlayerImages (OLD)/6.png using Guid(fa70ba8703cd4ef4babb3a698114b262) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e3158cefa1074367aa8eb512525fb73f') in 0.019268 seconds
+  Import took 0.022149 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000264 seconds.
+  path: Assets/Sprites (2D)/UI/Register/PlayerImages (OLD)/2.png
+  artifactKey: Guid(e651084909a5b82429d6bc6748fad571) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites (2D)/UI/Register/PlayerImages (OLD)/2.png using Guid(e651084909a5b82429d6bc6748fad571) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a0ba0b92a7e0fe831422349ff605dada') in 0.018496 seconds
+  Import took 0.022137 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000347 seconds.
+  path: Assets/Sprites (2D)/UI/Register/PlayerImages (OLD)/8.png
+  artifactKey: Guid(a12b6fbb24d55074798f61384c616fd6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites (2D)/UI/Register/PlayerImages (OLD)/8.png using Guid(a12b6fbb24d55074798f61384c616fd6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '11c98ef763db8553e288584ad76652e0') in 0.019352 seconds
+  Import took 0.023905 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000283 seconds.
+  path: Assets/Sprites (2D)/UI/Loading/872219e39469e56ff5742581122212bf.jpg
+  artifactKey: Guid(47722858e07e622448d42e1cdc7e6526) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites (2D)/UI/Loading/872219e39469e56ff5742581122212bf.jpg using Guid(47722858e07e622448d42e1cdc7e6526) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ad46e6f70f9011ef6189add847ca74b5') in 0.032910 seconds
+  Import took 0.036213 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000210 seconds.
+  path: Assets/Sprites (2D)/UI/Register/PlayerImages (OLD)/5.png
+  artifactKey: Guid(4c3c6293508c7a44ab19013f0ea2f040) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites (2D)/UI/Register/PlayerImages (OLD)/5.png using Guid(4c3c6293508c7a44ab19013f0ea2f040) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5d5f19aee471a7b0075e69ba7c2291cd') in 0.016193 seconds
+  Import took 0.019092 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000225 seconds.
+  path: Assets/Sprites (2D)/UI/Register/PlayerImages (OLD)/7.png
+  artifactKey: Guid(2067cb05da73c184ea6d0aec6d93a4e3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites (2D)/UI/Register/PlayerImages (OLD)/7.png using Guid(2067cb05da73c184ea6d0aec6d93a4e3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5c2b4c2501fd3eecdccb394a9e87d11b') in 0.021482 seconds
+  Import took 0.025007 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000262 seconds.
+  path: Assets/Sprites (2D)/UI/Register/PlayerImages (OLD)/3.png
+  artifactKey: Guid(42bf223c2dfa9cb4eafce5526560d723) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites (2D)/UI/Register/PlayerImages (OLD)/3.png using Guid(42bf223c2dfa9cb4eafce5526560d723) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f99cf558b787e669ea3d3bebc9a54e33') in 0.018810 seconds
+  Import took 0.021733 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000228 seconds.
+  path: Assets/Sprites (2D)/UI/Register/PlayerImages (OLD)/4.png
+  artifactKey: Guid(a84487fd28e7da74db51f2205d973800) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites (2D)/UI/Register/PlayerImages (OLD)/4.png using Guid(a84487fd28e7da74db51f2205d973800) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ee2ce58723bc2e262fb8797c0c6a1a52') in 0.019642 seconds
+  Import took 0.022646 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000223 seconds.
+  path: Assets/Sprites (2D)/UI/Register/PlayerImages (OLD)/9.png
+  artifactKey: Guid(b85cf3f5906fb6749a20a69b4b9a2260) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites (2D)/UI/Register/PlayerImages (OLD)/9.png using Guid(b85cf3f5906fb6749a20a69b4b9a2260) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'aca6e5b3785f3caac4c89b466064fb2b') in 0.017008 seconds
+  Import took 0.020605 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 5.381566 seconds.
+  path: Assets/Sprites (2D)/UI/101512_logo_512x512.png
+  artifactKey: Guid(408db1994208d2a4caef144f95d8c423) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites (2D)/UI/101512_logo_512x512.png using Guid(408db1994208d2a4caef144f95d8c423) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cb6d169d11f6af7b377d558d3ad1ba58') in 0.017308 seconds
+  Import took 0.020532 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.011036 seconds.
+  path: Assets/Sprites (2D)/UI/101512_logo_512x512.png
+  artifactKey: Guid(408db1994208d2a4caef144f95d8c423) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites (2D)/UI/101512_logo_512x512.png using Guid(408db1994208d2a4caef144f95d8c423) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cb6d169d11f6af7b377d558d3ad1ba58') in 0.018550 seconds
+  Import took 0.022769 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 99.376633 seconds.
+  path: Assets/Scenes/Login.unity
+  artifactKey: Guid(41db864518e25c84586574d6f9ae8340) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Login.unity using Guid(41db864518e25c84586574d6f9ae8340) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7f2199e495e573f8ab651c068d89c08f') in 0.010513 seconds
+  Import took 0.014320 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.005013 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for LinuxStandalone target not found
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.47 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.073 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.57 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1628 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 93.2 MB.
+System memory in use after: 93.4 MB.
+
+Unloading 19 unused Assets to reduce memory usage. Loaded Objects now: 2107.
+Total: 1.780100 ms (FindLiveObjects: 0.154300 ms CreateObjectMapping: 0.053800 ms MarkObjects: 1.516000 ms  DeleteObjects: 0.055000 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 113.536624 seconds.
+  path: Assets/Mirror/Examples/Cloud/PongWithListServer/Sprites/Ball.png
+  artifactKey: Guid(2c19e4cb225706240af7a8fbbf2ebfe2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Mirror/Examples/Cloud/PongWithListServer/Sprites/Ball.png using Guid(2c19e4cb225706240af7a8fbbf2ebfe2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '819cf1ad45a833512d52bf520b00a472') in 0.074079 seconds
+  Import took 0.078608 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000335 seconds.
+  path: Assets/Addons/TextMesh Pro/Examples & Extras/Sprites/Default Sprites.png
+  artifactKey: Guid(a0fc465d6cf04254a2938578735e2383) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Addons/TextMesh Pro/Examples & Extras/Sprites/Default Sprites.png using Guid(a0fc465d6cf04254a2938578735e2383) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e126c19a9970575baf90312c8e3a5a47') in 0.107633 seconds
+  Import took 0.110533 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000271 seconds.
+  path: Assets/Sprites (2D)/UI/ToolBar/ButtonBlank.png
+  artifactKey: Guid(8532432e2c2ce474f94f921f71dc9923) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites (2D)/UI/ToolBar/ButtonBlank.png using Guid(8532432e2c2ce474f94f921f71dc9923) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '505335872090782622509e78ca2d5101') in 0.026440 seconds
+  Import took 0.029484 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000274 seconds.
+  path: Assets/Sprites (2D)/UI/ToolBar/ChatLog.png
+  artifactKey: Guid(58d49233f5d15284189136c6d6822118) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites (2D)/UI/ToolBar/ChatLog.png using Guid(58d49233f5d15284189136c6d6822118) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f038ab551034d582df602df3adde2636') in 0.020660 seconds
+  Import took 0.024454 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000275 seconds.
+  path: Assets/Mirror/Examples/Pong/Sprites/Ball.png
+  artifactKey: Guid(4b66f21097323d44ab40669b2fb9c53d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Mirror/Examples/Pong/Sprites/Ball.png using Guid(4b66f21097323d44ab40669b2fb9c53d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6622711a523bf0624015b6fe58ed50ab') in 0.028410 seconds
+  Import took 0.031691 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000214 seconds.
+  path: Assets/Sprites (2D)/UI/ToolBar/Bar.png
+  artifactKey: Guid(383f7b00d23329144a3adae98f4bdbea) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites (2D)/UI/ToolBar/Bar.png using Guid(383f7b00d23329144a3adae98f4bdbea) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd59a2c6fe9699c31b63892b1992f3c26') in 0.046074 seconds
+  Import took 0.048908 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.004814 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for LinuxStandalone target not found
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.41 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.981 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.40 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1628 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 93.5 MB.
+System memory in use after: 93.6 MB.
+
+Unloading 15 unused Assets to reduce memory usage. Loaded Objects now: 2116.
+Total: 1.917700 ms (FindLiveObjects: 0.280200 ms CreateObjectMapping: 0.081400 ms MarkObjects: 1.536200 ms  DeleteObjects: 0.018700 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 55.544426 seconds.
+  path: Assets/Prefabs/Player/PlayerNew.prefab
+  artifactKey: Guid(f7096fe7e11f2e748a4f0b2ef0ce6597) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Player/PlayerNew.prefab using Guid(f7096fe7e11f2e748a4f0b2ef0ce6597) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '57022ef69627a1876a250728697f4d26') in 0.481796 seconds
+  Import took 0.488282 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 5.321419 seconds.
+  path: Assets/Prefabs/Player/PlayerNew.prefab
+  artifactKey: Guid(f7096fe7e11f2e748a4f0b2ef0ce6597) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/Player/PlayerNew.prefab using Guid(f7096fe7e11f2e748a4f0b2ef0ce6597) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0070b1d2388d9ea22cbd0bc7dc237b47') in 0.309670 seconds
+  Import took 0.315578 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 41.655560 seconds.
+  path: Assets/Scenes/Login.unity
+  artifactKey: Guid(41db864518e25c84586574d6f9ae8340) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Login.unity using Guid(41db864518e25c84586574d6f9ae8340) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c7fdbccd63e9f43689eaa8bf49917e0f') in 0.008572 seconds
+  Import took 0.013306 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000578 seconds.
+  path: Assets/Scenes/Login.unity
+  artifactKey: Guid(41db864518e25c84586574d6f9ae8340) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Login.unity using Guid(41db864518e25c84586574d6f9ae8340) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c7fdbccd63e9f43689eaa8bf49917e0f') in 0.003980 seconds
+  Import took 0.007643 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.038187 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for LinuxStandalone target not found
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.61 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.977 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.59 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1628 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 93.8 MB.
+System memory in use after: 93.9 MB.
+
+Unloading 19 unused Assets to reduce memory usage. Loaded Objects now: 2119.
+Total: 1.934300 ms (FindLiveObjects: 0.175400 ms CreateObjectMapping: 0.066800 ms MarkObjects: 1.651300 ms  DeleteObjects: 0.039300 ms)
+

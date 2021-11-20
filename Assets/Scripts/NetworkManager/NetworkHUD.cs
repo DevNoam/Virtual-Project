@@ -37,15 +37,15 @@ public class NetworkHUD : MonoBehaviour
 
     public void enableHUD()
     {
-        if (Application.platform == RuntimePlatform.WebGLPlayer)
+        if (Application.platform == RuntimePlatform.WebGLPlayer || Application.platform == RuntimePlatform.Android)
         {
-            manager.StartHost();
+            manager.StartClient();
             enabled = false;
             showGUI = false;
         }
         else
         {
-            manager.StartHost();
+            //manager.StartHost();
             enabled = true;
             showGUI = true;
         }
