@@ -13,9 +13,10 @@ public class AnimationsManager : NetworkBehaviour
     [SerializeField]
     private PlayerManager playerManager;
 
+    [Client]
     void Update() //Call Animations
     {
-        if (Input.GetKeyDown("w") && !playerManager.chatSystem.inputFiled.isFocused && (playerManager.playerMovement.navMeshController.remainingDistance <= playerManager.playerMovement.navMeshController.stoppingDistance))
+        if (Input.GetKeyDown("w") && hasAuthority && !playerManager.chatSystem.inputFiled.isFocused && (playerManager.playerMovement.navMeshController.remainingDistance <= playerManager.playerMovement.navMeshController.stoppingDistance))
         {
             playerManager.animationsManager.AnimationWaving();
         }
