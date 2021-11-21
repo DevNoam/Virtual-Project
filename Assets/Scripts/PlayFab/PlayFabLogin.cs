@@ -349,6 +349,6 @@ public class PlayFabLogin : MonoBehaviour
 
     public void openServerStatusPage()
     {
-        Application.OpenURL("https://moominrewritten.000webhostapp.com/VirtualProject/");
+        Application.OpenURL("https://api.noamsapir.me/VirtualProjectStatus/");
     }
 }
