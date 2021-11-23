@@ -18,7 +18,7 @@ public class ServerStatus : MonoBehaviour
 
     void Start()
     {
-        if (!Application.isBatchMode && isServer == false)
+        if (isServer == false)
         {
             Destroy(this);
         }
@@ -74,7 +74,7 @@ public class ServerStatus : MonoBehaviour
         }
         else
         {
-            Debug.Log("Server status sent.");
+            Debug.Log($"{System.DateTime.Now} Server status sent.");
         }
     }
 }

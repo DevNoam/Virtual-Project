@@ -70,6 +70,7 @@ public class PlayerManager : NetworkBehaviour
     public void CmdUpdatePlayerName(string playername)
     {
         playerName = playername;
+        Debug.Log(playername + " connected to the server.");
     }
 
     private void updatePlayerName(string oldName, string newName)

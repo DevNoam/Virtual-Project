@@ -2010,7 +2010,7 @@ MonoBehaviour:
   serverVersion: {fileID: 458007284}
   newVersion: {fileID: 972046432}
   noInternet: {fileID: 1543351470}
-  serverStatusURL: https://api.noamsapir.me/VirtualProjectStatus/ConnectedPlayers.txt
+  serverStatusURL: https://virtualproject.noamsapir.me/serverstatus/ConnectedPlayers.txt
 --- !u!114 &222471288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6939,6 +6939,7 @@ GameObject:
   - component: {fileID: 998976908}
   - component: {fileID: 998976907}
   - component: {fileID: 998976906}
+  - component: {fileID: 998976909}
   m_Layer: 5
   m_Name: StatusPageUrl
   m_TagString: Untagged
@@ -7009,16 +7010,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 222471287}
-        m_TargetAssemblyTypeName: PlayFabLogin, Assembly-CSharp
-        m_MethodName: openServerStatusPage
-        m_Mode: 1
+      - m_Target: {fileID: 998976909}
+        m_TargetAssemblyTypeName: openURL, Assembly-CSharp
+        m_MethodName: OpenURL
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: https://virtualproject.noamsapir.me/serverstatus
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &998976907
@@ -7118,6 +7119,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 998976904}
   m_CullTransparentMesh: 0
+--- !u!114 &998976909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 998976904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 994d85a6407aa534abadd86965fb6627, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1000781292
 GameObject:
   m_ObjectHideFlags: 0
@@ -9280,9 +9293,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: 0
-  isServer: 0
+  isServer: 1
   runTime: 0
-  postUrl: https://api.noamsapir.me/VirtualProjectStatus/PostConnectedPlayers.php
+  postUrl: https://virtualproject.noamsapir.me/serverstatus/PostConnectedPlayers.php
 --- !u!114 &1219375351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9306,7 +9319,7 @@ MonoBehaviour:
   batchSend: 1
   waitBeforeSend: 0
   clientUseWss: 0
-  sslEnabled: 0
+  sslEnabled: 1
   sslCertJson: ./cert.json
   sslProtocols: 3312
   _logLevels: 0
@@ -16173,8 +16186,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1836889985}
   m_HandleRect: {fileID: 1836889984}
   m_Direction: 2
-  m_Value: 1.0000017
-  m_Size: 0.47787946
+  m_Value: 0.99999744
+  m_Size: 0.47787905
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

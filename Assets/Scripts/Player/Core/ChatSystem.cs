@@ -33,6 +33,7 @@ public class ChatSystem : NetworkBehaviour
     public void Send()
     {
         string text = inputFiled.text;
+        ChatMonitor(text, playerName);
         if (text.Trim().Length >= 1)
         {
             if (text.StartsWith("/"))
@@ -59,10 +60,16 @@ public class ChatSystem : NetworkBehaviour
         }
     }
 
+
     [Command]
     void CallServerToCheckMessage(string Message, string playerName)
     {
         ServerCheckMessage(Message, playerName);
+    }
+    [Command]
+    void ChatMonitor(string Message, string playerName) //Sends the player input to the server terminal to be reviewd
+    {
+        Debug.Log($"{System.DateTime.Now}, {playerName}: {Message}");
     }
 
 

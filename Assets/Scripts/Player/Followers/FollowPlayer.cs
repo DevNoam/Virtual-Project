@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Diagnostics;
+using Mirror;
 
-public class FollowPlayer : MonoBehaviour
+public class FollowPlayer : NetworkBehaviour
 { 
     [SerializeField]
     private GameObject following;
@@ -15,12 +16,13 @@ public class FollowPlayer : MonoBehaviour
     [SerializeField]
     private Vector3 followPosition;
 
-
+    [ClientCallback]
     public void Start()
     {
         cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
     }
 
+    [ClientCallback]
     void LateUpdate()
     {
         transform.position = Vector3.MoveTowards(transform.position, following.transform.position + followPosition, interested);

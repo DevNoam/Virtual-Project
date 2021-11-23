@@ -30,6 +30,6 @@ public class Relog : MonoBehaviour
         {
             DontDestroyOnLoad(Instantiate(disconnectedPrefab));
         }
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(0);
     }
 }
