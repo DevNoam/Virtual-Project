@@ -2183,6 +2183,7 @@ GameObject:
   - component: {fileID: 5226710786888201396}
   - component: {fileID: 5653302669783177050}
   - component: {fileID: 1854987025685882358}
+  - component: {fileID: 8244765413481823621}
   m_Layer: 0
   m_Name: PlayerNew
   m_TagString: Player
@@ -2513,6 +2514,25 @@ MonoBehaviour:
   serverOnly: 0
   m_AssetId: 
   hasSpawned: 0
+--- !u!114 &8244765413481823621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1854987025685882313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d98f166f1284464da125b58e90d1e7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  following: {fileID: 1854987025685882313}
+  cam: {fileID: 4713081005458512623}
+  interested: 20
+  followPosition: {x: 0, y: 0, z: 0}
+  transformComponents: {fileID: 1685427707890541634}
 --- !u!1 &1870552477381456700
 GameObject:
   m_ObjectHideFlags: 0
@@ -10409,7 +10429,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1685427707890541634}
-  - component: {fileID: 7431855590966026639}
   m_Layer: 0
   m_Name: MoveableComponents
   m_TagString: Untagged
@@ -10434,22 +10453,6 @@ Transform:
   m_Father: {fileID: 1854987025685882359}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7431855590966026639
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7996596715628129873}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d98f166f1284464da125b58e90d1e7d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  following: {fileID: 1854987025685882313}
-  cam: {fileID: 4713081005458512623}
-  interested: 20
-  followPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &8033583550986361449
 GameObject:
   m_ObjectHideFlags: 0

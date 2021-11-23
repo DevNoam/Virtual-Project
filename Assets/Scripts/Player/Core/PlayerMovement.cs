@@ -11,10 +11,10 @@ public class PlayerMovement : NetworkBehaviour
 
     [SerializeField]
     private float rotationSpeed = 20;
-    [Tooltip("MovementType is how the local player will move: True = Hold to move. False = Click to move to destination")]
     private bool CanRotate = true;
     private float heledLevel = 0;
     private bool isHeled = false;
+    private bool isMoving = false;
     [SerializeField]
     private int pressSensive = 25;
 
@@ -44,24 +44,26 @@ public class PlayerMovement : NetworkBehaviour
                 {
                     if (navMeshController.angularSpeed > 500)
                         navMeshController.angularSpeed = 500;
-                    CmdScrPlayerSetDestination(hit.point);
-                    CanRotate = false;
-                    heledLevel += Time.deltaTime * 100;
+                //navMeshController.SetDestination(hit.point);
+                CmdScrPlayerSetDestination(hit.point);
+                CanRotate = false;
+                //heledLevel += Time.deltaTime * 100;
                 }
-                else if (heledLevel >= pressSensive)
+                /*else if (heledLevel >= pressSensive)
                 {
                     //Debug.Log("Heled");
                     CmdScrPlayerSetDestination(hit.point);
                     if (isHeled == false && CanRotate == false)
                     {
                         isHeled = true;
-                        CanRotate = true;
+                        //CanRotate = true;
                         //Debug.Log("CanRotate TRUE");
                     }
-                }
+                }*/
+                isMoving = true;
             }
         }
-        if (Input.GetMouseButtonUp(0))
+        /*if (Input.GetMouseButtonUp(0))
         {
             if (isHeled == false)
             {
@@ -75,8 +77,7 @@ public class PlayerMovement : NetworkBehaviour
                 //Debug.Log("Released from hold");
                 if (movementype == 1)
                 {
-                    CmdScrPlayerSetDestination(transform.position);
-                    CanRotate = true;
+                    //CmdScrPlayerSetDestination(this.transform.position);
                 }
                 else if (movementype == 2)
                 {
@@ -85,19 +86,25 @@ public class PlayerMovement : NetworkBehaviour
                 }
                 heledLevel = 0;
             }
-        }
-        if (navMeshController.remainingDistance > navMeshController.stoppingDistance)
+        }*/
+
+        if (isMoving == true)
         {
-            playerManager.animationsManager.AnimationWalk(0.5f);
-        }
-        else if (navMeshController.remainingDistance <= navMeshController.stoppingDistance && CanRotate == false)
-        {
-            CanRotate = true;
-            playerManager.animationsManager.AnimationStopMoving();
-        }
-        else if (navMeshController.remainingDistance <= navMeshController.stoppingDistance)
-        {
-            playerManager.animationsManager.AnimationStopMoving();
+            if (navMeshController.remainingDistance > navMeshController.stoppingDistance)
+            {
+                playerManager.animationsManager.AnimationWalk(0.5f);
+            }
+            else if (navMeshController.remainingDistance <= navMeshController.stoppingDistance && CanRotate == false)
+            {
+                playerManager.animationsManager.AnimationStopMoving();
+                CanRotate = true;
+                isMoving = false;
+            }
+            else if (navMeshController.remainingDistance <= navMeshController.stoppingDistance)
+            {
+                playerManager.animationsManager.AnimationStopMoving();
+                isMoving = false;
+            }
         }
 
 #if UNITY_EDITOR
@@ -126,6 +133,8 @@ public class PlayerMovement : NetworkBehaviour
     public void RpcScrPlayerSetDestination(Vector3 argPosition)
     {
         navMeshController.SetDestination(argPosition);
+        CanRotate = false;
+        isMoving = true;
     }
 
     [Server]

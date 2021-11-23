@@ -15,6 +15,8 @@ public class FollowPlayer : NetworkBehaviour
     private float interested; 
     [SerializeField]
     private Vector3 followPosition;
+    [SerializeField] [Tooltip("Attach MovableComponenets")]
+    private Transform transformComponents;
 
     [ClientCallback]
     public void Start()
@@ -25,8 +27,8 @@ public class FollowPlayer : NetworkBehaviour
     [ClientCallback]
     void LateUpdate()
     {
-        transform.position = Vector3.MoveTowards(transform.position, following.transform.position + followPosition, interested);
-        transform.LookAt(transform.position + cam.transform.forward);
+        transformComponents.position = Vector3.MoveTowards(transformComponents.position, following.transform.position + followPosition, interested);
+        transformComponents.LookAt(transformComponents.position + cam.transform.forward);
     }
 
 }

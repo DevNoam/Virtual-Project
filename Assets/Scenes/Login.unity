@@ -9293,7 +9293,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: 0
-  isServer: 1
+  isServer: 0
   runTime: 0
   postUrl: https://virtualproject.noamsapir.me/serverstatus/PostConnectedPlayers.php
 --- !u!114 &1219375351
@@ -16186,8 +16186,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1836889985}
   m_HandleRect: {fileID: 1836889984}
   m_Direction: 2
-  m_Value: 0.99999744
-  m_Size: 0.47787905
+  m_Value: 0.9999987
+  m_Size: 0.47787926
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
