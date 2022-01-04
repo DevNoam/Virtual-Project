@@ -57,7 +57,16 @@ public class PlayFabLogin : MonoBehaviour
         StartCoroutine(FetchOnlinePlayers(serverStatusURL));
         if (newVersion.activeInHierarchy)
             newVersion.SetActive(false);
+        if (IsHeadlessMode())
+        {
+            return;
+        }
+        else
+        {
+            StartCoroutine(StartServer());
+        }
     }
+
 
     private void OnLoginSuccess(LoginResult result)
     {
@@ -350,5 +359,49 @@ public class PlayFabLogin : MonoBehaviour
     public void openServerStatusPage()
     {
         Application.OpenURL("https://api.noamsapir.me/VirtualProjectStatus/");
+    }
+
+    int timesCheckedServer = 0;
+    IEnumerator StartServer()
+    {
+        string uri = "https://virtualproject.noamsapir.me/serverstatus/checkServer.php";
+        using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
+        {
+            bool isServerOpen = false;
+            // Request and wait for the desired page.
+            yield return webRequest.SendWebRequest();
+
+            string[] lines = webRequest.downloadHandler.text.Split('\n');
+            for (int i = 0; i < lines.Length; i++)
+            {
+                if (lines[i].Contains("open"))
+                {
+                    Debug.Log("<color=green>" + lines[i] + "</color>");
+                    isServerOpen = true;
+                    yield break;
+                }
+                else
+                    Debug.Log(lines[i]);
+            }
+
+            if (isServerOpen == true)
+                yield break;
+            else
+            {
+                if (timesCheckedServer > 1)
+                    Debug.Log("<color=red>Server is closed, launch client again.</color>");
+                else
+                {
+                    timesCheckedServer++;
+                    yield return new WaitForSeconds(1.5f);
+                    StartCoroutine(StartServer());
+                }
+            }
+        }
+    }
+
+    public static bool IsHeadlessMode()
+    {
+        return UnityEngine.SystemInfo.graphicsDeviceType == UnityEngine.Rendering.GraphicsDeviceType.Null;
     }
 }
