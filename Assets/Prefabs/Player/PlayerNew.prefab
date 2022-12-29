@@ -2258,6 +2258,7 @@ MonoBehaviour:
   commandsManager: {fileID: 113386406753361634}
   animationsManager: {fileID: 6790441052855457906}
   playerPlayFab: {fileID: 2711960937882433766}
+  duplicateLoginMessage: {fileID: 5548608773254657075, guid: d10352c527b5e54438a4ec8f8dfcc938, type: 3}
 --- !u!114 &7812936511398083287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7245,7 +7246,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &882217256777324017
 Animator:
-  serializedVersion: 3
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -7258,13 +7259,14 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
   m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
     are already bound by a Humanoid avatar. These transforms can only be changed
     by Humanoid clips.\n\tTransform 'mixamorig:RightHand'\n\tFrom animation clip
     'UsingPhone'"
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!136 &4360086996909808503
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -9765,7 +9767,7 @@ MonoBehaviour:
   m_PixelsPerUnitMultiplier: 0.5
 --- !u!95 &7308853608872536049
 Animator:
-  serializedVersion: 3
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -9778,10 +9780,11 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &7465003257007237833
 GameObject:
   m_ObjectHideFlags: 0

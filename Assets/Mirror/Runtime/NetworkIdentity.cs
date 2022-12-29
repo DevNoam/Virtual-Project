@@ -891,7 +891,7 @@ namespace Mirror
         {
             foreach (NetworkBehaviour comp in NetworkBehaviours)
             {
-                // an exception in OnNetworkDestroy should be caught, so that
+                // an exception in OnStopClient should be caught, so that
                 // one component's exception doesn't stop all other components
                 // from being initialized
                 // => this is what Unity does for Start() etc. too.
@@ -902,7 +902,7 @@ namespace Mirror
                 }
                 catch (Exception e)
                 {
-                    logger.LogError("Exception in OnNetworkDestroy:" + e.Message + " " + e.StackTrace);
+                    logger.LogError("Exception in OnStopClient:" + e.Message + " " + e.StackTrace);
                 }
                 isServer = false;
             }
@@ -1027,7 +1027,7 @@ namespace Mirror
             catch (Exception e)
             {
                 // show a detailed error and let the user know what went wrong
-                logger.LogError($"OnDeserialize failed for: object={name} component={comp.GetType()} sceneId={sceneId:X} length={contentSize}. Possible Reasons:\n" +
+                logger.LogError($"OnDeserialize failed Exception={e.GetType()} (see below) object={name} component={comp.GetType()} sceneId={sceneId:X} length={contentSize}. Possible Reasons:\n" +
                     $"  * Do {comp.GetType()}'s OnSerialize and OnDeserialize calls write the same amount of data({contentSize} bytes)? \n" +
                     $"  * Was there an exception in {comp.GetType()}'s OnSerialize/OnDeserialize code?\n" +
                     $"  * Are the server and client the exact same project?\n" +

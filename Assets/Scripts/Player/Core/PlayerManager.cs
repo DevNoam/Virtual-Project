@@ -1,8 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using Mirror;
-using UnityEngine.AI;
 using TMPro;
 
 public class PlayerManager : NetworkBehaviour
@@ -12,6 +9,9 @@ public class PlayerManager : NetworkBehaviour
 
     [SyncVar(hook = nameof(updatePlayerName))]
     private string playerName = "Loading..";
+    public string PlayerName {
+        get { return playerName; }
+    }
 
     [SerializeField]
     private TextMeshPro playerNameMesh;
@@ -70,13 +70,25 @@ public class PlayerManager : NetworkBehaviour
     public void CmdUpdatePlayerName(string playername)
     {
         playerName = playername;
+        NewNetworkManager.singleton.ConnectPlayer(playerName, this.GetComponent<NetworkIdentity>());
         Debug.Log(playername + " connected to the server.");
+    }
+    public override void OnStopClient()
+    {
+        base.OnStopClient();
     }
 
     private void updatePlayerName(string oldName, string newName)
     {
         playerNameMesh.text = newName;
         chatSystem.playerName = newName;
+    }
+    [TargetRpc]
+    public void InformClientDisconnect(NetworkConnection conn)
+    {
+        Debug.Log("Logged in from other client.");
+        //NetworkClient.Disconnect();
+        NewNetworkManager.singleton.StopClient();
     }
     #endregion
 }
