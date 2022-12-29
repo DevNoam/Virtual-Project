@@ -7,7 +7,6 @@ using UnityEngine.Networking;
 public class ServerStatus : MonoBehaviour
 {
     public int data = 0; //amount of connected players from all the rooms.
-    public bool isServer = false;
     public int runTime = 0; //how many seconds the server is running
     public int timeFromLastPlayer = 0; //The time passed after the last player has been disconnected.
     private string applicationVersion;
@@ -83,13 +82,15 @@ public class ServerStatus : MonoBehaviour
         }
     }
 
+    [System.Obsolete]
     void Invoking()
     {
         StartCoroutine(UploadData());
     }
 
     // Update is called once per frame
-    
+
+    [System.Obsolete]
     IEnumerator UploadData()
     {
         string uptime = "Hours: 0 Minutes: 0";
