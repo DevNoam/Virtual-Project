@@ -2258,7 +2258,6 @@ MonoBehaviour:
   commandsManager: {fileID: 113386406753361634}
   animationsManager: {fileID: 6790441052855457906}
   playerPlayFab: {fileID: 2711960937882433766}
-  duplicateLoginMessage: {fileID: 5548608773254657075, guid: d10352c527b5e54438a4ec8f8dfcc938, type: 3}
 --- !u!114 &7812936511398083287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6651,7 +6650,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: https://github.com/sapirnoam
+          m_StringArgument: https://github.com/noamsapir
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1715437842591685949
