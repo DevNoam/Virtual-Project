@@ -11,6 +11,7 @@ Read more at my website: https://noamsapir.me/Virtualproject
 ## Deployment
 
 To deploy this project. You should install Unity 2020.3.43f1 and compile 2 versions.
+NOTE, that Backend service is not linked. You would need to setup your Playfab ID.
 1. Linux headless build (Server).
 You would need to configure SSL if the web server will use https.
 Read Mirror WebSockets Transport for that: https://mirror-networking.gitbook.io/docs/manual/transports/websockets-transport
