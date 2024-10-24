@@ -19,4 +19,4 @@ Read Mirror WebSockets Transport for that: https://mirror-networking.gitbook.io/
 ## Screenshots
 
 ![App Screenshot](https://noamsapir.me/img/games/virtualproject/Screenshot%20(4).png)
-![App Screenshot](https://noamsapir.me/mg/games/virtualproject/Screenshot%20(7).png)
+![App Screenshot](https://noamsapir.me/img/games/virtualproject/Screenshot%20(7).png)
