@@ -74,3 +74,4 @@ ProjectSettings/ProjectVersion.txt
 ProjectSettings/ProjectVersion.txt
 *.log
 *.log
+Assets/Addons/PlayFabSDK/Shared/Public/Resources/PlayFabSharedSettings.asset
