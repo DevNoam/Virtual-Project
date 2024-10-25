@@ -3,8 +3,8 @@
 VirtualProject is my first multiplayer attempt. I tried to clone games like Club penguin, CP-world etc.
 This project is using Unity, Mirror and Playfab for the Backend (BaaS).
 
-I've hosted this project on my website for a few years and open sourced it due to management complexity and management costs to run this game server.
-Offline mode of this project available at my website: https://virtualproject.noamsapir.me/
+I've hosted this project on my website (WebGL) for a few years but open sourced it due to management complexity and management costs to run this game server.
+Offline mode of this project available at the releases section of this repo (Windows Desktop).
 Read more at my website: https://noamsapir.me/Virtualproject
 
 
